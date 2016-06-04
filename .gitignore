@@ -1,7 +1,4 @@
-*.class
 *.db
-
-# Package Files #
-*.jar
-*.war
-*.ear
+/bulid/*
+/.gradle/*
+/.git/*
