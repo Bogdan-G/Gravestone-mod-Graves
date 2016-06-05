@@ -11,6 +11,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
 import java.util.Random;
+import org.bogdang.modifications.random.XSTR;
 
 /**
  * GraveStone mod
@@ -35,7 +36,7 @@ public class TileEntityGSAltar extends TileEntity implements IInventory {
 
     public void dropCorpse() {
         if (corpse != null) {
-            Random random = new Random();
+            Random random = new XSTR();
             float x = random.nextFloat() * 0.8F + 0.1F;
             float y = random.nextFloat() * 0.8F + 1.1F;
             EntityItem entityItem;

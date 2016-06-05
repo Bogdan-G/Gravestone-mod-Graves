@@ -12,6 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import java.util.List;
 import java.util.Random;
+import org.bogdang.modifications.random.XSTR;
 
 /**
  * GraveStone mod
@@ -90,7 +91,7 @@ public abstract class TileEntityGSGrave extends TileEntity {
     }
 
     protected void setRandomAge() {
-        age = 10 + (new Random()).nextInt(100);
+        age = 10 + (new XSTR()).nextInt(100);
     }
 
     public boolean isEditable() {

@@ -38,6 +38,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 
 import java.util.*;
+import org.bogdang.modifications.random.XSTR;
 
 /**
  * GraveStone mod
@@ -1296,7 +1297,7 @@ public class BlockGSMemorial extends BlockContainer {
      * Drop sword as item
      */
     public void dropCreeperMemorial(World world, int x, int y, int z) {
-        byte memorialType = BlockGSMemorial.getMemorialType(world, x, z, new Random(), 4);
+        byte memorialType = BlockGSMemorial.getMemorialType(world, x, z, new XSTR(), 4);
         ItemStack itemStack = new ItemStack(this);
         NBTTagCompound nbt = new NBTTagCompound();
         nbt.setByte("GraveType", memorialType);

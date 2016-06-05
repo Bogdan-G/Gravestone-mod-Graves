@@ -19,6 +19,7 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 import java.util.Random;
+import org.bogdang.modifications.random.XSTR;
 
 /**
  * GraveStone mod
@@ -189,7 +190,7 @@ public class EntityZombieCat extends EntityUndeadCat {
 
     @Override
     public IEntityLivingData onSpawnWithEgg(IEntityLivingData data) {
-        this.setSkin(new Random().nextInt(CAT_TYPES));
+        this.setSkin(new XSTR().nextInt(CAT_TYPES));
         return super.onSpawnWithEgg(data);
     }
 }

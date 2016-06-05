@@ -35,6 +35,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import org.bogdang.modifications.random.XSTR;
 
 /**
  * GraveStone mod
@@ -134,7 +135,7 @@ public class BlockGSGraveStone extends BlockContainer {
             (byte) EnumGraves.ICE_HORSE_STATUE.ordinal()
     };
 
-    private static final Random rand = new Random();
+    private static final Random rand = new XSTR();
 
     public BlockGSGraveStone() {
         super(Material.rock);
@@ -628,7 +629,7 @@ public class BlockGSGraveStone extends BlockContainer {
         for (Item sword : GraveStoneHelper.swordsList) {
             try {
                 ItemStack swordStack = new ItemStack(sword, 1);
-                EnchantmentHelper.addRandomEnchantment(new Random(), swordStack, 5);
+                EnchantmentHelper.addRandomEnchantment(new XSTR(), swordStack, 5);
 
                 ItemStack graveStoneStack = GraveStoneHelper.getSwordAsGrave(gravestone, swordStack);
 

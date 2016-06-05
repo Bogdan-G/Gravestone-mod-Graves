@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
 import java.util.Random;
+import org.bogdang.modifications.random.XSTR;
 
 /**
  * GraveStone mod
@@ -72,7 +73,7 @@ public class GraveDeathMessageToServer implements IMessage, IMessageHandler<Grav
                     TileEntityGSGrave tileEntity = (TileEntityGSGrave) te;
 
                     if (message.randomText) {
-                        tileEntity.getDeathTextComponent().setRandomDeathTextAndName(new Random(), tileEntity.getGraveTypeNum(), tileEntity instanceof TileEntityGSMemorial, false);
+                        tileEntity.getDeathTextComponent().setRandomDeathTextAndName(new XSTR(), tileEntity.getGraveTypeNum(), tileEntity instanceof TileEntityGSMemorial, false);
                     } else {
                         tileEntity.getDeathTextComponent().setDeathText(message.text);
                     }
