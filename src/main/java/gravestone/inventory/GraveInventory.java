@@ -458,8 +458,8 @@ public class GraveInventory implements IInventory {
         }
         switch (random.nextInt(5)) {
             case 0:
-                addInventoryContent(new ItemStack(Items.gold_ingot, 3 + random.nextInt(5), 0));
-                break;
+                //addInventoryContent(new ItemStack(Items.gold_ingot, 3 + random.nextInt(5), 0));
+                //break;
             case 1:
             case 2:
                 addInventoryContent(new ItemStack(Items.gold_ingot, 3 + random.nextInt(5), 0));

@@ -30,8 +30,8 @@ public abstract class EntityUndeadDog extends EntityUndeadPet {
     @Override
     protected void entityInit() {
         super.entityInit();
-        this.dataWatcher.addObject(18, new Float(this.getHealth()));
-        this.dataWatcher.addObject(19, new Byte((byte) 0));
+        this.dataWatcher.addObject(18, Float.valueOf(this.getHealth()));
+        this.dataWatcher.addObject(19, (byte) 0);
     }
 
     /**

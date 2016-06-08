@@ -98,37 +98,37 @@ public class MobHandler {
                 File file = new File(world.getSaveHandler().getWorldDirectory(), MOBS_SPAWN_TIME_FILE_NAME);
                 File backup = new File(world.getSaveHandler().getWorldDirectory(), MOBS_SPAWN_TIME_BACKUP_FILE_NAME);
 
-                if (file != null && file.exists()) {
+                if (file != null) {
+                if (file.exists()) {
                     try {
                         Files.copy(file, backup);
                     } catch (Exception e) {
                         GSLogger.logError("Could not backup old spawn time file");
                     }
                 }
+                FileOutputStream fileoutputstream = null;
                 try {
-                    if (file != null) {
                         NBTTagCompound data = new NBTTagCompound();
                         for (Map.Entry<String, Long> entry : mobsSpawnTime.entrySet()) {
                             if (entry != null) {
                                 data.setLong(entry.getKey(), entry.getValue());
                             }
                         }
-                        FileOutputStream fileoutputstream = new FileOutputStream(file);
+                        fileoutputstream = new FileOutputStream(file);
                         CompressedStreamTools.writeCompressed(data, fileoutputstream);
                         fileoutputstream.close();
-                    }
                 } catch (Exception e) {
                     GSLogger.logError("Could not save spawn time file");
                     e.printStackTrace();
                     if (file.exists()) {
-                        try {
+                        //try {
                             file.delete();
-                        } catch (Exception e2) {
-                        }
+                        //} catch (Exception e2) {
+                        //}
                     }
-                }
+                } finally {fileoutputstream.close();}}
             } catch (Exception e) {
-                GSLogger.logError("Error saving mobs spawn time");
+                GSLogger.logError("Error saving mobs spawn time or error delete file");
                 e.printStackTrace();
             }
         }
@@ -136,13 +136,15 @@ public class MobHandler {
 
     private static NBTTagCompound getDataFromFile(File file) {
         NBTTagCompound data = null;
+        FileInputStream fileinputstream = null;
         try {
-            FileInputStream fileinputstream = new FileInputStream(file);
+            fileinputstream = new FileInputStream(file);
             data = CompressedStreamTools.readCompressed(fileinputstream);
             fileinputstream.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        } finally {
+        try {fileinputstream.close();}catch (IOException e) {}}//yeah it drivel
         return data;
     }
 }

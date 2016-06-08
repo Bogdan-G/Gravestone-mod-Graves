@@ -299,14 +299,14 @@ public class BlockGSGraveStone extends BlockContainer {
             case ICE_HORISONTAL_PLATE:
                 switch (meta) {
                     case 0:
-                        this.setBlockBounds(0.09375F, 0, 0.0625F, 0.90625F, 0.0625F, 0.9375F);
-                        break;
+                        //this.setBlockBounds(0.09375F, 0, 0.0625F, 0.90625F, 0.0625F, 0.9375F);
+                        //break;
                     case 1:
                         this.setBlockBounds(0.09375F, 0, 0.0625F, 0.90625F, 0.0625F, 0.9375F);
                         break;
                     case 2:
-                        this.setBlockBounds(0.0625F, 0, 0.09375F, 0.9375F, 0.0625F, 0.90625F);
-                        break;
+                        //this.setBlockBounds(0.0625F, 0, 0.09375F, 0.9375F, 0.0625F, 0.90625F);
+                        //break;
                     case 3:
                         this.setBlockBounds(0.0625F, 0, 0.09375F, 0.9375F, 0.0625F, 0.90625F);
                         break;

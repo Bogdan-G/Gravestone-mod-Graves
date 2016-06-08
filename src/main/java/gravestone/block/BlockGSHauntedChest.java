@@ -110,14 +110,14 @@ public class BlockGSHauntedChest extends BlockContainer {
      */
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
-        if (player instanceof FakePlayer) {
-            return false;
-        } else {
+        //if (player instanceof FakePlayer) {
+            //return false;
+        //} else {
             TileEntityGSHauntedChest te = (TileEntityGSHauntedChest) world.getTileEntity(x, y, z);
             if (te != null) {
                 te.openChest();
             }
-        }
+        //}
         return true;
     }
 
@@ -143,7 +143,7 @@ public class BlockGSHauntedChest extends BlockContainer {
             case 2:
                 metadata = 3;
                 break;
-            case 3:
+            //case 3:
             default:
                 metadata = 4;
                 break;

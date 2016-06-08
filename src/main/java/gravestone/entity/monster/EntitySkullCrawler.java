@@ -38,7 +38,7 @@ public class EntitySkullCrawler extends EntityMob {
     @Override
     protected void entityInit() {
         super.entityInit();
-        this.dataWatcher.addObject(16, new Byte((byte) 0));
+        this.dataWatcher.addObject(16, (byte) 0);
     }
 
     /**
@@ -122,9 +122,9 @@ public class EntitySkullCrawler extends EntityMob {
             if (this.onGround) {
                 double d0 = entity.posX - this.posX;
                 double d1 = entity.posZ - this.posZ;
-                float f2 = MathHelper.sqrt_double(d0 * d0 + d1 * d1);
-                this.motionX = d0 / (double) f2 * 0.5D * 0.800000011920929D + this.motionX * 0.20000000298023224D;
-                this.motionZ = d1 / (double) f2 * 0.5D * 0.800000011920929D + this.motionZ * 0.20000000298023224D;
+                double f2 = (double)MathHelper.sqrt_double(d0 * d0 + d1 * d1);
+                this.motionX = d0 /  f2 * 0.4000000059604645D + this.motionX * 0.20000000298023224D;//0.5D * 0.800000011920929D = 0.4000000059604645D
+                this.motionZ = d1 /  f2 * 0.4000000059604645D + this.motionZ * 0.20000000298023224D;
                 this.motionY = 0.4000000059604645D;
             }
         } else {

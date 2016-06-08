@@ -33,13 +33,13 @@ public class GSCompatibilityBackpacksMod {
                     Method getPersonalBackpackMethod = playerSave.getClass().getDeclaredMethod("getPersonalBackpack");
                     Method setPersonalBackpackMethod = playerSave.getClass().getDeclaredMethod("setPersonalBackpack", ItemStack.class);
 
-                    if (getPersonalBackpackMethod != null && setPersonalBackpackMethod != null) {
+                    //if (getPersonalBackpackMethod != null && setPersonalBackpackMethod != null) {
                         Object backpackObject = getPersonalBackpackMethod.invoke(playerSave);
                         if (backpackObject != null && backpackObject instanceof ItemStack) {
                             items.add(((ItemStack) backpackObject).copy());
                             setPersonalBackpackMethod.invoke(playerSave, (ItemStack) null);
                         }
-                    }
+                    //}
                 }
             } catch (Exception e) {
                 GSLogger.logError("Can't save Backpacks items!!!");
