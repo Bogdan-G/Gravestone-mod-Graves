@@ -4,6 +4,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import gravestone.config.GraveStoneConfig;
 import gravestone.core.TimeHelper;
 import net.minecraft.client.Minecraft;
 
@@ -39,6 +40,7 @@ public class GSTickEventHandler {
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public void playerTick(TickEvent.PlayerTickEvent event) {
+        if (GraveStoneConfig.isFogEnabled) {
         if (event.phase == TickEvent.Phase.END) {
             if (event.player.equals(Minecraft.getMinecraft().thePlayer)) {
                 fogTicCount++;
@@ -47,6 +49,7 @@ public class GSTickEventHandler {
                     GSRenderEventHandler.resetAmountOfFogSources(event.player.worldObj);
                 }
             }
+        }
         }
     }
 }

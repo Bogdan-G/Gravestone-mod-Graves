@@ -193,12 +193,12 @@ public class TileEntityGSGraveStoneRenderer extends TileEntityGSRenderer {
         switch (meta) {
             case 0: // S
                 return 0;
-            case 1: // N
-                return 2;
             case 2: // E
                 return 3;
             case 3: // W
                 return 1;
+            case 1: // N
+                //return 2;
             default:
                 return 2;
         }
