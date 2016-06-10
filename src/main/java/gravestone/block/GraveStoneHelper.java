@@ -326,10 +326,10 @@ public class GraveStoneHelper {
                 return 1;
             case 1: // W
                 return 2;
-            case 2: // N
-                return 0;
             case 3: // E
                 return 3;
+            case 2: // N
+                //return 0;
             default:
                 return 0;
         }

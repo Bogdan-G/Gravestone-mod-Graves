@@ -18,9 +18,9 @@ import net.minecraft.world.World;
  */
 public class GSMobSpawner extends GSSpawner {
 
-    private static final int BASE_DELAY = 60;
+    private static final int BASE_DELAY = 90;//60
     private static final int MIN_DELAY = 600;
-    private static final int MAX_DELAY = 800;
+    private static final int MAX_DELAY = 1200;//800
     private static final int BOSS_PLAYER_RANGE = 8;
     private static final int MOB_PLAYER_RANGE = 16;
     private static final int SPAWN_EFFECTS_DELAY = 20;

@@ -17,9 +17,9 @@ import net.minecraft.world.World;
  */
 public class GSGraveStoneSpawn extends GSSpawner {
 
-    private static final int BASE_DELAY = 600;
-    private static final int PLAYER_RANGE = 35;
-    private static final int MIN_DELAY = 500;
+    private static final int BASE_DELAY = 800;//600
+    private static final int PLAYER_RANGE = 24;//35
+    private static final int MIN_DELAY = 600;//500
     private boolean getNewMob = true;
     /**
      * Maximum number of entities for limiting mob spawning
@@ -40,13 +40,12 @@ public class GSGraveStoneSpawn extends GSSpawner {
 
     @Override
     protected void serverUpdateLogic() {
-        if (this.delay == -1) {
-            this.updateDelay();
-        }
-
         if (this.delay > 0) {
             --this.delay;
             return;
+        }
+        if (this.delay == -1) {
+            this.updateDelay();
         }
 
         if (this.getNewMob) {

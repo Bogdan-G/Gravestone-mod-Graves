@@ -53,7 +53,7 @@ public class TileEntityGSGraveStone extends TileEntityGSGrave {
     public void updateEntity() {
         gsSpawn.updateEntity();
 
-        if (this.worldObj.isRemote && GraveStoneConfig.isFogEnabled && GSTickEventHandler.getFogTicCount() == 0) {
+        if (GraveStoneConfig.isFogEnabled && this.worldObj.isRemote && GSRenderEventHandler.getFogTicCount() == 0) {
             EntityPlayer player = this.worldObj.getClosestPlayer(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, FOG_RANGE);
             if (player != null && player.getCommandSenderName().equals(Minecraft.getMinecraft().thePlayer.getCommandSenderName()) && TimeHelper.isFogTime(this.worldObj)) {
                 GSRenderEventHandler.addFog();

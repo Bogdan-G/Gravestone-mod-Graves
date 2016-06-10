@@ -1,10 +1,12 @@
 package gravestone.core.event;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gravestone.config.GraveStoneConfig;
 import gravestone.core.TimeHelper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import org.lwjgl.opengl.GL11;
@@ -25,6 +27,13 @@ public class GSRenderEventHandler {
     public static final float DENSITY_PER_TICK = 0.000005F;
 
     private static int amountOfFogSources = 0;
+    
+    private static short fogTicCount = 0;
+    public static final short MAX_FOG_TICK_COUNT = 100;
+
+    public static short getFogTicCount() {
+        return fogTicCount;
+    }
 
     public static void addFog() {
         amountOfFogSources++;
@@ -62,6 +71,22 @@ public class GSRenderEventHandler {
                 GL11.glFogi(GL11.GL_FOG_MODE, GL11.GL_EXP);
                 GL11.glFogf(GL11.GL_FOG_DENSITY, fogDensity);
             }
+        }
+    }
+
+    @SubscribeEvent
+    @SideOnly(Side.CLIENT)
+    public void playerTick(TickEvent.PlayerTickEvent event) {
+        if (GraveStoneConfig.isFogEnabled) {
+        if (event.phase == TickEvent.Phase.END) {
+            if (event.player.equals(Minecraft.getMinecraft().thePlayer)) {
+                fogTicCount++;
+                if (fogTicCount > MAX_FOG_TICK_COUNT) {
+                    fogTicCount = 0;
+                    GSRenderEventHandler.resetAmountOfFogSources(event.player.worldObj);
+                }
+            }
+        }
         }
     }
 }

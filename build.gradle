@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "2.16.1.4"
+version = "2.16.1.6"
 group= "gravestone" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "GraveStone-1.7.10"
 

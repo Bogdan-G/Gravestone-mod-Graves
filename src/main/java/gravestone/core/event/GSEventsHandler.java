@@ -22,6 +22,8 @@ import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
+//import net.minecraft.world.EnumDifficulty;
+//import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -34,6 +36,9 @@ import net.minecraftforge.event.world.WorldEvent;
  */
 public class GSEventsHandler {
 
+    //private static World worldGSObj;
+    //public static boolean GSgameDifficulty;
+    
     // Hopefully ensure we capture items before other things do (set to high so other mods can run before if they have more specialness
     @SubscribeEvent(priority= EventPriority.HIGH)
     public void onEntityLivingDeath(LivingDeathEvent event) {
@@ -104,6 +109,7 @@ public class GSEventsHandler {
         if (FMLCommonHandler.instance().getEffectiveSide().isServer()) {
             MobHandler.loadMobsSpawnTime(event.world);
             GravesLogger.setWorldDirectory(event.world.getSaveHandler().getWorldDirectory());
+            //GSgameDifficulty = event.world.difficultySetting.equals(EnumDifficulty.PEACEFUL);
         }
     }
 }

@@ -6,6 +6,7 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry;
+import gravestone.config.GraveStoneConfig;
 import gravestone.core.GSBlock;
 import gravestone.core.GSItem;
 import gravestone.core.Resources;
@@ -133,6 +134,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerHandlers() {
         FMLCommonHandler.instance().bus().register(new GSTickEventHandler());
-        MinecraftForge.EVENT_BUS.register(new GSRenderEventHandler());
+        if (GraveStoneConfig.isFogEnabled) {MinecraftForge.EVENT_BUS.register(new GSRenderEventHandler());}
     }
 }

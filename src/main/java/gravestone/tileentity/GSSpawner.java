@@ -1,5 +1,6 @@
 package gravestone.tileentity;
 
+import gravestone.core.event.GSEventHandlerNetwork;//GSEventsHandler
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -27,7 +28,7 @@ public abstract class GSSpawner {
      * Update entity state.
      */
     public void updateEntity() {
-        if (canSpawnMobs(tileEntity.getWorldObj()) && !tileEntity.getWorldObj().difficultySetting.equals(EnumDifficulty.PEACEFUL) && anyPlayerInRange()) {
+        if (!GSEventHandlerNetwork.GSgameDifficulty/*tileEntity.getWorldObj().difficultySetting.equals(EnumDifficulty.PEACEFUL)*/ && anyPlayerInRange() && canSpawnMobs(tileEntity.getWorldObj())) {
             if (tileEntity.getWorldObj().isRemote) {
                 clientUpdateLogic();
             } else {
