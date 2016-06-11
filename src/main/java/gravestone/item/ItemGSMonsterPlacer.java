@@ -56,12 +56,12 @@ public class ItemGSMonsterPlacer extends ItemMonsterPlacer {
 
     public String getItemStackDisplayName(ItemStack p_77653_1_)
     {
-        String s = ("" + StatCollector.translateToLocal(this.getUnlocalizedName() + ".name")).trim();
+        String s = (StatCollector.translateToLocal(this.getUnlocalizedName() + ".name")).trim();
         String s1 = eggs[p_77653_1_.getItemDamage()];
 
         if (s1 != null)
         {
-            s = s + " " + StatCollector.translateToLocal("entity." + s1 + ".name");
+            s = String.valueOf(new StringBuilder(32).append(s).append(" ").append(StatCollector.translateToLocal(String.valueOf(new StringBuilder().append("entity.").append(s1).append(".name")))));
         }
 
         return s;

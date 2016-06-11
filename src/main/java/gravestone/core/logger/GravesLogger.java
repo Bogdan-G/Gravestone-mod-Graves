@@ -39,7 +39,7 @@ public class GravesLogger extends AbstractLogger {
         StringBuilder fileName = new StringBuilder();
         fileName.append(LOG_FILE_DIRECTORY)
                 .append(FILE_DATE_FORMAT.format(new Date()))
-                .append(" ")
+                .append(' ')
                 .append(LOG_FILE_NAME);
         logFile = new File(worldDirectory, fileName.toString());
     }
@@ -89,7 +89,7 @@ public class GravesLogger extends AbstractLogger {
                 t = throwable;
             }
             if (t != null) {
-                loggedStr.append(" ");
+                loggedStr.append(' ');
                 final ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 t.printStackTrace(new PrintStream(baos));
                 loggedStr.append(baos.toString());
