@@ -4,18 +4,25 @@ import com.google.common.collect.ImmutableMap;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gravestone.block.enums.EnumGraves;
+import gravestone.core.Resources;
 import gravestone.models.block.ModelGraveStone;
 import gravestone.models.block.graves.*;
 import gravestone.tileentity.TileEntityGSGraveStone;
+import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import java.util.Map;
+import java.util.*;
 
 /**
  * GraveStone mod
@@ -130,6 +137,20 @@ public class TileEntityGSGraveStoneRenderer extends TileEntityGSRenderer {
     public TileEntityGSGraveStoneRenderer() {
         instance = this;
     }
+    public static final Map<Item, ResourceLocation> swordsTextureMap = ImmutableMap.<Item, ResourceLocation>builder()
+        .put(Items.wooden_sword, Resources.GRAVE_WOODEN_SWORD)
+        .put(Items.stone_sword, Resources.GRAVE_STONE_SWORD)
+        .put(Items.iron_sword, Resources.GRAVE_IRON_SWORD)
+        .put(Items.golden_sword, Resources.GRAVE_GOLDEN_SWORD)
+        .put(Items.diamond_sword, Resources.GRAVE_DIAMOND_SWORD).build();
+    /*public static final Map<Item, ResourceLocation> swordsTextureMap = new HashMap<>();
+    static {
+        swordsTextureMap.put(Items.wooden_sword, Resources.GRAVE_WOODEN_SWORD);
+        swordsTextureMap.put(Items.stone_sword, Resources.GRAVE_STONE_SWORD);
+        swordsTextureMap.put(Items.iron_sword, Resources.GRAVE_IRON_SWORD);
+        swordsTextureMap.put(Items.golden_sword, Resources.GRAVE_GOLDEN_SWORD);
+        swordsTextureMap.put(Items.diamond_sword, Resources.GRAVE_DIAMOND_SWORD);
+    }*/
 
     @Override
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float f) {
@@ -171,7 +192,15 @@ public class TileEntityGSGraveStoneRenderer extends TileEntityGSRenderer {
         }
 
         if (tileEntity.isSwordGrave()) {
-            renderSword(tileEntity);
+            //renderSword(tileEntity);
+            ResourceLocation swordTexture = swordsTextureMap.get(tileEntity.getSword().getItem());
+            ModelGraveStone model = MODELS_MAP.get(graveType);
+            bindTextureByName(swordTexture);
+            if (tileEntity.isEnchanted()) {
+                model.renderEnchanted();
+            } else {
+                model.renderAll();
+            }
         } else {
             if (tileEntity.isEnchanted()) {
                 MODELS_MAP.get(graveType).renderEnchanted();
@@ -220,7 +249,7 @@ public class TileEntityGSGraveStoneRenderer extends TileEntityGSRenderer {
         GL11.glScalef(1.5F, -1.5F, -1.5F);
         GL11.glRotatef(135, 0, 0, 1);
 
-        RenderManager.instance.renderEntityWithPosYaw(entityitem, 0, 0, 0, 0, 0);
+        renderItem(entityitem, 0, 0, 0, 0, 0);
     }
 
     private void renderFlower(TileEntityGSGraveStone te) {
@@ -230,9 +259,24 @@ public class TileEntityGSGraveStoneRenderer extends TileEntityGSRenderer {
         GL11.glScalef(1, -1F, -1F);
         GL11.glRotatef(45, 0, 1, 0);
 
-        RenderManager.instance.renderEntityWithPosYaw(entityitem, 0, 0, 0, 0, 0);
+        renderItem(entityitem, 0, 0, 0, 0, 0);
 
         GL11.glRotatef(-90, 0, 1, 0);
-        RenderManager.instance.renderEntityWithPosYaw(entityitem, 0, 0, 0, 0, 0);
+        renderItem(entityitem, 0, 0, 0, 0, 0);
+    }
+
+    public void renderItem(Entity p_147939_1_, double p_147939_2_, double p_147939_4_, double p_147939_6_, float p_147939_8_, float p_147939_9_) {
+        Render render = null;
+
+        try {
+            render = RenderManager.instance.getEntityClassRenderObject(p_147939_1_.getClass());
+            if (render != null && !render.isStaticEntity()) {
+                        render.doRender(p_147939_1_, p_147939_2_, p_147939_4_, p_147939_6_, p_147939_8_, p_147939_9_);
+                        //render.doRenderShadowAndFire(p_147939_1_, p_147939_2_, p_147939_4_, p_147939_6_, p_147939_8_, p_147939_9_);//if commited +10fps
+            }
+        }
+        catch (Throwable e) {
+            cpw.mods.fml.common.FMLLog.log(org.apache.logging.log4j.Level.WARN, e, "GraveStone stacktrace: %s", e);
+        }
     }
 }
