@@ -9,9 +9,11 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
 
 import java.util.Random;
-import org.bogdang.modifications.random.XSTR;
+import org.bogdang.modifications.random.*;
 
 /**
  * GraveStone mod
@@ -21,6 +23,17 @@ import org.bogdang.modifications.random.XSTR;
  */
 public class TileEntityGSAltar extends TileEntity implements IInventory {
     private ItemStack corpse = null;
+    protected AxisAlignedBB aabb;
+
+    @Override
+    public void validate() {
+    	aabb = AxisAlignedBB.getBoundingBox(xCoord - 1, yCoord, zCoord - 1, xCoord + 2, yCoord + 1, zCoord + 2);
+    }
+
+    @Override
+    public AxisAlignedBB getRenderBoundingBox() {
+    	return aabb;
+    }
 
     public boolean hasCorpse() {
         return corpse != null;
@@ -36,7 +49,7 @@ public class TileEntityGSAltar extends TileEntity implements IInventory {
 
     public void dropCorpse() {
         if (corpse != null) {
-            Random random = new XSTR();
+            Random random = new XSTR(new XSTR().getSeed()*(new GeneratorEntropy().getSeed()));
             float x = random.nextFloat() * 0.8F + 0.1F;
             float y = random.nextFloat() * 0.8F + 1.1F;
             EntityItem entityItem;
@@ -183,4 +196,7 @@ public class TileEntityGSAltar extends TileEntity implements IInventory {
         return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this &&
                 player.getDistanceSq(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) < 64;
     }
+
+    @Override 
+    public void markDirty() {/* Do not do the super Function */} 
 }

@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
 import java.util.Random;
-import org.bogdang.modifications.random.XSTR;
+import org.bogdang.modifications.random.*;
 
 /**
  * GraveStone mod
@@ -24,7 +24,7 @@ public class GraveDeathMessageToServer implements IMessage, IMessageHandler<Grav
 
     private int dimensionID;
     private int x;
-    private int y;
+    private short y;
     private int z;
     private String text;
     private boolean randomText;
@@ -33,7 +33,7 @@ public class GraveDeathMessageToServer implements IMessage, IMessageHandler<Grav
 
     }
 
-    public GraveDeathMessageToServer(World world, int x, int y, int z, String text, boolean randomText) {
+    public GraveDeathMessageToServer(World world, int x, short y, int z, String text, boolean randomText) {
         this.dimensionID = world.provider.dimensionId;
         this.x = x;
         this.y = y;
@@ -46,7 +46,7 @@ public class GraveDeathMessageToServer implements IMessage, IMessageHandler<Grav
     public void fromBytes(ByteBuf buf) {
         this.dimensionID = buf.readInt();
         this.x = buf.readInt();
-        this.y = buf.readInt();
+        this.y = buf.readShort();
         this.z = buf.readInt();
         this.text = ByteBufUtils.readUTF8String(buf);
         this.randomText = buf.readBoolean();
@@ -56,7 +56,7 @@ public class GraveDeathMessageToServer implements IMessage, IMessageHandler<Grav
     public void toBytes(ByteBuf buf) {
         buf.writeInt(dimensionID);
         buf.writeInt(x);
-        buf.writeInt(y);
+        buf.writeShort(y);
         buf.writeInt(z);
         ByteBufUtils.writeUTF8String(buf, text);
         buf.writeBoolean(randomText);
@@ -73,7 +73,7 @@ public class GraveDeathMessageToServer implements IMessage, IMessageHandler<Grav
                     TileEntityGSGrave tileEntity = (TileEntityGSGrave) te;
 
                     if (message.randomText) {
-                        tileEntity.getDeathTextComponent().setRandomDeathTextAndName(new XSTR(), tileEntity.getGraveTypeNum(), tileEntity instanceof TileEntityGSMemorial, false);
+                        tileEntity.getDeathTextComponent().setRandomDeathTextAndName(new XSTR(new XSTR().getSeed()*(new GeneratorEntropy().getSeed())), tileEntity.getGraveTypeNum(), tileEntity instanceof TileEntityGSMemorial, false);
                     } else {
                         tileEntity.getDeathTextComponent().setDeathText(message.text);
                     }

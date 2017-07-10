@@ -5,6 +5,7 @@ import gravestone.core.Resources;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
+import net.minecraft.world.World;
 
 /**
  * GraveStone mod
@@ -31,5 +32,17 @@ public class BlockGSBoneSlab extends BlockSlab {
     @Override
     public String func_150002_b(int par1) {
         return getUnlocalizedName();
+    }
+
+    @Override
+    public int tickRate(World p_149738_1_)
+    {
+        return 20;
+    }
+
+    @Override
+    public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target)
+    {
+        return true;
     }
 }

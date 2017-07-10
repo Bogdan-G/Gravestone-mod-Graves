@@ -57,10 +57,10 @@ public class Treasury extends CatacombsBaseComponent {
         this.fillWithRandomizedBlocks(world, boundingBox, 2, 1, 0, 4, 3, 0, false, random, getCemeteryCatacombsStones());
 
         // nether entrance
-        this.fillWithBlocks(world, boundingBox, 1, 0, 0, 5, 0, 0, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 1, 4, 0, 5, 4, 0, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 1, 1, 0, 1, 3, 0, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 5, 1, 0, 5, 3, 0, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 1, 0, 0, 5, 0, 0, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 1, 4, 0, 5, 4, 0, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 1, 1, 0, 1, 3, 0, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 5, 1, 0, 5, 3, 0, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
         // web
         this.randomlyFillWithBlocks(world, boundingBox, random, 0.4F, 2, 2, 2, 2, 2, 2, Blocks.web, Blocks.web, false);

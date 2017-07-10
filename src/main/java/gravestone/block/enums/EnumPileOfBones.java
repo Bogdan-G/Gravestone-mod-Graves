@@ -25,9 +25,11 @@ public enum EnumPileOfBones implements IBlockEnum {
     }
 
     public static EnumPileOfBones getByID(int id) {
-        if (id < values().length) {
-            return values()[id];
+        if (id < VALUES.length) {
+            return VALUES[id];
         }
         return PILE_OF_BONES;
     }
+
+    public static final EnumPileOfBones[] VALUES = values();
 }

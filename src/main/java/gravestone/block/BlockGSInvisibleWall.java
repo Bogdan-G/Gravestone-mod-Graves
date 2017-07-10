@@ -47,7 +47,7 @@ public class BlockGSInvisibleWall extends Block {
     }
     @Override
     public float getExplosionResistance(Entity entity) {
-        return 18000000;
+        return 60;
     }
 
     @Override

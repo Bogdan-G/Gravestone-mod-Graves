@@ -25,26 +25,22 @@ public class Entrance extends CatacombsBaseComponent {
         corridorLength = 2 + random.nextInt(2);
         boundingBox = BoundingBoxHelper.getCorrectBox(direction, x, y - stairsLength * 3, z, X_LENGTH, stairsLength * 3, (stairsLength + corridorLength) * 3 + 5, xShift);
 
-        switch (direction) {
-            case 0:
+        if (direction==0) {
                 leftXEnd = 3;
                 leftZEnd = (stairsLength + corridorLength) * 3;
                 rightXEnd = 0;
                 rightZEnd = leftZEnd;
-                break;
-            case 1:
+        } else if (direction==1) {
                 leftXEnd = 3;
                 leftZEnd = (stairsLength + corridorLength) * 3 + 4;
                 rightXEnd = 0;
                 rightZEnd = leftZEnd;
-                break;
-            case 2:
+        } else if (direction==2) {
                 leftXEnd = 0;
                 leftZEnd = (stairsLength + corridorLength) * 3 + 4;
                 rightXEnd = 3;
                 rightZEnd = leftZEnd;
-                break;
-            case 3:
+        } else if (direction==3) {
                 leftXEnd = 0;
                 leftZEnd = (stairsLength + corridorLength) * 3;
                 rightXEnd = 3;
@@ -72,17 +68,17 @@ public class Entrance extends CatacombsBaseComponent {
             this.fillWithAir(world, boundingBox, 1, shiftY - 2, shiftZ + 2, 2, shiftY - 2, shiftZ + 5);
 
             // nether walls
-            this.fillWithBlocks(world, boundingBox, 0, shiftY, shiftZ, 0, shiftY + 4, shiftZ, Blocks.nether_brick, Blocks.nether_brick, false);
-            this.fillWithBlocks(world, boundingBox, 3, shiftY, shiftZ, 3, shiftY + 4, shiftZ, Blocks.nether_brick, Blocks.nether_brick, false);
+            this.fillWithBlocks(world, boundingBox, 0, shiftY, shiftZ, 0, shiftY + 4, shiftZ, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+            this.fillWithBlocks(world, boundingBox, 3, shiftY, shiftZ, 3, shiftY + 4, shiftZ, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
             // block walls
             this.fillWithRandomizedBlocks(world, boundingBox, 0, shiftY - 2, shiftZ + 1, 0, shiftY + 3, shiftZ + 2, false, random, getCemeteryCatacombsStones());
             this.fillWithRandomizedBlocks(world, boundingBox, 3, shiftY - 2, shiftZ + 1, 3, shiftY + 3, shiftZ + 2, false, random, getCemeteryCatacombsStones());
 
             // nether stairs
-            this.fillWithMetadataBlocks(world, boundingBox, 1, shiftY, shiftZ, 2, shiftY, shiftZ, Blocks.nether_brick_stairs, metaBot, Blocks.nether_brick_stairs, metaBot, false);
-            this.fillWithMetadataBlocks(world, boundingBox, 1, shiftY - 1, shiftZ + 1, 2, shiftY - 1, shiftZ + 1, Blocks.nether_brick_stairs, metaBot, Blocks.nether_brick_stairs, metaBot, false);
-            this.fillWithMetadataBlocks(world, boundingBox, 1, shiftY - 2, shiftZ + 2, 2, shiftY - 2, shiftZ + 2, Blocks.nether_brick_stairs, metaBot, Blocks.nether_brick_stairs, metaBot, false);
+            this.fillWithMetadataBlocks(world, boundingBox, 1, shiftY, shiftZ, 2, shiftY, shiftZ, gravestone.core.GSBlock.nsbs, metaBot, gravestone.core.GSBlock.nsbs, metaBot, false);
+            this.fillWithMetadataBlocks(world, boundingBox, 1, shiftY - 1, shiftZ + 1, 2, shiftY - 1, shiftZ + 1, gravestone.core.GSBlock.nsbs, metaBot, gravestone.core.GSBlock.nsbs, metaBot, false);
+            this.fillWithMetadataBlocks(world, boundingBox, 1, shiftY - 2, shiftZ + 2, 2, shiftY - 2, shiftZ + 2, gravestone.core.GSBlock.nsbs, metaBot, gravestone.core.GSBlock.nsbs, metaBot, false);
 
             // block stairs
             this.fillWithMetadataBlocks(world, boundingBox, 1, shiftY, shiftZ + 4, 2, shiftY, shiftZ + 4, Blocks.stone_brick_stairs, metaTop, Blocks.stone_brick_stairs, metaTop, false);
@@ -95,19 +91,19 @@ public class Entrance extends CatacombsBaseComponent {
         int zLength = corridorLength * 3;
         this.fillWithAir(world, boundingBox, 1, shiftY - 2, shiftZ, 2, shiftY - 1, shiftZ);
         this.fillWithAir(world, boundingBox, 1, shiftY - 3, shiftZ + 1, 2, shiftY - 1, shiftZ + zLength + 4);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick, 0, 0, shiftY, shiftZ, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick, 0, 3, shiftY, shiftZ, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsb, 0, 0, shiftY, shiftZ, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsb, 0, 3, shiftY, shiftZ, boundingBox);
 
         // ceiling
-        this.fillWithBlocks(world, boundingBox, 0, shiftY, shiftZ + 1, 3, shiftY, shiftZ + zLength + 4, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 0, shiftY, shiftZ + 1, 3, shiftY, shiftZ + zLength + 4, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
         // trap floor
         this.fillWithBlocks(world, boundingBox, 0, shiftY - 4, shiftZ, 3, shiftY - 4, shiftZ + zLength + 4, GSBlock.trap, GSBlock.trap, false);
 
         for (int j = 0; j < corridorLength; j++) {
             // nether walls
-            this.fillWithBlocks(world, boundingBox, 0, shiftY - 3, shiftZ, 0, shiftY - 1, shiftZ, Blocks.nether_brick, Blocks.nether_brick, false);
-            this.fillWithBlocks(world, boundingBox, 3, shiftY - 3, shiftZ, 3, shiftY - 1, shiftZ, Blocks.nether_brick, Blocks.nether_brick, false);
+            this.fillWithBlocks(world, boundingBox, 0, shiftY - 3, shiftZ, 0, shiftY - 1, shiftZ, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+            this.fillWithBlocks(world, boundingBox, 3, shiftY - 3, shiftZ, 3, shiftY - 1, shiftZ, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
             // block walls
             this.fillWithRandomizedBlocks(world, boundingBox, 0, shiftY - 3, shiftZ + 1, 0, shiftY - 1, shiftZ + 2, false, random, getCemeteryCatacombsStones());

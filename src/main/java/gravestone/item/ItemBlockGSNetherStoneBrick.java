@@ -15,22 +15,11 @@ import net.minecraft.item.ItemStack;
  *
  * @author NightKosh
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ * created file by Bogdan-G
  */
-public class ItemBlockGSTrap extends ItemBlock {
+public class ItemBlockGSNetherStoneBrick extends ItemBlock {
 
-    public ItemBlockGSTrap(Block block) {
+    public ItemBlockGSNetherStoneBrick(Block block) {
         super(block);
-        setHasSubtypes(true);
     }
-
-    @Override
-    public int getMetadata(int damageValue) {
-        return damageValue;
-    }
-
-    @Override
-    public String getUnlocalizedName(ItemStack itemstack) {
-        return EnumTrap.VALUES[itemstack.getItemDamage()].getName();
-    }
-
 }

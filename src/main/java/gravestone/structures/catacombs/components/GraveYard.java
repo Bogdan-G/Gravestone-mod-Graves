@@ -33,7 +33,7 @@ public class GraveYard extends CatacombsBaseComponent {
 
         for (int x = 0; x < 11; x += 2) {
             for (int z = 0; z < 11; z += 2) {
-                if (random.nextDouble() < 0.05) {
+                if (random.nextFloat() < 0.05f) {
                     positionX = getXWithOffset(x + 1, z + 1);
                     positionZ = getZWithOffset(x + 1, z + 1);
                     y = world.getTopSolidOrLiquidBlock(positionX, positionZ) - boundingBox.minY;

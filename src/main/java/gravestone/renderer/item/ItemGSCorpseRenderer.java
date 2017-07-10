@@ -1,6 +1,6 @@
 package gravestone.renderer.item;
 
-import com.google.common.collect.Maps;
+//import com.google.common.collect.Maps;
 import cpw.mods.fml.common.registry.VillagerRegistry;
 import gravestone.core.Resources;
 import gravestone.item.corpse.CatCorpseHelper;
@@ -21,6 +21,7 @@ import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 
 import java.util.Map;
+import java.util.*;
 
 /**
  * GraveStone mod
@@ -30,7 +31,7 @@ import java.util.Map;
  */
 public class ItemGSCorpseRenderer implements IItemRenderer {
 
-    private static final Map horsesTexturesMap = Maps.newHashMap();
+    private static final Map horsesTexturesMap = new HashMap();
     private static final ModelVillager villagerModel = new ModelVillager(0);
     private static final ModelWolf dogModel = new ModelWolf();
     private static final ModelOcelot catModel = new ModelOcelot();
@@ -55,33 +56,18 @@ public class ItemGSCorpseRenderer implements IItemRenderer {
 
         byte corpseType = (byte) item.getItemDamage();
         float xz = 0.0625F;
-        switch (EnumCorpse.getById(corpseType)) {
-            case VILLAGER:
+        EnumCorpse corpse = EnumCorpse.getById(corpseType);
+        if (corpse==EnumCorpse.VILLAGER) {
                 GL11.glTranslatef(0, -0.5F, 0);
                 int profession = VillagerCorpseHelper.getVillagerType(item.getTagCompound());
-                switch (profession) {
-                    case 0:
-                        Minecraft.getMinecraft().renderEngine.bindTexture(Resources.VILLAGER_FARMER);
-                        break;
-                    case 1:
-                        Minecraft.getMinecraft().renderEngine.bindTexture(Resources.VILLAGER_LIBRARIAN);
-                        break;
-                    case 2:
-                        Minecraft.getMinecraft().renderEngine.bindTexture(Resources.VILLAGER_PRIEST);
-                        break;
-                    case 3:
-                        Minecraft.getMinecraft().renderEngine.bindTexture(Resources.VILLAGER_SMITH);
-                        break;
-                    case 4:
-                        Minecraft.getMinecraft().renderEngine.bindTexture(Resources.VILLAGER_BUTCHER);
-                        break;
-                    default:
-                        Minecraft.getMinecraft().renderEngine.bindTexture(VillagerRegistry.getVillagerSkin(profession, Resources.VILLAGER));
-                        break;
-                }
+                if (profession==0) Minecraft.getMinecraft().renderEngine.bindTexture(Resources.VILLAGER_FARMER);
+                else if (profession==1) Minecraft.getMinecraft().renderEngine.bindTexture(Resources.VILLAGER_LIBRARIAN);
+                else if (profession==2) Minecraft.getMinecraft().renderEngine.bindTexture(Resources.VILLAGER_PRIEST);
+                else if (profession==3) Minecraft.getMinecraft().renderEngine.bindTexture(Resources.VILLAGER_SMITH);
+                else if (profession==4) Minecraft.getMinecraft().renderEngine.bindTexture(Resources.VILLAGER_BUTCHER);
+                else Minecraft.getMinecraft().renderEngine.bindTexture(VillagerRegistry.getVillagerSkin(profession, Resources.VILLAGER));
                 villagerModel.render(null, xz, xz, xz, xz, xz, xz);
-                break;
-            case DOG:
+        } else if (corpse==EnumCorpse.DOG) {
                 GL11.glTranslatef(0, -1, 0);
                 Minecraft.getMinecraft().renderEngine.bindTexture(Resources.WOLF);
                 if (dog == null) {
@@ -89,28 +75,15 @@ public class ItemGSCorpseRenderer implements IItemRenderer {
                 }
                 dogModel.setLivingAnimations(dog, 0, 0, 0);
                 dogModel.render(dog, xz, xz, xz, xz, xz, xz);
-                break;
-            case CAT:
+        } else if (corpse==EnumCorpse.CAT) {
                 GL11.glTranslatef(0, -1, 0);
                 int catType = CatCorpseHelper.getCatType(item.getTagCompound());
-                switch (catType) {
-                    case 0:
-                    default:
-                        Minecraft.getMinecraft().renderEngine.bindTexture(Resources.OCELOT);
-                        break;
-                    case 1:
-                        Minecraft.getMinecraft().renderEngine.bindTexture(Resources.BLACK_CAT);
-                        break;
-                    case 2:
-                        Minecraft.getMinecraft().renderEngine.bindTexture(Resources.RED_CAT);
-                        break;
-                    case 3:
-                        Minecraft.getMinecraft().renderEngine.bindTexture(Resources.SIAMESE_CAT);
-                        break;
-                }
+                if (catType==1) Minecraft.getMinecraft().renderEngine.bindTexture(Resources.BLACK_CAT);
+                else if (catType==2) Minecraft.getMinecraft().renderEngine.bindTexture(Resources.RED_CAT);
+                else if (catType==3) Minecraft.getMinecraft().renderEngine.bindTexture(Resources.SIAMESE_CAT);
+                else Minecraft.getMinecraft().renderEngine.bindTexture(Resources.OCELOT);//catType==0 include in default switch
                 catModel.render(null, xz, xz, xz, xz, xz, xz);
-                break;
-            case HORSE:
+        } else if (corpse==EnumCorpse.HORSE) {
                 GL11.glTranslatef(0, -0.6F, 0);
                 if (horse == null) {
                     horse = new EntityHorse(Minecraft.getMinecraft().theWorld);
@@ -118,8 +91,8 @@ public class ItemGSCorpseRenderer implements IItemRenderer {
                 horse.setHorseType(HorseCorpseHelper.getHorseType(item.getTagCompound()));
                 horse.setHorseVariant(HorseCorpseHelper.getHorseVariant(item.getTagCompound()));
 
-                switch (HorseCorpseHelper.getHorseType(item.getTagCompound())) {
-                    case 0:
+                int horseType = HorseCorpseHelper.getHorseType(item.getTagCompound());
+                if (horseType==0) {
                         String horseTexturePath = horse.getHorseTexture();
                         ResourceLocation horseResourceLocation = (ResourceLocation) horsesTexturesMap.get(horseTexturePath);
                         if (horseResourceLocation == null) {
@@ -128,24 +101,18 @@ public class ItemGSCorpseRenderer implements IItemRenderer {
                             horsesTexturesMap.put(horseTexturePath, horseResourceLocation);
                         }
                         Minecraft.getMinecraft().renderEngine.bindTexture(horseResourceLocation);
-                        break;
-                    case 1:
+                } else if (horseType==1) {
                         Minecraft.getMinecraft().renderEngine.bindTexture(Resources.DONKEY);
-                        break;
-                    case 2:
+                } else if (horseType==2) {
                         Minecraft.getMinecraft().renderEngine.bindTexture(Resources.MULE);
-                        break;
-                    case 3:
+                } else if (horseType==3) {
                         Minecraft.getMinecraft().renderEngine.bindTexture(Resources.ZOMBIE_HORSE);
-                        break;
-                    case 4:
+                } else if (horseType==4) {
                         Minecraft.getMinecraft().renderEngine.bindTexture(Resources.SKELETON_HORSE);
-                        break;
                 }
 
                 horseModel.setLivingAnimations(horse, 0, 0, 0);
                 horseModel.render(horse, xz, xz, xz, xz, xz, xz);
-                break;
         }
         GL11.glPopMatrix();
     }

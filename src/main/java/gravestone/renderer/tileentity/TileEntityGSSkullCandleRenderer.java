@@ -53,16 +53,8 @@ public class TileEntityGSSkullCandleRenderer extends TileEntitySpecialRenderer {
     }
 
     private void bindSkullCandleTexture(EnumSkullCandle skullType) {
-        switch (skullType) {
-            case SKELETON_SKULL:
-                this.bindTexture(Resources.SKELETON_SKULL_CANDLE);
-                break;
-            case WITHER_SKULL:
-                this.bindTexture(Resources.WITHER_SKULL_CANDLE);
-                break;
-            case ZOMBIE_SKULL:
-                this.bindTexture(Resources.ZOMBIE_SKULL_CANDLE);
-                break;
-        }
+        if (skullType==EnumSkullCandle.SKELETON_SKULL) this.bindTexture(Resources.SKELETON_SKULL_CANDLE);
+        else if (skullType==EnumSkullCandle.WITHER_SKULL) this.bindTexture(Resources.WITHER_SKULL_CANDLE);
+        else if (skullType==EnumSkullCandle.ZOMBIE_SKULL) this.bindTexture(Resources.ZOMBIE_SKULL_CANDLE);
     }
 }

@@ -61,7 +61,7 @@ public class ComponentGSVillageUndertaker extends StructureVillagePieces.Village
             this.boundingBox.offset(0, this.averageGroundLevel - this.boundingBox.maxY + 6 - 1, 0);
         }
 
-        this.fillWithBlocks(world, boundingBox, 0, 1, 0, 13, 7, 6, Blocks.air, Blocks.air, false);
+        this.fillWithBlocks(world, boundingBox, 0, 1, 0, 13, 7, 6, gravestone.core.GSBlock.air, gravestone.core.GSBlock.air, false);
 
 
         int darkClayMeta = 15;
@@ -76,15 +76,15 @@ public class ComponentGSVillageUndertaker extends StructureVillagePieces.Village
         this.fillWithBlocks(world, boundingBox, 2, 0, 2, 4, 0, 4, Blocks.soul_sand, Blocks.soul_sand, false);
 
         // fence
-        this.fillWithBlocks(world, boundingBox, 1, 1, 1, 1, 1, 4, Blocks.nether_brick_fence, Blocks.nether_brick_fence, false);
-        this.fillWithBlocks(world, boundingBox, 2, 1, 5, 4, 1, 5, Blocks.nether_brick_fence, Blocks.nether_brick_fence, false);
-        this.fillWithBlocks(world, boundingBox, 1, 1, 0, 1, 3, 0, Blocks.nether_brick_fence, Blocks.nether_brick_fence, false);
-        this.fillWithBlocks(world, boundingBox, 1, 1, 5, 1, 3, 5, Blocks.nether_brick_fence, Blocks.nether_brick_fence, false);
+        this.fillWithBlocks(world, boundingBox, 1, 1, 1, 1, 1, 4, gravestone.core.GSBlock.nsbf, gravestone.core.GSBlock.nsbf, false);
+        this.fillWithBlocks(world, boundingBox, 2, 1, 5, 4, 1, 5, gravestone.core.GSBlock.nsbf, gravestone.core.GSBlock.nsbf, false);
+        this.fillWithBlocks(world, boundingBox, 1, 1, 0, 1, 3, 0, gravestone.core.GSBlock.nsbf, gravestone.core.GSBlock.nsbf, false);
+        this.fillWithBlocks(world, boundingBox, 1, 1, 5, 1, 3, 5, gravestone.core.GSBlock.nsbf, gravestone.core.GSBlock.nsbf, false);
 
-        this.fillWithBlocks(world, boundingBox, 6, 1, 0, 7, 1, 0, Blocks.nether_brick_fence, Blocks.nether_brick_fence, false);
-        this.fillWithBlocks(world, boundingBox, 9, 1, 0, 10, 1, 0, Blocks.nether_brick_fence, Blocks.nether_brick_fence, false);
-        this.fillWithBlocks(world, boundingBox, 5, 1, 0, 5, 3, 0, Blocks.nether_brick_fence, Blocks.nether_brick_fence, false);
-        this.fillWithBlocks(world, boundingBox, 11, 1, 0, 11, 3, 0, Blocks.nether_brick_fence, Blocks.nether_brick_fence, false);
+        this.fillWithBlocks(world, boundingBox, 6, 1, 0, 7, 1, 0, gravestone.core.GSBlock.nsbf, gravestone.core.GSBlock.nsbf, false);
+        this.fillWithBlocks(world, boundingBox, 9, 1, 0, 10, 1, 0, gravestone.core.GSBlock.nsbf, gravestone.core.GSBlock.nsbf, false);
+        this.fillWithBlocks(world, boundingBox, 5, 1, 0, 5, 3, 0, gravestone.core.GSBlock.nsbf, gravestone.core.GSBlock.nsbf, false);
+        this.fillWithBlocks(world, boundingBox, 11, 1, 0, 11, 3, 0, gravestone.core.GSBlock.nsbf, gravestone.core.GSBlock.nsbf, false);
 
         // candles
         this.placeBlockAtCurrentPosition(world, GSBlock.candle, 0, 1, 2, 1, boundingBox);
@@ -200,33 +200,23 @@ public class ComponentGSVillageUndertaker extends StructureVillagePieces.Village
     }
 
     public static int getBedMeta(int direction) {
-        switch (direction) {
-            case 0: // S
-                return 3;
-            case 1: // W
+        if (direction==1 || direction==3) { // W // E
                 return 0;
-            case 3: // E
-                return 0;
-            case 2: // N
-            default:
-                return 3;
+        } else { // N // S
+                return 3;//2,0 include default switch
         }
     }
 
     public byte getSkullCandleDirection(int direction) {
         byte meta;
-        switch (direction) {
-            case 0: // S
+        if (direction==0 || direction==3) { // S // E
                 meta = 3;
-            case 1: // W
+        } else if (direction==1) { // W
                 meta = 5;
-            case 3: // E
-                meta = 3;
-            case 2: // N
-            default:
-                meta = 1;
+        } else { // N
+                meta = 1;//2 include default switch
         }
-        return (byte) meta;
+        return meta;
     }
 
     protected void generateSkullCandle(World world, StructureBoundingBox boundingBox, int meta, int x, int y, int z, int direction) {
@@ -267,16 +257,10 @@ public class ComponentGSVillageUndertaker extends StructureVillagePieces.Village
     }
 
     public static int getPaintingDirection(int direction) {
-        switch (direction) {
-            case 0: // S
-                return 3;
-            case 1: // W
+        if (direction==1 || direction==3) { // W // E
                 return 0;
-            case 3: // E
-                return 0;
-            case 2: // N
-            default:
-                return 3;
+        } else { // N // S
+                return 3;//2,0 include default switch
         }
     }
 

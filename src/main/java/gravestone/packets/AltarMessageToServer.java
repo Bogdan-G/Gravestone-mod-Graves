@@ -37,12 +37,14 @@ public class AltarMessageToServer implements IMessage, IMessageHandler<AltarMess
         GHOST;
 
         public static MOB_TYPE getMobType(int num) {
-            if (MOB_TYPE.values().length <= num) {
+            if (VALUES.length <= num) {
                 return LIVED;
             } else {
-                return MOB_TYPE.values()[num];
+                return VALUES[num];
             }
         }
+
+        public static final MOB_TYPE[] VALUES = values();
     }
 
     public AltarMessageToServer() {

@@ -45,7 +45,7 @@ public class ObjectsGenerationHelper {
      * Generate chest with random loot type or haunted chest
      */
     public static void generateChest(ComponentGraveStone component, World world, Random random, int xCoord, int yCoord, int zCoord, boolean defaultChest, EnumChestTypes chestType) {
-        if (chestType.equals(EnumChestTypes.ALL_CHESTS) && random.nextInt(7) == 0) {
+        if (chestType==EnumChestTypes.ALL_CHESTS && random.nextInt(3) == 0) {
             generateHauntedChest(component, world, random, xCoord, yCoord, zCoord);
         } else {
             generateVanillaChest(component, world, random, xCoord, yCoord, zCoord, defaultChest, chestType);
@@ -71,7 +71,7 @@ public class ObjectsGenerationHelper {
             count = chest.getCount(random);
         }
 
-        if (defaultChest) {
+        if (defaultChest && random.nextBoolean()) {
             component.generateStructureChestContents(world, component.getBoundingBox(), random, xCoord, yCoord, zCoord, items, count);
         } else {
             generateTrappedChestContents(component, world, random, xCoord, yCoord, zCoord, items, count);
@@ -87,7 +87,7 @@ public class ObjectsGenerationHelper {
         TileEntityGSHauntedChest te = (TileEntityGSHauntedChest) world.getTileEntity(x, y, z);
 
         if (te != null) {
-            te.setChestType(EnumHauntedChest.getById((byte) random.nextInt(EnumHauntedChest.values().length)));
+            te.setChestType(EnumHauntedChest.getById((byte) random.nextInt(EnumHauntedChest.VALUES.length)));
         }
     }
 
@@ -108,47 +108,43 @@ public class ObjectsGenerationHelper {
     }
 
     private static ChestGenHooks getChest(Random random, EnumChestTypes chestType) {
-        switch (chestType) {
-            case VALUABLE_CHESTS:
-                switch (random.nextInt(7)) {
-                    case 1:
+        if (chestType==EnumChestTypes.VALUABLE_CHESTS) {
+                int type = random.nextInt(17);
+                if (type==1) {
                         return ChestGenHooks.getInfo(ChestGenHooks.DUNGEON_CHEST);
-                    case 2:
+                } else if (type==2) {
                         return ChestGenHooks.getInfo(ChestGenHooks.MINESHAFT_CORRIDOR);
-                    case 3:
+                } else if (type==3) {
                         return ChestGenHooks.getInfo(ChestGenHooks.PYRAMID_DESERT_CHEST);
-                    case 4:
+                } else if (type==4) {
                         return ChestGenHooks.getInfo(ChestGenHooks.STRONGHOLD_CROSSING);
-                    case 5:
+                } else if (type==5) {
                         return ChestGenHooks.getInfo(ChestGenHooks.STRONGHOLD_LIBRARY);
-                    case 6:
+                } else if (type>=6 && type<=16) {
                         return null;
-                    case 0:
-                    default:
-                        return ChestGenHooks.getInfo(ChestGenHooks.STRONGHOLD_CORRIDOR);
+                } else {
+                        return ChestGenHooks.getInfo(ChestGenHooks.STRONGHOLD_CORRIDOR);//type==0 include default switch
                 }
-            case ALL_CHESTS:
-            default:
-                switch (random.nextInt(9)) {
-                    case 1:
+        } else {//chestType==EnumChestTypes.ALL_CHESTS include default switch
+                int type = random.nextInt(20);
+                if (type==1) {
                         return ChestGenHooks.getInfo(ChestGenHooks.DUNGEON_CHEST);
-                    case 2:
+                } else if (type==2) {
                         return ChestGenHooks.getInfo(ChestGenHooks.MINESHAFT_CORRIDOR);
-                    case 3:
+                } else if (type==3) {
                         return ChestGenHooks.getInfo(ChestGenHooks.PYRAMID_DESERT_CHEST);
-                    case 4:
+                } else if (type==4) {
                         return ChestGenHooks.getInfo(ChestGenHooks.PYRAMID_JUNGLE_CHEST);
-                    case 5:
+                } else if (type==5) {
                         return ChestGenHooks.getInfo(ChestGenHooks.STRONGHOLD_CROSSING);
-                    case 6:
+                } else if (type==6) {
                         return ChestGenHooks.getInfo(ChestGenHooks.STRONGHOLD_LIBRARY);
-                    case 7:
+                } else if (type==7) {
                         return ChestGenHooks.getInfo(ChestGenHooks.VILLAGE_BLACKSMITH);
-                    case 8:
+                } else if (type>=8 && type<=18) {
                         return null;
-                    case 0:
-                    default:
-                        return ChestGenHooks.getInfo(ChestGenHooks.STRONGHOLD_CORRIDOR);
+                } else {
+                        return ChestGenHooks.getInfo(ChestGenHooks.STRONGHOLD_CORRIDOR);//type==0 include default switch
                 }
         }
     }
@@ -178,9 +174,9 @@ public class ObjectsGenerationHelper {
      * @param xCoord    X coord
      * @param yCoord    Y coord
      * @param zCoord    Z coord
-     * @param mobNmae   Spawned mob name
+     * @param mobName   Spawned mob name
      */
-    public static void generateMinecraftSpawner(ComponentGraveStone component, World world, int xCoord, int yCoord, int zCoord, String mobNmae) {
+    public static void generateMinecraftSpawner(ComponentGraveStone component, World world, int xCoord, int yCoord, int zCoord, String mobName) {
         int y = component.getYWithOffset(yCoord);
         int x = component.getXWithOffset(xCoord, zCoord);
         int z = component.getZWithOffset(xCoord, zCoord);
@@ -189,7 +185,7 @@ public class ObjectsGenerationHelper {
         TileEntityMobSpawner tileEntity = (TileEntityMobSpawner) world.getTileEntity(x, y, z);
 
         if (tileEntity != null) {
-            tileEntity.func_145881_a().setEntityName(mobNmae);
+            tileEntity.func_145881_a().setEntityName(mobName);
         }
     }
 
@@ -237,19 +233,14 @@ public class ObjectsGenerationHelper {
      * @param direction Direction
      */
     public static void setDispenserMeta(World world, int x, int y, int z, int direction) {
-        switch (direction) {
-            case 0:
+        if (direction==0) {
                 world.setBlockMetadataWithNotify(x, y, z, 2, 2);
-                break;
-            case 1:
+        } else if (direction==1) {
                 world.setBlockMetadataWithNotify(x, y, z, 5, 2);
-                break;
-            case 2:
+        } else if (direction==2) {
                 world.setBlockMetadataWithNotify(x, y, z, 3, 2);
-                break;
-            case 3:
+        } else if (direction==3) {
                 world.setBlockMetadataWithNotify(x, y, z, 4, 2);
-                break;
         }
     }
 

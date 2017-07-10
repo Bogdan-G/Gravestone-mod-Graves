@@ -8,6 +8,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import gravestone.config.GraveStoneConfig;
 import gravestone.core.*;
@@ -17,6 +18,9 @@ import gravestone.core.event.GSEventHandlerNetwork;
 import gravestone.core.event.GSEventsHandler;
 import gravestone.core.proxy.CommonProxy;
 import net.minecraftforge.common.MinecraftForge;
+
+import org.bogdang.modifications.random.*;
+import java.io.*;
 
 /**
  * GraveStone mod
@@ -33,6 +37,7 @@ public class ModGraveStone {
     public static CommonProxy proxy;
 
     public ModGraveStone() {
+        new GeneratorEntropy(true);
         instance = this;
     }
 
@@ -87,5 +92,10 @@ public class ModGraveStone {
     @Mod.EventHandler
     public void serverStarting(FMLServerStartingEvent event) {
         GSCommands.getInstance(event);
+    }
+
+    @Mod.EventHandler
+    public void serverStopping(FMLServerStoppedEvent event) {
+        GSCommands.instance=null;
     }
 }

@@ -4,6 +4,8 @@ import gravestone.core.GSStructures;
 import gravestone.structures.ComponentGraveStone;
 import gravestone.structures.catacombs.CatacombsLevel;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 
@@ -138,7 +140,15 @@ public abstract class CatacombsBaseComponent extends ComponentGraveStone {
      * Return valuable block
      */
     public static Block getValuableBlock(Random random) {
-        return GSStructures.VALUEBLE_BLOCKS[random.nextInt(GSStructures.VALUEBLE_BLOCKS.length)];
+        int rnd = random.nextInt(100)+1;
+        if (rnd<2) return Blocks.emerald_block;
+        if (rnd<5) return Blocks.diamond_block;
+        if (rnd<10) return Blocks.gold_block;
+        if (rnd<18) return Blocks.lapis_block;
+        if (rnd<32) return Blocks.redstone_block;
+        if (rnd<85) return gravestone.core.GSBlock.nsb;
+        return Blocks.air;
+        //return GSStructures.VALUEBLE_BLOCKS[random.nextInt(GSStructures.VALUEBLE_BLOCKS.length)];
     }
 
     /*
@@ -240,9 +250,12 @@ public abstract class CatacombsBaseComponent extends ComponentGraveStone {
         int y = this.getYWithOffset(yCoord);
         int z = this.getZWithOffset(xCoord, zCoord);
 
-        while ((world.isAirBlock(x, y, z) || world.getBlock(x, y, z).getMaterial().isLiquid() || world.getBlock(x, y, z).getMaterial().isReplaceable()) && y > 1) {
+        Material mblock = world.getBlock(x, y, z).getMaterial();//it expensive
+        while ((mblock==Material.air || mblock.isLiquid() || mblock.isReplaceable())) {
             world.setBlock(x, y, z, block, metadata, 2);
             --y;
+            if (y < 1) break;
+            mblock = world.getBlock(x, y, z).getMaterial();
         }
     }
 

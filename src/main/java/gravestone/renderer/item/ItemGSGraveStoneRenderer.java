@@ -2,10 +2,15 @@ package gravestone.renderer.item;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import gravestone.block.BlockGSGraveStone;
 import gravestone.tileentity.TileEntityGSGraveStone;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.IItemRenderer;
+
+import java.util.*;
+import java.util.concurrent.*;
 
 /**
  * GraveStone mod
@@ -16,6 +21,9 @@ import net.minecraftforge.client.IItemRenderer;
 @SideOnly(Side.CLIENT)
 public class ItemGSGraveStoneRenderer implements IItemRenderer {
 
+    public static final Map<ItemStack, TileEntityGSGraveStone> teMap = new ConcurrentHashMap(100);
+    public static int te_calls = 0;
+    
     public ItemGSGraveStoneRenderer() {
     }
 
@@ -31,16 +39,29 @@ public class ItemGSGraveStoneRenderer implements IItemRenderer {
 
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-        TileEntityGSGraveStone te = new TileEntityGSGraveStone();
+        te_calls++;
+        if (te_calls==120000) {
+            te_calls=0;
+            teMap.clear();
+        }
+        TileEntityGSGraveStone te = teMap.get(item);
+        if (te==null) {
+        te = new TileEntityGSGraveStone();
+        //fix NPE rendering item in CreativeTab with CCC present(?), this fix for mod compatibility module issue, example - sword of Thaumcraft
+        te.blockType = new BlockGSGraveStone();
+        te.blockMetadata = item.getItemDamage();
 
-        if (item.stackTagCompound != null) {
-            te.setGraveType(item.stackTagCompound.getByte("GraveType"));
-            if (item.stackTagCompound.hasKey("Sword")) {
-                te.setSword(ItemStack.loadItemStackFromNBT(item.getTagCompound().getCompoundTag("Sword")));
+        NBTTagCompound tag = item.stackTagCompound;
+        if (tag != null) {
+            te.setGraveType(tag.getByte("GraveType"));
+            if (tag.hasKey("Sword")) {
+                    te.setSword(ItemStack.loadItemStackFromNBT(item.getTagCompound().getCompoundTag("Sword")));
             }
-            if (item.stackTagCompound.hasKey("Enchanted")) {
-                te.setEnchanted(item.stackTagCompound.getBoolean("Enchanted"));
+            if (tag.hasKey("Enchanted")) {
+                    te.setEnchanted(tag.getBoolean("Enchanted"));
             }
+        }
+        teMap.put(item, te);
         }
 
         TileEntityRendererDispatcher.instance.renderTileEntityAt(te, 0.0D, 0.0D, 0.0D, 0.0F);

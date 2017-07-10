@@ -12,6 +12,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.*;
 
 /**
  * GraveStone mod
@@ -39,7 +40,7 @@ public class CatacombsGenerator implements GSStructureGenerator {
     public static final int CATACOMBS_DISTANCE = 1500;
     public static final int DISTANCE_FROM_SPAWN = 1000;
     public static final double DEFAULT_GENERATION_CHANCE = 0.00025D;
-    protected static LinkedList<ChunkCoordIntPair> structuresList = new LinkedList();
+    protected static ArrayList<ChunkCoordIntPair> structuresList = new ArrayList();
 
     @Override
     public boolean generate(World world, Random rand, int x, int z, double chance, boolean isCommand) {
@@ -64,7 +65,20 @@ public class CatacombsGenerator implements GSStructureGenerator {
     }
 
     protected static boolean isBiomeAllowed(World world, int x, int z) {
-        LinkedList<BiomeDictionary.Type> biomeTypesList = new LinkedList<BiomeDictionary.Type>(Arrays.asList(BiomeDictionary.getTypesForBiome(world.getBiomeGenForCoords(x, z))));
+        BiomeDictionary.Type[] array = BiomeDictionary.getTypesForBiome(world.getBiomeGenForCoords(x, z));
+        boolean flag = true;
+        for (BiomeDictionary.Type object : array) {
+            if (object==BiomeDictionary.Type.WATER || object==BiomeDictionary.Type.SWAMP || object==BiomeDictionary.Type.JUNGLE || object==BiomeDictionary.Type.MAGICAL || object==BiomeDictionary.Type.HILLS || object==BiomeDictionary.Type.MOUNTAIN) {
+                flag=false;
+                break;
+            }
+        }
+        if (flag) for (BiomeDictionary.Type object : array) {
+            if (object==BiomeDictionary.Type.PLAINS || object==BiomeDictionary.Type.FOREST || object==BiomeDictionary.Type.FROZEN || object==BiomeDictionary.Type.WASTELAND) {
+                return true;
+            }
+        }
+        /*ArrayList<BiomeDictionary.Type> biomeTypesList = new ArrayList<BiomeDictionary.Type>(Arrays.asList(BiomeDictionary.getTypesForBiome(world.getBiomeGenForCoords(x, z))));
         if (!biomeTypesList.contains(BiomeDictionary.Type.WATER) && !biomeTypesList.contains(BiomeDictionary.Type.SWAMP) &&
                 !biomeTypesList.contains(BiomeDictionary.Type.JUNGLE) && !biomeTypesList.contains(BiomeDictionary.Type.MAGICAL) &&
                 !biomeTypesList.contains(BiomeDictionary.Type.HILLS) && !biomeTypesList.contains(BiomeDictionary.Type.MOUNTAIN)) {
@@ -73,7 +87,7 @@ public class CatacombsGenerator implements GSStructureGenerator {
                     biomeTypesList.contains(BiomeDictionary.Type.FROZEN) || biomeTypesList.contains(BiomeDictionary.Type.WASTELAND)) {
                 return true;
             }
-        }
+        }*/
         return false;
     }
 
@@ -109,7 +123,7 @@ public class CatacombsGenerator implements GSStructureGenerator {
                 && zPos > z - range && zPos < z + range;
     }
 
-    public static LinkedList<ChunkCoordIntPair> getStructuresList() {
+    public static ArrayList<ChunkCoordIntPair> getStructuresList() {
         return structuresList;
     }
 

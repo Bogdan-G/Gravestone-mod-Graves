@@ -46,9 +46,10 @@ public class ItemGSChisel extends ItemTool {
     @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int par7, float par8, float par9, float par10) {
         if (world.isRemote) {
-            if (world.getBlock(x, y, z).equals(GSBlock.graveStone)) {
+            Block block = world.getBlock(x, y, z);//it expensive
+            if (block.equals(GSBlock.graveStone)) {
                 return setGraveText(stack, player, world, x, y, z, false);
-            } else if (world.getBlock(x, y, z).equals(GSBlock.memorial)) {
+            } else if (block.equals(GSBlock.memorial)) {
                 return setGraveText(stack, player, world, x, y, z, true);
             }
         }

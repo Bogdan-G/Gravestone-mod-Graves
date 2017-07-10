@@ -104,7 +104,7 @@ public class BlockGSPileOfBones extends BlockContainer {
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item item, CreativeTabs tab, List list) {
-        for (byte i = 0; i < EnumPileOfBones.values().length; i++) {
+        for (byte i = 0; i < EnumPileOfBones.VALUES.length; i++) {
             list.add(new ItemStack(item, 1, i));
         }
     }
@@ -120,5 +120,17 @@ public class BlockGSPileOfBones extends BlockContainer {
             this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
             world.setBlockToAir(x, y, z);
         }
+    }
+
+    @Override
+    public int tickRate(World p_149738_1_)
+    {
+        return 20;
+    }
+
+    @Override
+    public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target)
+    {
+        return true;
     }
 }

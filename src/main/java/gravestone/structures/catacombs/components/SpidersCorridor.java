@@ -43,7 +43,7 @@ public class SpidersCorridor extends CatacombsBaseComponent {
             this.fillWithRandomizedBlocks(world, boundingBox, 0, 0, 1 + z, 4, 0, 3 + z, false, random, getCemeteryCatacombsStones());
 
             // neter ceiling
-            this.fillWithBlocks(world, boundingBox, 0, 4, 0 + z, 4, 4, 3 + z, Blocks.nether_brick, Blocks.nether_brick, false);
+            this.fillWithBlocks(world, boundingBox, 0, 4, 0 + z, 4, 4, 3 + z, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
             // trap floor
             this.fillWithBlocks(world, boundingBox, 0, 0, 0 + z, 4, 0, 0 + z, GSBlock.trap, GSBlock.trap, false);
@@ -53,8 +53,8 @@ public class SpidersCorridor extends CatacombsBaseComponent {
             this.fillWithRandomizedBlocks(world, boundingBox, 4, 1, 1 + z, 4, 3, 3 + z, false, random, getCemeteryCatacombsStones());
 
             // nether walls
-            this.fillWithBlocks(world, boundingBox, 0, 1, 0 + z, 0, 3, 0 + z, Blocks.nether_brick, Blocks.nether_brick, false);
-            this.fillWithBlocks(world, boundingBox, 4, 1, 0 + z, 4, 3, 0 + z, Blocks.nether_brick, Blocks.nether_brick, false);
+            this.fillWithBlocks(world, boundingBox, 0, 1, 0 + z, 0, 3, 0 + z, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+            this.fillWithBlocks(world, boundingBox, 4, 1, 0 + z, 4, 3, 0 + z, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
         }
 
         this.fillWithRandomizedBlocks(world, boundingBox, 0, 0, 12, 4, 4, 12, false, random, getCemeteryCatacombsStones());

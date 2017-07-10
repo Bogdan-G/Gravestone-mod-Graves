@@ -133,20 +133,14 @@ public class BlockGSHauntedChest extends BlockContainer {
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLivingBase, ItemStack stack) {
         int direction = MathHelper.floor_double((double) (entityLivingBase.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
         int metadata;
-        switch (direction) {
-            case 0:
+        if (direction==0) {
                 metadata = 2;
-                break;
-            case 1:
+        } else if (direction==1) {
                 metadata = 5;
-                break;
-            case 2:
+        } else if (direction==2) {
                 metadata = 3;
-                break;
-            //case 3:
-            default:
-                metadata = 4;
-                break;
+        } else {
+                metadata = 4;//case 3) {
         }
 
         world.setBlockMetadataWithNotify(x, y, z, metadata, 3);
@@ -233,7 +227,7 @@ public class BlockGSHauntedChest extends BlockContainer {
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item item, CreativeTabs tabs, List list) {
-        for (byte i = 0; i < EnumHauntedChest.values().length; i++) {
+        for (byte i = 0; i < EnumHauntedChest.VALUES.length; i++) {
             ItemStack stack = new ItemStack(item, 1, 0);
             NBTTagCompound nbt = new NBTTagCompound();
             nbt.setByte("ChestType", i);
@@ -241,5 +235,17 @@ public class BlockGSHauntedChest extends BlockContainer {
             stack.setTagCompound(nbt);
             list.add(stack);
         }
+    }
+
+    @Override
+    public int tickRate(World p_149738_1_)
+    {
+        return 20;
+    }
+
+    @Override
+    public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target)
+    {
+        return true;
     }
 }

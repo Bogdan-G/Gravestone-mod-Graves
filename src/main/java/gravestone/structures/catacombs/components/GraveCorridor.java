@@ -54,12 +54,12 @@ public class GraveCorridor extends CatacombsBaseComponent {
         this.fillWithBlocks(world, boundingBox, 1, 0, 0, 5, 0, 0, GSBlock.trap, GSBlock.trap, false);
 
         // neter floor
-        this.fillWithBlocks(world, boundingBox, 1, 0, 4, 5, 0, 4, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 1, 0, 1, 1, 0, 3, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 5, 0, 1, 5, 0, 3, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 1, 0, 4, 5, 0, 4, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 1, 0, 1, 1, 0, 3, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 5, 0, 1, 5, 0, 3, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
         // neter ceiling
-        this.fillWithBlocks(world, boundingBox, 1, 4, 0, 5, 4, 4, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 1, 4, 0, 5, 4, 4, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
         // block walls
         this.fillWithRandomizedBlocks(world, boundingBox, 0, 0, 1, 0, 4, 3, false, random, getCemeteryCatacombsStones());
@@ -67,10 +67,10 @@ public class GraveCorridor extends CatacombsBaseComponent {
         this.fillWithRandomizedBlocks(world, boundingBox, 2, 0, 4, 4, 4, 4, false, random, getCemeteryCatacombsStones());
 
         // nether walls
-        this.fillWithBlocks(world, boundingBox, 1, 1, 0, 1, 3, 0, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 1, 1, 4, 1, 3, 4, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 5, 1, 0, 5, 3, 0, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 5, 1, 4, 5, 3, 4, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 1, 1, 0, 1, 3, 0, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 1, 1, 4, 1, 3, 4, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 5, 1, 0, 5, 3, 0, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 5, 1, 4, 5, 3, 4, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
         // graves
         byte graveType = GraveStoneHelper.getGraveType(world, this.getXWithOffset(0, 0), this.getZWithOffset(0, 0), random, EnumGraveType.ALL_GRAVES);

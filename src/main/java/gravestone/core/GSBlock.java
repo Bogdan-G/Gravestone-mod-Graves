@@ -23,6 +23,16 @@ public class GSBlock {
     public static BlockGSSpawner spawner;
     // Trap stones
     public static BlockGSTrap trap;
+    // Fake stone
+    public static final BlockGSNetherStoneBrick nsb = new BlockGSNetherStoneBrick();
+    public static final BlockGSNetherStoneBrickFence nsbf = new BlockGSNetherStoneBrickFence();
+    public static final BlockGSNetherStoneBrickStairs nsbs = new BlockGSNetherStoneBrickStairs();
+    public static final BlockGSAir air = new BlockGSAir();
+    //good idea, but dungeon buried capitally
+    /*public static final BlockAir air = new BlockAir() {
+    @Override public int tickRate(World p_149738_1_) { return 20; }
+    @Override public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target) { return true; }
+    };*/
     // block memorial
     public static BlockGSMemorial memorial;
     public static BlockGSInvisibleWall invisibleWall;
@@ -47,7 +57,7 @@ public class GSBlock {
         graveStone = new BlockGSGraveStone();
 //        simpleBlockRegistration(graveStone, "GSGraveStone", "GraveStone");
         GameRegistry.registerBlock(graveStone, ItemBlockGSGraveStone.class, "GSGraveStone");
-        for (byte i = 0; i < EnumGraves.values().length; i++) {
+        for (byte i = 0; i < EnumGraves.VALUES.length; i++) {
             ItemStack graveStoneStack = new ItemStack(graveStone, 1, 0);
             NBTTagCompound nbt = new NBTTagCompound();
             nbt.setByte("GraveType", i);
@@ -57,30 +67,36 @@ public class GSBlock {
             }
 
             graveStoneStack.setTagCompound(nbt);
-            LanguageRegistry.addName(graveStoneStack, EnumGraves.values()[i].getName());
+            LanguageRegistry.addName(graveStoneStack, EnumGraves.VALUES[i].getName());
         }
 
         // memorials
         memorial = new BlockGSMemorial();
-        advancedNTBBlockRegistration(memorial, "GSMemorial", "Memorial", EnumMemorials.values(), "GraveType", ItemBlockGSMemorial.class);
+        advancedNTBBlockRegistration(memorial, "GSMemorial", "Memorial", EnumMemorials.VALUES, "GraveType", ItemBlockGSMemorial.class);
 
         invisibleWall = new BlockGSInvisibleWall();
         GameRegistry.registerBlock(invisibleWall, "GSInvisibleWall");
 
         // wither spawner
         spawner = new BlockGSSpawner();
-        advancedMetaBlockRegistration(spawner, ItemBlockGSSpawner.class, "GSSpawner", EnumSpawner.values());
+        advancedMetaBlockRegistration(spawner, ItemBlockGSSpawner.class, "GSSpawner", EnumSpawner.VALUES);
 
         // trap
         trap = new BlockGSTrap();
-        advancedMetaBlockRegistration(trap, ItemBlockGSTrap.class, "GSTrap", EnumTrap.values());
+        advancedMetaBlockRegistration(trap, ItemBlockGSTrap.class, "GSTrap", EnumTrap.VALUES);
+        // fake nether brick
+        //nsb = new BlockGSNetherStoneBrick();
+        simpleBlockRegistration(nsb, "NetherStone Brick", ItemBlockGSNetherStoneBrick.class, "GSNetherStoneBrick");
+        simpleBlockRegistration(nsbf, "GSNetherStoneBrickFence", "NetherStone Brick Fence");
+        simpleBlockRegistration(nsbs, "GSNetherStoneBrickStairs", "NetherStone Brick Stairs");
+        GameRegistry.registerBlock((Block)air, "GSAir");
 
         //pile of bones
         pileOfBones = new BlockGSPileOfBones();
-        advancedMetaBlockRegistration(pileOfBones, ItemBlockGSPileOfBones.class, "GSPileOfBones", EnumPileOfBones.values());
+        advancedMetaBlockRegistration(pileOfBones, ItemBlockGSPileOfBones.class, "GSPileOfBones", EnumPileOfBones.VALUES);
         // bone block
         boneBlock = new BlockGSBoneBlock();
-        advancedMetaBlockRegistration(boneBlock, ItemBlockGSBoneBlock.class, "GSBoneBlock", EnumBoneBlock.values());
+        advancedMetaBlockRegistration(boneBlock, ItemBlockGSBoneBlock.class, "GSBoneBlock", EnumBoneBlock.VALUES);
         // bone slab
         boneSlab = new BlockGSBoneSlab();
         simpleBlockRegistration(boneSlab, "GSBoneSlab", "Bone slab");
@@ -89,13 +105,13 @@ public class GSBlock {
         simpleBlockRegistration(boneStairs, "GSBoneStairs", "Bone stairs");
         // hauntedChest
         hauntedChest = new BlockGSHauntedChest();
-        advancedNTBBlockRegistration(hauntedChest, "GSHauntedChest", "Haunted chest", EnumHauntedChest.values(), "ChestType", ItemBlockGSHauntedChest.class);
+        advancedNTBBlockRegistration(hauntedChest, "GSHauntedChest", "Haunted chest", EnumHauntedChest.VALUES, "ChestType", ItemBlockGSHauntedChest.class);
 
         // skull candle
         candle = new BlockGSCandle();
         simpleBlockRegistration(candle, "Candle", ItemBlockGSCandle.class, "GSCandle");
         skullCandle = new BlockGSSkullCandle();
-        advancedMetaBlockRegistration(skullCandle, ItemBlockGSSkullCandle.class, "GSSkullCandle", EnumSkullCandle.values());
+        advancedMetaBlockRegistration(skullCandle, ItemBlockGSSkullCandle.class, "GSSkullCandle", EnumSkullCandle.VALUES);
 
         // altar
         altar = new BlockGSAltar();

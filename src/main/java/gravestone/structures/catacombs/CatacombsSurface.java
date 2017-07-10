@@ -31,23 +31,18 @@ public class CatacombsSurface {
         int xCoord = 0;
         int zCoord = 0;
 
-        switch (DIRECTION) {
-            case 0:
+        if (DIRECTION==0) {
                 xCoord = X;
                 zCoord = Z - 14;
-                break;
-            case 1:
+        } else if (DIRECTION==1) {
                 xCoord = X + 14;
                 zCoord = Z;
-                break;
-            case 2:
+        } else if (DIRECTION==2) {
                 xCoord = X;
                 zCoord = Z + 14;
-                break;
-            case 3:
+        } else if (DIRECTION==3) {
                 xCoord = X - 14;
                 zCoord = Z;
-                break;
         }
 
         new MausoleumEntrance(DIRECTION, rand,
@@ -56,27 +51,22 @@ public class CatacombsSurface {
 
 
         if (GraveStoneConfig.generateCatacombsGraveyard) {
-            switch (DIRECTION) {
-                case 0:
+            if (DIRECTION==0) {
                     buildGraveYard(world, rand, X + 15, Z + 2);
                     buildGraveYard(world, rand, X - 12, Z + 2);
                     buildGraveYard(world, rand, X + 2, Z + 15);
-                    break;
-                case 1:
+            } else if (DIRECTION==1) {
                     buildGraveYard(world, rand, X + 2, Z + 15);
                     buildGraveYard(world, rand, X + 2, Z - 12);
                     buildGraveYard(world, rand, X - 11, Z + 2);
-                    break;
-                case 2:
+            } else if (DIRECTION==2) {
                     buildGraveYard(world, rand, X + 15, Z + 2);
                     buildGraveYard(world, rand, X - 12, Z + 2);
                     buildGraveYard(world, rand, X + 2, Z - 13);
-                    break;
-                case 3:
+            } else if (DIRECTION==3) {
                     buildGraveYard(world, rand, X + 2, Z + 15);
                     buildGraveYard(world, rand, X + 2, Z - 12);
                     buildGraveYard(world, rand, X + 15, Z + 2);
-                    break;
             }
 
             for (byte shiftX = 1; shiftX < 4; shiftX++) {

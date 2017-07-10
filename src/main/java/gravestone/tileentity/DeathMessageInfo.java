@@ -174,18 +174,16 @@ public class DeathMessageInfo {
     }
 
     public static String getRandomKillerName(Random random, DeathTypes deathTypes) {
-        switch (deathTypes) {
-            case ARROW:
+        if (deathTypes==DeathTypes.ARROW) {
                 return ARROW_KILLER_NAMES[random.nextInt(ARROW_KILLER_NAMES.length)];
-            case FIREBALL:
+        } else if (deathTypes==DeathTypes.FIREBALL) {
                 return FIREBALL_KILLER_NAMES[random.nextInt(FIREBALL_KILLER_NAMES.length)];
-            case BLOW:
+        } else if (deathTypes==DeathTypes.BLOW) {
                 return BLOW_KILLER_NAMES[random.nextInt(BLOW_KILLER_NAMES.length)];
-            case MAGIC:
+        } else if (deathTypes==DeathTypes.MAGIC) {
                 return MAGIC_KILLER_NAMES[random.nextInt(MAGIC_KILLER_NAMES.length)];
-            case ALL:
-            default:
-                return ALL_KILLER_NAMES[random.nextInt(ALL_KILLER_NAMES.length)];
+        } else {
+                return ALL_KILLER_NAMES[random.nextInt(ALL_KILLER_NAMES.length)];//deathTypes==DeathTypes.ALL include in default switch
         }
     }
 }

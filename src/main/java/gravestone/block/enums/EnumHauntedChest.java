@@ -25,9 +25,11 @@ public enum EnumHauntedChest implements IBlockEnum {
     }
 
     public static EnumHauntedChest getById(byte id) {
-        if (id < values().length) {
-            return values()[id];
+        if (id < VALUES.length) {
+            return VALUES[id];
         }
         return BATS_CHEST;
     }
+
+    public static final EnumHauntedChest[] VALUES = values();
 }

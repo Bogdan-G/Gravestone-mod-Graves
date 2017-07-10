@@ -23,8 +23,8 @@ public class GSMobSpawner extends GSSpawner {
     private static final int MAX_DELAY = 1200;//800
     private static final int BOSS_PLAYER_RANGE = 8;
     private static final int MOB_PLAYER_RANGE = 16;
-    private static final int SPAWN_EFFECTS_DELAY = 20;
-    private static final float MAX_LIGHT_VALUE = 0.46F;
+    //private static final int SPAWN_EFFECTS_DELAY = 20;
+    private static final float MAX_LIGHT_VALUE = 0.51F;//0.46F
     private EnumSpawner spawnerType = null;
 
     public GSMobSpawner(TileEntity tileEntity) {
@@ -51,21 +51,24 @@ public class GSMobSpawner extends GSSpawner {
     protected void serverUpdateLogic() {
         delay--;
         if (delay <= 0) {
-            EntityLiving entity = (EntityLiving) getMob();
-            if (entity == null) {
-                GSLogger.logError("Spanwer mob get 'null' as mob!!!");
-            } else {
-                double x = tileEntity.xCoord + 0.5;
-                double y = tileEntity.yCoord;
-                double z = tileEntity.zCoord + 0.5;
-                entity.setLocationAndAngles(x, y, z, tileEntity.getWorldObj().rand.nextFloat() * 360, 0);
-                if (isBossSpawner()) {
-                    tileEntity.getWorldObj().removeTileEntity(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
-                    tileEntity.getWorldObj().setBlock(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord, Blocks.air);
-                    tileEntity.getWorldObj().spawnEntityInWorld(entity);
-                } else if (tileEntity.getWorldObj().getLightBrightness(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord) <= MAX_LIGHT_VALUE) {
-                    tileEntity.getWorldObj().spawnEntityInWorld(entity);
-                }
+            double x = tileEntity.xCoord + 0.5;
+            double y = tileEntity.yCoord;
+            double z = tileEntity.zCoord + 0.5;
+            //World worldobj = tileEntity.getWorldObj();
+            if (isBossSpawner() && anyPlayerInRange2()) {
+                EntityLiving entity = (EntityLiving) getMob();
+                if (entity != null) {
+                    entity.setLocationAndAngles(x, y, z, worldobj.rand.nextFloat() * 360, 0);
+                    worldobj.removeTileEntity(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord);
+                    worldobj.setBlock(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord, Blocks.air);
+                    worldobj.spawnEntityInWorld(entity);
+                } else GSLogger.logError("Spanwer mob get 'null' as mob!!!");
+            } else if (worldobj.getLightBrightness(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord) <= MAX_LIGHT_VALUE) {
+                EntityLiving entity = (EntityLiving) getMob();
+                if (entity != null) {
+                    entity.setLocationAndAngles(x, y, z, worldobj.rand.nextFloat() * 360, 0);
+                    worldobj.spawnEntityInWorld(entity);
+                } else GSLogger.logError("Spanwer mob get 'null' as mob!!!");
             }
             this.updateDelay();
         }
@@ -87,6 +90,10 @@ public class GSMobSpawner extends GSSpawner {
             }
         }
         return spawnerType;
+    }
+    
+    protected boolean anyPlayerInRange2() {
+        return worldobj.getClosestPlayer(tileEntity.xCoord + 0.5D, tileEntity.yCoord + 0.5D, tileEntity.zCoord + 0.5D, BOSS_PLAYER_RANGE) != null;
     }
 
     @Override

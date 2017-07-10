@@ -30,6 +30,9 @@ public class TileEntityGSGraveStone extends TileEntityGSGrave {
     protected ItemStack sword = null;
     protected ItemStack flower = null;
     public static final int FOG_RANGE = 30;
+    protected int intervalUpdate = 40;
+    protected EntityPlayer cache_player;
+    protected boolean cp_isNull;
 
     public TileEntityGSGraveStone() {
         super();
@@ -51,19 +54,29 @@ public class TileEntityGSGraveStone extends TileEntityGSGrave {
      */
     @Override
     public void updateEntity() {
-        gsSpawn.updateEntity();
+        //test for drop fps
+        --intervalUpdate;
+        if (intervalUpdate==0) {
+            gsSpawn.updateEntity();
+            intervalUpdate=40;
+            cache_player = this.worldObj.getClosestPlayer(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, FOG_RANGE);
+            cp_isNull = cache_player != null;
+        }
 
-        if (GraveStoneConfig.isFogEnabled && this.worldObj.isRemote && GSRenderEventHandler.getFogTicCount() == 0) {
-            EntityPlayer player = this.worldObj.getClosestPlayer(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, FOG_RANGE);
-            if (player != null && player.getCommandSenderName().equals(Minecraft.getMinecraft().thePlayer.getCommandSenderName()) && TimeHelper.isFogTime(this.worldObj)) {
+        /*if (GraveStoneConfig.isFogEnabled && this.worldObj.isRemote && GSRenderEventHandler.getFogTicCount() == 0) {
+            //EntityPlayer player = this.worldObj.getClosestPlayer(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, FOG_RANGE);
+            if (cp_isNull && cache_player.getCommandSenderName().equals(Minecraft.getMinecraft().thePlayer.getCommandSenderName()) && TimeHelper.isFogTime(this.worldObj)) {
                 GSRenderEventHandler.addFog();
             }
+        }*/
+        if (GraveStoneConfig.isFogEnabled && this.worldObj.isRemote && GSRenderEventHandler.getFogTicCount() == 0 && cp_isNull && cache_player.getCommandSenderName().equals(Minecraft.getMinecraft().thePlayer.getCommandSenderName()) && TimeHelper.isFogTime(this.worldObj)) {
+            GSRenderEventHandler.addFog();
         }
     }
 
     public static boolean isFogTime(World world) {
         if (world.isRaining()) {
-            return false;
+            return TimeHelper.random.nextInt(10)==0;
         } else {
             long dayTime = TimeHelper.getDayTime(world);
             return dayTime > TimeHelper.FOG_START_TIME && dayTime < TimeHelper.FOG_END_TIME;
@@ -216,20 +229,15 @@ public class TileEntityGSGraveStone extends TileEntityGSGrave {
             if (swordType == 0) {
                 swordType = (byte) (this.graveType - 4);
             }
-            switch (swordType) {
-                case 5:
+            if (swordType==5) {
                     sword = Items.diamond_sword;
-                    break;
-                case 3:
+            } else if (swordType==3) {
                     sword = Items.iron_sword;
-                    break;
-                case 2:
+            } else if (swordType==2) {
                     sword = Items.stone_sword;
-                    break;
-                case 4:
+            } else if (swordType==4) {
                     sword = Items.golden_sword;
-                    break;
-                default:
+            } else {
                     sword = Items.wooden_sword;
             }
             GSLogger.logInfo("Sword type - " + nbtTag.getByte("SwordType") + ". Will be converted to " + sword.getUnlocalizedName());

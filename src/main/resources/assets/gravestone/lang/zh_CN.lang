@@ -35,6 +35,9 @@ block.memorial.burning_stake=燃烧的火刑柱
 tile.trap.night.name=午夜石
 tile.trap.thunder.name=雷电石
 block.trap.curse=暗夜正在降临！
+tile.gs.netherbrick.name=Nether Brick
+tile.gs.netherbrickfence.name=Nether Brick Fence
+tile.gs.netherbrickstairs.name=Nether Brick Stairs
 
 ## Spawners
 block.spawner.wither=凋灵刷怪笼

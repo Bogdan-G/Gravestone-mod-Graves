@@ -7,6 +7,7 @@ import gravestone.block.enums.EnumMemorials;
 import gravestone.models.block.ModelMemorial;
 import gravestone.models.block.memorials.*;
 import gravestone.tileentity.TileEntityGSMemorial;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import org.lwjgl.opengl.GL11;
 
@@ -168,7 +169,8 @@ public class TileEntityGSMemorialRenderer extends TileEntityGSRenderer {
         EnumMemorials memorialType = tileEntity.getMemorialType();
         int meta;
 
-        if (tileEntity.getWorldObj() != null) {
+        boolean tewo_isNull = tileEntity.getWorldObj() != null;
+        if (tewo_isNull) {
             meta = tileEntity.getBlockMetadata();
         } else {
             meta = 0;
@@ -179,104 +181,36 @@ public class TileEntityGSMemorialRenderer extends TileEntityGSRenderer {
         //texture
         GL11.glPushMatrix();
 
-        if (tileEntity.getWorldObj() != null) {
+        if (tewo_isNull) {
             GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
             GL11.glScalef(1F, -1F, -1F);
         } else {
-            switch (memorialType) {
-                case WOODEN_CROSS:
-                case SANDSTONE_CROSS:
-                case STONE_CROSS:
-                case MOSSY_CROSS:
-                case IRON_CROSS:
-                case GOLDEN_CROSS:
-                case DIAMOND_CROSS:
-                case EMERALD_CROSS:
-                case LAPIS_CROSS:
-                case REDSTONE_CROSS:
-                case OBSIDIAN_CROSS:
-                case QUARTZ_CROSS:
-                case ICE_CROSS:
-                case WOODEN_OBELISK:
-                case SANDSTONE_OBELISK:
-                case STONE_OBELISK:
-                case MOSSY_OBELISK:
-                case IRON_OBELISK:
-                case GOLDEN_OBELISK:
-                case DIAMOND_OBELISK:
-                case EMERALD_OBELISK:
-                case LAPIS_OBELISK:
-                case REDSTONE_OBELISK:
-                case OBSIDIAN_OBELISK:
-                case QUARTZ_OBELISK:
-                case ICE_OBELISK:
+            if (memorialType==EnumMemorials.WOODEN_CROSS || memorialType==EnumMemorials.SANDSTONE_CROSS || memorialType==EnumMemorials.STONE_CROSS || memorialType==EnumMemorials.MOSSY_CROSS || memorialType==EnumMemorials.IRON_CROSS || memorialType==EnumMemorials.GOLDEN_CROSS || memorialType==EnumMemorials.DIAMOND_CROSS || memorialType==EnumMemorials.EMERALD_CROSS || memorialType==EnumMemorials.LAPIS_CROSS || memorialType==EnumMemorials.REDSTONE_CROSS || memorialType==EnumMemorials.OBSIDIAN_CROSS || memorialType==EnumMemorials.QUARTZ_CROSS || memorialType==EnumMemorials.ICE_CROSS || memorialType==EnumMemorials.WOODEN_OBELISK || memorialType==EnumMemorials.SANDSTONE_OBELISK || memorialType==EnumMemorials.STONE_OBELISK || memorialType==EnumMemorials.MOSSY_OBELISK || memorialType==EnumMemorials.IRON_OBELISK || memorialType==EnumMemorials.GOLDEN_OBELISK || memorialType==EnumMemorials.DIAMOND_OBELISK || memorialType==EnumMemorials.EMERALD_OBELISK || memorialType==EnumMemorials.LAPIS_OBELISK || memorialType==EnumMemorials.REDSTONE_OBELISK || memorialType==EnumMemorials.OBSIDIAN_OBELISK || memorialType==EnumMemorials.QUARTZ_OBELISK || memorialType==EnumMemorials.ICE_OBELISK) {
                     GL11.glTranslatef((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
                     GL11.glScalef(0.4F, -0.4F, -0.4F);
-                    break;
-                default:
+            } else {
                     GL11.glTranslatef((float) x + 0.5F, (float) y + 0.8F, (float) z + 0.5F);
                     GL11.glScalef(0.7F, -0.7F, -0.7F);
-                    break;
             }
         }
 
-        switch (getMemorialDirection(meta)) {
-            case 0:
-                GL11.glRotatef(0, 0.0F, 1.0F, 0.0F);
-                break;
-            case 1:
-                GL11.glRotatef(90, 0.0F, 1.0F, 0.0F);
-                break;
-            case 2:
-                GL11.glRotatef(180, 0.0F, 1.0F, 0.0F);
-                break;
-            case 3:
-                GL11.glRotatef(270, 0.0F, 1.0F, 0.0F);
-                break;
-        }
+        if (meta==0) GL11.glRotatef(0, 0.0F, 1.0F, 0.0F);
+        else if (meta==3) GL11.glRotatef(90, 0.0F, 1.0F, 0.0F);
+        else if (meta==2) GL11.glRotatef(270, 0.0F, 1.0F, 0.0F);
+        else GL11.glRotatef(180, 0.0F, 1.0F, 0.0F);
 //
 //        if (memorialType == 9) {
 //            celticCross.renderAll();
 //        } else
         ModelMemorial model = MODELS_MAP.get(memorialType);
         model.setPedestalTexture(memorialType.getPedestalTexture());
-        switch (memorialType) {
-            case WOODEN_CREEPER_STATUE:
-            case SANDSTONE_CREEPER_STATUE:
-            case STONE_CREEPER_STATUE:
-            case MOSSY_CREEPER_STATUE:
-            case IRON_CREEPER_STATUE:
-            case GOLDEN_CREEPER_STATUE:
-            case DIAMOND_CREEPER_STATUE:
-            case EMERALD_CREEPER_STATUE:
-            case LAPIS_CREEPER_STATUE:
-            case REDSTONE_CREEPER_STATUE:
-            case OBSIDIAN_CREEPER_STATUE:
-            case QUARTZ_CREEPER_STATUE:
-            case ICE_CREEPER_STATUE:
+        if (memorialType==EnumMemorials.WOODEN_CREEPER_STATUE || memorialType==EnumMemorials.SANDSTONE_CREEPER_STATUE || memorialType==EnumMemorials.STONE_CREEPER_STATUE || memorialType==EnumMemorials.MOSSY_CREEPER_STATUE || memorialType==EnumMemorials.IRON_CREEPER_STATUE || memorialType==EnumMemorials.GOLDEN_CREEPER_STATUE || memorialType==EnumMemorials.DIAMOND_CREEPER_STATUE || memorialType==EnumMemorials.EMERALD_CREEPER_STATUE || memorialType==EnumMemorials.LAPIS_CREEPER_STATUE || memorialType==EnumMemorials.REDSTONE_CREEPER_STATUE || memorialType==EnumMemorials.OBSIDIAN_CREEPER_STATUE || memorialType==EnumMemorials.QUARTZ_CREEPER_STATUE || memorialType==EnumMemorials.ICE_CREEPER_STATUE) {
                 model.customRender(tileEntity.isEnchanted());
-                break;
-            case WOODEN_STEVE_STATUE:
-            case SANDSTONE_STEVE_STATUE:
-            case STONE_STEVE_STATUE:
-            case MOSSY_STEVE_STATUE:
-            case IRON_STEVE_STATUE:
-            case GOLDEN_STEVE_STATUE:
-            case DIAMOND_STEVE_STATUE:
-            case EMERALD_STEVE_STATUE:
-            case LAPIS_STEVE_STATUE:
-            case REDSTONE_STEVE_STATUE:
-            case OBSIDIAN_STEVE_STATUE:
-            case QUARTZ_STEVE_STATUE:
-            case ICE_STEVE_STATUE:
+        } else if (memorialType==EnumMemorials.WOODEN_STEVE_STATUE || memorialType==EnumMemorials.SANDSTONE_STEVE_STATUE || memorialType==EnumMemorials.STONE_STEVE_STATUE || memorialType==EnumMemorials.MOSSY_STEVE_STATUE || memorialType==EnumMemorials.IRON_STEVE_STATUE || memorialType==EnumMemorials.GOLDEN_STEVE_STATUE || memorialType==EnumMemorials.DIAMOND_STEVE_STATUE || memorialType==EnumMemorials.EMERALD_STEVE_STATUE || memorialType==EnumMemorials.LAPIS_STEVE_STATUE || memorialType==EnumMemorials.REDSTONE_STEVE_STATUE || memorialType==EnumMemorials.OBSIDIAN_STEVE_STATUE || memorialType==EnumMemorials.QUARTZ_STEVE_STATUE || memorialType==EnumMemorials.ICE_STEVE_STATUE) {
                 model.customRender(memorialType, tileEntity.isEnchanted());
-                break;
-            case GIBBET:
-            case STOCKS:
-            case BURNING_STAKE:
+        } else if (memorialType==EnumMemorials.GIBBET || memorialType==EnumMemorials.STOCKS || memorialType==EnumMemorials.BURNING_STAKE) {
                 model.customRender(memorialType, tileEntity.getHangedMob(), tileEntity.getHangedVillagerProfession());
-                break;
-            default:
+        } else {
                 if (tileEntity.isEnchanted()) {
                     model.renderEnchanted();
                 } else {
@@ -290,7 +224,7 @@ public class TileEntityGSMemorialRenderer extends TileEntityGSRenderer {
     /**
      * Return grave direction by metadata
      */
-    private static int getMemorialDirection(int meta) {
+    /*private static int getMemorialDirection(int meta) {
         switch (meta) {
             case 0: // S
                 return 0;
@@ -303,5 +237,5 @@ public class TileEntityGSMemorialRenderer extends TileEntityGSRenderer {
             default:
                 return 2;
         }
-    }
+    }*/
 }

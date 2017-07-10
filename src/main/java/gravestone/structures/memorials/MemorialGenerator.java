@@ -12,6 +12,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.*;
 
 /**
  * GraveStone mod
@@ -36,7 +37,7 @@ public class MemorialGenerator implements GSStructureGenerator {
     }
     public static final double CHANCE = 0.05D;
     public static final short RANGE = 400;
-    private static LinkedList<ChunkCoordIntPair> structuresList = new LinkedList();
+    private static ArrayList<ChunkCoordIntPair> structuresList = new ArrayList();
 
     @Override
     public boolean generate(World world, Random rand, int x, int z, double chance, boolean isCommand) {
@@ -59,8 +60,17 @@ public class MemorialGenerator implements GSStructureGenerator {
     }
 
     protected static boolean isBiomeAllowed(World world, int x, int z) {
-        LinkedList<BiomeDictionary.Type> biomeTypesList = new LinkedList<BiomeDictionary.Type>(Arrays.asList(BiomeDictionary.getTypesForBiome(world.getBiomeGenForCoords(x, z))));
-        return !biomeTypesList.contains(BiomeDictionary.Type.WATER);
+        BiomeDictionary.Type[] array = BiomeDictionary.getTypesForBiome(world.getBiomeGenForCoords(x, z));
+        boolean flag = true;
+        for (BiomeDictionary.Type object : array) {
+            if (object==BiomeDictionary.Type.WATER) {
+                flag=false;
+                break;
+            }
+        }
+        return flag;
+        /*ArrayList<BiomeDictionary.Type> biomeTypesList = new ArrayList<BiomeDictionary.Type>(Arrays.asList(BiomeDictionary.getTypesForBiome(world.getBiomeGenForCoords(x, z))));
+        return !biomeTypesList.contains(BiomeDictionary.Type.WATER);*/
     }
 
     protected static boolean noAnyInRange(int x, int z) {
@@ -81,7 +91,7 @@ public class MemorialGenerator implements GSStructureGenerator {
         return true;
     }
 
-    public static LinkedList<ChunkCoordIntPair> getStructuresList() {
+    public static ArrayList<ChunkCoordIntPair> getStructuresList() {
         return structuresList;
     }
 

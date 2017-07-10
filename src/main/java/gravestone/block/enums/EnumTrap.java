@@ -25,10 +25,11 @@ public enum EnumTrap implements IBlockEnum {
     }
 
     public static EnumTrap getById(byte id) {
-        if (id < values().length) {
-            return values()[id];
+        if (id < VALUES.length) {
+            return VALUES[id];
         }
         return NIGHT_STONE;
     }
 
+    public static final EnumTrap[] VALUES = values();
 }

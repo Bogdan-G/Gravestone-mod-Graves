@@ -51,18 +51,18 @@ public class MausoleumEntrance extends CatacombsBaseComponent {
         this.placeBlockAtCurrentPosition(world, Blocks.fire, 0, 4, 1, 9, boundingBox);
 
         // fire stairs
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaBot, 3, 0, 8, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaBot, 4, 0, 8, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaBot, 5, 0, 8, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaLeft, 3, 0, 9, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaRight, 5, 0, 9, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaTop, 3, 0, 10, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaTop, 4, 0, 10, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaTop, 5, 0, 10, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaBot, 3, 0, 8, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaBot, 4, 0, 8, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaBot, 5, 0, 8, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaLeft, 3, 0, 9, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaRight, 5, 0, 9, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaTop, 3, 0, 10, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaTop, 4, 0, 10, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaTop, 5, 0, 10, boundingBox);
 
         for (int x = 3; x < 5; x++) {
             for (int z = 8; z < 10; z++) {
-                this.func_151554_b(world, Blocks.nether_brick, 0, x, -1, z, boundingBox);
+                this.func_151554_b(world, gravestone.core.GSBlock.nsb, 0, x, -1, z, boundingBox);
             }
         }
 
@@ -71,24 +71,24 @@ public class MausoleumEntrance extends CatacombsBaseComponent {
         this.placeBlockAtCurrentPosition(world, Blocks.fire, 0, 9, 1, 9, boundingBox);
 
         // fire stairs
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaBot, 8, 0, 8, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaBot, 9, 0, 8, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaBot, 10, 0, 8, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaLeft, 8, 0, 9, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaRight, 10, 0, 9, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaTop, 8, 0, 10, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaTop, 9, 0, 10, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaTop, 10, 0, 10, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaBot, 8, 0, 8, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaBot, 9, 0, 8, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaBot, 10, 0, 8, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaLeft, 8, 0, 9, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaRight, 10, 0, 9, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaTop, 8, 0, 10, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaTop, 9, 0, 10, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaTop, 10, 0, 10, boundingBox);
 
         for (int x = 3; x < 6; x++) {
             for (int z = 8; z < 11; z++) {
-                this.func_151554_b(world, Blocks.nether_brick, 0, x, -1, z, boundingBox);
+                this.func_151554_b(world, gravestone.core.GSBlock.nsb, 0, x, -1, z, boundingBox);
             }
         }
 
         for (int x = 8; x < 11; x++) {
             for (int z = 8; z < 11; z++) {
-                this.func_151554_b(world, Blocks.nether_brick, 0, x, -1, z, boundingBox);
+                this.func_151554_b(world, gravestone.core.GSBlock.nsb, 0, x, -1, z, boundingBox);
             }
         }
 

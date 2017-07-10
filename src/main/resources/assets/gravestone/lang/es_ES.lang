@@ -35,6 +35,9 @@ block.memorial.burning_stake=Burning Stake
 tile.trap.night.name=Piedra nocturna
 tile.trap.thunder.name=Piedra del trueno
 block.trap.curse=¡La oscuridad de aproxima!
+tile.gs.netherbrick.name=Nether Brick
+tile.gs.netherbrickfence.name=Nether Brick Fence
+tile.gs.netherbrickstairs.name=Nether Brick Stairs
 
 ## Spawners
 block.spawner.wither=Engendrador de wither

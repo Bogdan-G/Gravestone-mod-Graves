@@ -35,6 +35,9 @@ block.memorial.burning_stake=Костёр инквизиции
 tile.trap.night.name=Камень тьмы
 tile.trap.thunder.name=Грозовой камень
 block.trap.curse=Тьма приближается!
+tile.gs.netherbrick.name=Адские кирпичи
+tile.gs.netherbrickfence.name=Адский забор
+tile.gs.netherbrickstairs.name=Адские ступеньки
 
 ## Spawners
 block.spawner.wither=Спаунер иссушителей

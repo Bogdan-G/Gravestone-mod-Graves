@@ -26,9 +26,11 @@ public enum EnumSpawner implements IBlockEnum {
     }
 
     public static EnumSpawner getById(byte id) {
-        if (id < values().length) {
-            return values()[id];
+        if (id < VALUES.length) {
+            return VALUES[id];
         }
         return ZOMBIE_SPAWNER;
     }
+
+    public static final EnumSpawner[] VALUES = values();
 }

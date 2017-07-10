@@ -11,7 +11,7 @@ import net.minecraft.server.MinecraftServer;
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
 public class GSCommands {
-    private static GSCommands instance;
+    public static GSCommands instance;
     private GSCommands(FMLServerStartingEvent event) {
         instance = this;
         
@@ -22,7 +22,7 @@ public class GSCommands {
         if (instance == null) {
             return new GSCommands(event);
         } else {
-            return instance;
+            return instance;//bug - no register commant if change world (in list world in SSP)
         }
     }
     

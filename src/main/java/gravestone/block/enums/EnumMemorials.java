@@ -174,9 +174,11 @@ public enum EnumMemorials implements IBlockEnum {
      * @param id Grave Id
      */
     public static EnumMemorials getByID(int id) {
-        if (id < values().length) {
-            return values()[id];
+        if (id < VALUES.length) {
+            return VALUES[id];
         }
         return STONE_CROSS;
     }
+
+    public static final EnumMemorials[] VALUES = values();
 }

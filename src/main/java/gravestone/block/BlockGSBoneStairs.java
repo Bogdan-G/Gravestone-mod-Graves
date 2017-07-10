@@ -3,7 +3,9 @@ package gravestone.block;
 import gravestone.core.GSBlock;
 import gravestone.core.GSTabs;
 import gravestone.core.Resources;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
+import net.minecraft.world.World;
 
 /**
  * GraveStone mod
@@ -19,5 +21,17 @@ public class BlockGSBoneStairs extends BlockStairs {
         this.setCreativeTab(GSTabs.otherItemsTab);
         this.setBlockTextureName(Resources.BONE_BLOCK);
         this.setHarvestLevel("pickaxe", 0);
+    }
+
+    @Override
+    public int tickRate(World p_149738_1_)
+    {
+        return 20;
+    }
+
+    @Override
+    public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target)
+    {
+        return true;
     }
 }

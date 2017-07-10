@@ -54,7 +54,7 @@ public abstract class CorpseHelper {
     }
 
     public static void addInfo(int corpseType, List list, NBTTagCompound nbtTag) {
-        switch (EnumCorpse.values()[corpseType]) {
+        switch (EnumCorpse.VALUES[corpseType]) {
             case VILLAGER:
                 VillagerCorpseHelper.addInfo(list, nbtTag);
                 break;
@@ -71,7 +71,7 @@ public abstract class CorpseHelper {
     }
 
     public static List<ItemStack> getDefaultCorpse(Item item, int corpseType) {
-        switch (EnumCorpse.values()[corpseType]) {
+        switch (EnumCorpse.VALUES[corpseType]) {
             case HORSE:
                 return HorseCorpseHelper.getDefaultCorpses(item, corpseType);
             case DOG:
@@ -110,7 +110,7 @@ public abstract class CorpseHelper {
 
     public static void spawnMob(int type, World world, int x, int y, int z, NBTTagCompound nbtTag, EntityPlayer player) {
         if (!world.isRemote) {
-            switch (EnumCorpse.values()[type]) {
+            switch (EnumCorpse.VALUES[type]) {
                 case VILLAGER:
                     VillagerCorpseHelper.spawnVillager(world, x, y, z, nbtTag);
                     break;

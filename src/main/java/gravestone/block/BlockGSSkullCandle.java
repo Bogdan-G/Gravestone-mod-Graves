@@ -108,7 +108,7 @@ public class BlockGSSkullCandle extends BlockContainer {
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item item, CreativeTabs tab, List list) {
-        for (byte i = 0; i < EnumSkullCandle.values().length; i++) {
+        for (byte i = 0; i < EnumSkullCandle.VALUES.length; i++) {
             list.add(new ItemStack(item, 1, i));
         }
     }
@@ -141,5 +141,11 @@ public class BlockGSSkullCandle extends BlockContainer {
 
             world.spawnParticle("smoke", xPos + dx, yPos, zPos + dz, 0, 0, 0);
         }
+    }
+
+    @Override
+    public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target)
+    {
+        return true;
     }
 }

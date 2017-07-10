@@ -10,6 +10,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.*;
 
 /**
  * GraveStone mod
@@ -35,7 +36,7 @@ public class SingleGraveGenerator implements GSStructureGenerator {
     // chance to generate a structure
     public static final double CHANCE = 0.1D;
     public static final byte RANGE = 100;
-    private static LinkedList<ChunkCoordIntPair> structuresList = new LinkedList<ChunkCoordIntPair>();
+    private static ArrayList<ChunkCoordIntPair> structuresList = new ArrayList<ChunkCoordIntPair>();
 
     @Override
     public boolean generate(World world, Random rand, int x, int z, double chance, boolean isCommand) {
@@ -57,9 +58,18 @@ public class SingleGraveGenerator implements GSStructureGenerator {
     }
 
     protected static boolean isBiomeAllowed(World world, int x, int z) {
-        LinkedList<BiomeDictionary.Type> biomeTypesList = new LinkedList<BiomeDictionary.Type>(Arrays.asList(BiomeDictionary.getTypesForBiome(world.getBiomeGenForCoords(x, z))));
+        BiomeDictionary.Type[] array = BiomeDictionary.getTypesForBiome(world.getBiomeGenForCoords(x, z));
+        boolean flag = true;
+        for (BiomeDictionary.Type object : array) {
+            if (object==BiomeDictionary.Type.WATER) {
+                flag=false;
+                break;
+            }
+        }
+        return flag && (GraveStoneConfig.generateGravesInMushroomBiomes || !array.equals(BiomeDictionary.Type.MUSHROOM));
+        /*ArrayList<BiomeDictionary.Type> biomeTypesList = new ArrayList<BiomeDictionary.Type>(Arrays.asList(BiomeDictionary.getTypesForBiome(world.getBiomeGenForCoords(x, z))));
         return !biomeTypesList.contains(BiomeDictionary.Type.WATER) &&
-                (GraveStoneConfig.generateGravesInMushroomBiomes || !BiomeDictionary.getTypesForBiome(world.getBiomeGenForCoords(x, z)).equals(BiomeDictionary.Type.MUSHROOM));
+                (GraveStoneConfig.generateGravesInMushroomBiomes || !BiomeDictionary.getTypesForBiome(world.getBiomeGenForCoords(x, z)).equals(BiomeDictionary.Type.MUSHROOM));*/
     }
 
     protected static boolean noAnyInRange(int x, int z) {
@@ -80,7 +90,7 @@ public class SingleGraveGenerator implements GSStructureGenerator {
         return true;
     }
 
-    public static LinkedList<ChunkCoordIntPair> getStructuresList() {
+    public static ArrayList<ChunkCoordIntPair> getStructuresList() {
         return structuresList;
     }
 }

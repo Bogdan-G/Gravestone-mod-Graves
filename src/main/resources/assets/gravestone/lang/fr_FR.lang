@@ -35,6 +35,9 @@ block.memorial.burning_stake=Burning Stake
 tile.trap.night.name=Pierre nocturne
 tile.trap.thunder.name=Pierre de tonnerre
 block.trap.curse=Les ténèbres approchent !
+tile.gs.netherbrick.name=Nether Brick
+tile.gs.netherbrickfence.name=Nether Brick Fence
+tile.gs.netherbrickstairs.name=Nether Brick Stairs
 
 ## Spawners
 block.spawner.wither=Spawner à sorcière

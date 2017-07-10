@@ -35,6 +35,9 @@ block.memorial.burning_stake=Burning Stake
 tile.trap.night.name=Night Stone
 tile.trap.thunder.name=Thunder Stone
 block.trap.curse=Darkness is coming!
+tile.gs.netherbrick.name=Nether Brick
+tile.gs.netherbrickfence.name=Nether Brick Fence
+tile.gs.netherbrickstairs.name=Nether Brick Stairs
 
 ## Spawners
 block.spawner.wither=Wither Spawner

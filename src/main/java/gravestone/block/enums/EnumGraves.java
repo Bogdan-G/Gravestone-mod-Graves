@@ -124,11 +124,14 @@ public enum EnumGraves implements IBlockEnum {
      * Returns the grave type with the specified ID, or VERTICAL_PLATE if none found.
      *
      * @param id Grave Id
+     * changes by @author Fewizz
      */
     public static EnumGraves getByID(int id) {
-        if (id < values().length) {
-            return values()[id];
+        if (id < VALUES.length) {
+            return VALUES[id];
         }
         return STONE_VERTICAL_PLATE;
     }
+
+    public static final EnumGraves[] VALUES = values();
 }

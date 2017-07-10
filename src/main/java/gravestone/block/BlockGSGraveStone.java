@@ -35,7 +35,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import org.bogdang.modifications.random.XSTR;
+import org.bogdang.modifications.random.*;
 
 /**
  * GraveStone mod
@@ -135,7 +135,7 @@ public class BlockGSGraveStone extends BlockContainer {
             (byte) EnumGraves.ICE_HORSE_STATUE.ordinal()
     };
 
-    private static final Random rand = new XSTR();
+    private static final Random rand = new XSTR(new XSTR().getSeed()*(new GeneratorEntropy().getSeed()));
 
     public BlockGSGraveStone() {
         super(Material.rock);
@@ -227,183 +227,65 @@ public class BlockGSGraveStone extends BlockContainer {
             graveType = EnumGraves.STONE_VERTICAL_PLATE;
         }
 
-        switch (graveType) {
-            case WOODEN_VERTICAL_PLATE:
-            case SANDSTONE_VERTICAL_PLATE:
-            case STONE_VERTICAL_PLATE:
-            case MOSSY_VERTICAL_PLATE:
-            case IRON_VERTICAL_PLATE:
-            case GOLDEN_VERTICAL_PLATE:
-            case DIAMOND_VERTICAL_PLATE:
-            case EMERALD_VERTICAL_PLATE:
-            case LAPIS_VERTICAL_PLATE:
-            case REDSTONE_VERTICAL_PLATE:
-            case OBSIDIAN_VERTICAL_PLATE:
-            case QUARTZ_VERTICAL_PLATE:
-            case ICE_VERTICAL_PLATE:
-                switch (meta) {
-                    case 0:
+        if (graveType==EnumGraves.WOODEN_VERTICAL_PLATE || graveType==EnumGraves.SANDSTONE_VERTICAL_PLATE || graveType==EnumGraves.STONE_VERTICAL_PLATE || graveType==EnumGraves.MOSSY_VERTICAL_PLATE || graveType==EnumGraves.IRON_VERTICAL_PLATE || graveType==EnumGraves.GOLDEN_VERTICAL_PLATE || graveType==EnumGraves.DIAMOND_VERTICAL_PLATE || graveType==EnumGraves.EMERALD_VERTICAL_PLATE || graveType==EnumGraves.LAPIS_VERTICAL_PLATE || graveType==EnumGraves.REDSTONE_VERTICAL_PLATE || graveType==EnumGraves.OBSIDIAN_VERTICAL_PLATE || graveType==EnumGraves.QUARTZ_VERTICAL_PLATE || graveType==EnumGraves.ICE_VERTICAL_PLATE) {
+                if (meta==0) {
                         this.setBlockBounds(0.125F, 0, 0.0625F, 0.875F, 0.9375F, 0.1875F);
-                        break;
-                    case 1:
+                } else if (meta==1) {
                         this.setBlockBounds(0.125F, 0, 0.8125F, 0.875F, 0.9375F, 0.9375F);
-                        break;
-                    case 2:
+                } else if (meta==2) {
                         this.setBlockBounds(0.0625F, 0, 0.125F, 0.1875F, 0.9375F, 0.875F);
-                        break;
-                    case 3:
+                } else if (meta==3) {
                         this.setBlockBounds(0.8125F, 0, 0.125F, 0.9375F, 0.9375F, 0.875F);
-                        break;
                 }
-                break;
-            case WOODEN_CROSS:
-            case SANDSTONE_CROSS:
-            case STONE_CROSS:
-            case MOSSY_CROSS:
-            case IRON_CROSS:
-            case GOLDEN_CROSS:
-            case DIAMOND_CROSS:
-            case EMERALD_CROSS:
-            case LAPIS_CROSS:
-            case REDSTONE_CROSS:
-            case OBSIDIAN_CROSS:
-            case QUARTZ_CROSS:
-            case ICE_CROSS:
-                switch (meta) {
-                    case 0:
+        } else if (graveType==EnumGraves.WOODEN_CROSS || graveType==EnumGraves.SANDSTONE_CROSS || graveType==EnumGraves.STONE_CROSS || graveType==EnumGraves.MOSSY_CROSS || graveType==EnumGraves.IRON_CROSS || graveType==EnumGraves.GOLDEN_CROSS || graveType==EnumGraves.DIAMOND_CROSS || graveType==EnumGraves.EMERALD_CROSS || graveType==EnumGraves.LAPIS_CROSS || graveType==EnumGraves.REDSTONE_CROSS || graveType==EnumGraves.OBSIDIAN_CROSS || graveType==EnumGraves.QUARTZ_CROSS || graveType==EnumGraves.ICE_CROSS) {
+                if (meta==0) {
                         this.setBlockBounds(0.125F, 0, 0.0625F, 0.875F, 1, 0.1875F);
-                        break;
-                    case 1:
+                } else if (meta==1) {
                         this.setBlockBounds(0.125F, 0, 0.8125F, 0.875F, 1, 0.9375F);
-                        break;
-                    case 2:
+                } else if (meta==2) {
                         this.setBlockBounds(0.0625F, 0, 0.125F, 0.1875F, 1, 0.875F);
-                        break;
-                    case 3:
+                } else if (meta==3) {
                         this.setBlockBounds(0.8125F, 0, 0.125F, 0.9375F, 1, 0.875F);
-                        break;
                 }
-                break;
-            case WOODEN_HORISONTAL_PLATE:
-            case SANDSTONE_HORISONTAL_PLATE:
-            case STONE_HORISONTAL_PLATE:
-            case MOSSY_HORISONTAL_PLATE:
-            case IRON_HORISONTAL_PLATE:
-            case GOLDEN_HORISONTAL_PLATE:
-            case DIAMOND_HORISONTAL_PLATE:
-            case EMERALD_HORISONTAL_PLATE:
-            case LAPIS_HORISONTAL_PLATE:
-            case REDSTONE_HORISONTAL_PLATE:
-            case OBSIDIAN_HORISONTAL_PLATE:
-            case QUARTZ_HORISONTAL_PLATE:
-            case ICE_HORISONTAL_PLATE:
-                switch (meta) {
-                    case 0:
-                        //this.setBlockBounds(0.09375F, 0, 0.0625F, 0.90625F, 0.0625F, 0.9375F);
-                        //break;
-                    case 1:
+        } else if (graveType==EnumGraves.WOODEN_HORISONTAL_PLATE || graveType==EnumGraves.SANDSTONE_HORISONTAL_PLATE || graveType==EnumGraves.STONE_HORISONTAL_PLATE || graveType==EnumGraves.MOSSY_HORISONTAL_PLATE || graveType==EnumGraves.IRON_HORISONTAL_PLATE || graveType==EnumGraves.GOLDEN_HORISONTAL_PLATE || graveType==EnumGraves.DIAMOND_HORISONTAL_PLATE || graveType==EnumGraves.EMERALD_HORISONTAL_PLATE || graveType==EnumGraves.LAPIS_HORISONTAL_PLATE || graveType==EnumGraves.REDSTONE_HORISONTAL_PLATE || graveType==EnumGraves.OBSIDIAN_HORISONTAL_PLATE || graveType==EnumGraves.QUARTZ_HORISONTAL_PLATE || graveType==EnumGraves.ICE_HORISONTAL_PLATE) {
+                if (meta==0 || meta==1) {
                         this.setBlockBounds(0.09375F, 0, 0.0625F, 0.90625F, 0.0625F, 0.9375F);
-                        break;
-                    case 2:
-                        //this.setBlockBounds(0.0625F, 0, 0.09375F, 0.9375F, 0.0625F, 0.90625F);
-                        //break;
-                    case 3:
+                } else if (meta==2 || meta==3) {
                         this.setBlockBounds(0.0625F, 0, 0.09375F, 0.9375F, 0.0625F, 0.90625F);
-                        break;
                 }
-                break;
-            case WOODEN_DOG_STATUE:
-            case SANDSTONE_DOG_STATUE:
-            case STONE_DOG_STATUE:
-            case MOSSY_DOG_STATUE:
-            case IRON_DOG_STATUE:
-            case GOLDEN_DOG_STATUE:
-            case DIAMOND_DOG_STATUE:
-            case EMERALD_DOG_STATUE:
-            case LAPIS_DOG_STATUE:
-            case REDSTONE_DOG_STATUE:
-            case OBSIDIAN_DOG_STATUE:
-            case QUARTZ_DOG_STATUE:
-            case ICE_DOG_STATUE:
-                switch (meta) {
-                    case 0:
+        } else if (graveType==EnumGraves.WOODEN_DOG_STATUE || graveType==EnumGraves.SANDSTONE_DOG_STATUE || graveType==EnumGraves.STONE_DOG_STATUE || graveType==EnumGraves.MOSSY_DOG_STATUE || graveType==EnumGraves.IRON_DOG_STATUE || graveType==EnumGraves.GOLDEN_DOG_STATUE || graveType==EnumGraves.DIAMOND_DOG_STATUE || graveType==EnumGraves.EMERALD_DOG_STATUE || graveType==EnumGraves.LAPIS_DOG_STATUE || graveType==EnumGraves.REDSTONE_DOG_STATUE || graveType==EnumGraves.OBSIDIAN_DOG_STATUE || graveType==EnumGraves.QUARTZ_DOG_STATUE || graveType==EnumGraves.ICE_DOG_STATUE) {
+                if (meta==0) {
                         this.setBlockBounds(0.35F, 0, 0.3F, 0.6F, 0.5F, 0.9F);
-                        break;
-                    case 1:
+                } else if (meta==1) {
                         this.setBlockBounds(0.35F, 0, 0.7F, 0.6F, 0.5F, 0.1F);
-                        break;
-                    case 2:
+                } else if (meta==2) {
                         this.setBlockBounds(0.3F, 0, 0.35F, 0.9F, 0.5F, 0.6F);
-                        break;
-                    case 3:
+                } else if (meta==3) {
                         this.setBlockBounds(0.7F, 0, 0.35F, 0.1F, 0.5F, 0.6F);
-                        break;
                 }
-                break;
-            case WOODEN_CAT_STATUE:
-            case SANDSTONE_CAT_STATUE:
-            case STONE_CAT_STATUE:
-            case MOSSY_CAT_STATUE:
-            case IRON_CAT_STATUE:
-            case GOLDEN_CAT_STATUE:
-            case DIAMOND_CAT_STATUE:
-            case EMERALD_CAT_STATUE:
-            case LAPIS_CAT_STATUE:
-            case REDSTONE_CAT_STATUE:
-            case OBSIDIAN_CAT_STATUE:
-            case QUARTZ_CAT_STATUE:
-            case ICE_CAT_STATUE:
-                switch (meta) {
-                    case 0:
+        } else if (graveType==EnumGraves.WOODEN_CAT_STATUE || graveType==EnumGraves.SANDSTONE_CAT_STATUE || graveType==EnumGraves.STONE_CAT_STATUE) {
+        } else if (graveType==EnumGraves.MOSSY_CAT_STATUE || graveType==EnumGraves.IRON_CAT_STATUE || graveType==EnumGraves.GOLDEN_CAT_STATUE || graveType==EnumGraves.DIAMOND_CAT_STATUE || graveType==EnumGraves.EMERALD_CAT_STATUE || graveType==EnumGraves.LAPIS_CAT_STATUE || graveType==EnumGraves.REDSTONE_CAT_STATUE || graveType==EnumGraves.OBSIDIAN_CAT_STATUE || graveType==EnumGraves.QUARTZ_CAT_STATUE || graveType==EnumGraves.ICE_CAT_STATUE) {
+                if (meta==0) {
                         this.setBlockBounds(0.43F, 0, 0.3F, 0.57F, 0.5F, 0.75F);
-                        break;
-                    case 1:
+                } else if (meta==1) {
                         this.setBlockBounds(0.43F, 0, 0.7F, 0.57F, 0.5F, 0.25F);
-                        break;
-                    case 2:
+                } else if (meta==2) {
                         this.setBlockBounds(0.3F, 0, 0.43F, 0.75F, 0.5F, 0.57F);
-                        break;
-                    case 3:
+                } else if (meta==3) {
                         this.setBlockBounds(0.7F, 0, 0.43F, 0.25F, 0.5F, 0.57F);
-                        break;
                 }
-                break;
-            case SWORD:
-                switch (meta) {
-                    case 0:
-                    case 1:
+        } else if (graveType==EnumGraves.SWORD) {
+                if (meta==0 || meta==1) {
                         this.setBlockBounds(0.375F, 0, 0.4375F, 0.625F, 0.9F, 0.5625F);
-                        break;
-                    case 2:
-                    case 3:
+                } else if (meta==2 || meta==3) {
                         this.setBlockBounds(0.4375F, 0, 0.375F, 0.5625F, 0.9F, 0.625F);
-                        break;
                 }
-                break;
-            case WOODEN_HORSE_STATUE:
-            case SANDSTONE_HORSE_STATUE:
-            case STONE_HORSE_STATUE:
-            case MOSSY_HORSE_STATUE:
-            case IRON_HORSE_STATUE:
-            case GOLDEN_HORSE_STATUE:
-            case DIAMOND_HORSE_STATUE:
-            case EMERALD_HORSE_STATUE:
-            case LAPIS_HORSE_STATUE:
-            case REDSTONE_HORSE_STATUE:
-            case OBSIDIAN_HORSE_STATUE:
-            case QUARTZ_HORSE_STATUE:
-            case ICE_HORSE_STATUE:
-                switch (meta) {
-                    case 0:
-                    case 1:
+        } else if (graveType==EnumGraves.WOODEN_HORSE_STATUE || graveType==EnumGraves.SANDSTONE_HORSE_STATUE || graveType==EnumGraves.STONE_HORSE_STATUE || graveType==EnumGraves.MOSSY_HORSE_STATUE || graveType==EnumGraves.IRON_HORSE_STATUE || graveType==EnumGraves.GOLDEN_HORSE_STATUE || graveType==EnumGraves.DIAMOND_HORSE_STATUE || graveType==EnumGraves.EMERALD_HORSE_STATUE || graveType==EnumGraves.LAPIS_HORSE_STATUE || graveType==EnumGraves.REDSTONE_HORSE_STATUE || graveType==EnumGraves.OBSIDIAN_HORSE_STATUE || graveType==EnumGraves.QUARTZ_HORSE_STATUE || graveType==EnumGraves.ICE_HORSE_STATUE) {
+                if (meta==0 || meta==1) {
                         this.setBlockBounds(0.375F, 0, 0.275F, 0.625F, 0.85F, 0.725F);
-                        break;
-                    case 2:
-                    case 3:
+                } else if (meta==2 || meta==3) {
                         this.setBlockBounds(0.275F, 0, 0.375F, 0.725F, 0.85F, 0.625F);
-                        break;
                 }
-                break;
 
         }
     }
@@ -480,7 +362,7 @@ public class BlockGSGraveStone extends BlockContainer {
 
     @Override
     public float getExplosionResistance(Entity par1Entity) {
-        return 18000000F;
+        return 60F;//18000000F
     }
 
     /**
@@ -490,6 +372,7 @@ public class BlockGSGraveStone extends BlockContainer {
      */
     @Override
     public void onBlockExploded(World world, int x, int y, int z, Explosion explosion) {
+        if (rand.nextInt(100)==0) GraveStoneHelper.spawnMob(world, x, y, z);
     }
 
     @Override
@@ -629,7 +512,7 @@ public class BlockGSGraveStone extends BlockContainer {
         for (Item sword : GraveStoneHelper.swordsList) {
             try {
                 ItemStack swordStack = new ItemStack(sword, 1);
-                EnchantmentHelper.addRandomEnchantment(new XSTR(), swordStack, 5);
+                EnchantmentHelper.addRandomEnchantment(new XSTR(new XSTR().getSeed()*(new GeneratorEntropy().getSeed())), swordStack, 5);
 
                 ItemStack graveStoneStack = GraveStoneHelper.getSwordAsGrave(gravestone, swordStack);
 
@@ -717,8 +600,7 @@ public class BlockGSGraveStone extends BlockContainer {
         }
 
         // TODO
-        switch (entityType) {
-            case PLAYER_GRAVES:
+        if (entityType==EnumGraveType.PLAYER_GRAVES) {
                 graveType = GraveStoneHelper.getRandomGrave(GraveStoneHelper.getPlayerGraveForLevel(entity), rand);
                 if (graveType == 0) {
                     if (sword == null) {
@@ -730,25 +612,21 @@ public class BlockGSGraveStone extends BlockContainer {
                         graveType = (byte) EnumGraves.SWORD.ordinal();
                     }
                 }
-                break;
-            case DOGS_GRAVES:
+        } else if (entityType==EnumGraveType.DOGS_GRAVES) {
                 graveType = GraveStoneHelper.getRandomGrave(GraveStoneHelper.getDogGraveForDeath(damageSource, damageSource.damageType), rand);
                 if (graveType == 0) {
                     graveType = GraveStoneHelper.getRandomGrave(GraveStoneHelper.getDogGraveTypes(world, x, z), rand);
                 }
-                break;
-            case CATS_GRAVES:
+        } else if (entityType==EnumGraveType.CATS_GRAVES) {
                 graveType = GraveStoneHelper.getRandomGrave(GraveStoneHelper.getCatGraveForDeath(damageSource, damageSource.damageType), rand);
                 if (graveType == 0) {
                     graveType = GraveStoneHelper.getRandomGrave(GraveStoneHelper.getCatGraveTypes(world, x, z), rand);
                 }
-                break;
-            case HORSE_GRAVES:
+        } else if (entityType==EnumGraveType.HORSE_GRAVES) {
                 graveType = GraveStoneHelper.getRandomGrave(GraveStoneHelper.getHorseGraveForDeath(damageSource, damageSource.damageType), rand);
                 if (graveType == 0) {
                     graveType = GraveStoneHelper.getRandomGrave(GraveStoneHelper.getHorseGraveTypes(world, x, z), rand);
                 }
-                break;
         }
 
         boolean isMagic = GraveStoneHelper.isMagicDamage(damageSource, damageSource.damageType);
@@ -846,6 +724,18 @@ public class BlockGSGraveStone extends BlockContainer {
                 }
             }
         }
+    }
+
+    @Override
+    public int tickRate(World p_149738_1_)
+    {
+        return 20;
+    }
+
+    @Override
+    public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target)
+    {
+        return true;
     }
 
     public enum EnumGraveType {

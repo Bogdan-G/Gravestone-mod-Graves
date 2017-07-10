@@ -13,6 +13,7 @@ import gravestone.tileentity.DeathMessageInfo;
 import gravestone.tileentity.TileEntityGSGraveStone;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
@@ -284,24 +285,22 @@ public class GraveStoneHelper {
      */
     public static byte getGraveType(World world, int x, int z, Random random, BlockGSGraveStone.EnumGraveType graveType) {
         ArrayList<EnumGraves> petsGravesList;
-        switch (graveType) {
-            case PLAYER_GRAVES:
+        if (graveType==BlockGSGraveStone.EnumGraveType.PLAYER_GRAVES) {
                 if (random.nextFloat() > 0.1) {
                     return getRandomGrave(getPlayerGraveTypes(world, x, z), random);
                 } else {
                     return (byte) EnumGraves.SWORD.ordinal();
                 }
-            case PETS_GRAVES:
+        } else if (graveType==BlockGSGraveStone.EnumGraveType.PETS_GRAVES) {
                 petsGravesList = new ArrayList<EnumGraves>();
                 petsGravesList.addAll(getDogGraveTypes(world, x, z));
                 petsGravesList.addAll(getCatGraveTypes(world, x, z));
                 return getRandomGrave(petsGravesList, random);
-            case DOGS_GRAVES:
+        } else if (graveType==BlockGSGraveStone.EnumGraveType.DOGS_GRAVES) {
                 return getRandomGrave(getDogGraveTypes(world, x, z), random);
-            case CATS_GRAVES:
+        } else if (graveType==BlockGSGraveStone.EnumGraveType.CATS_GRAVES) {
                 return getRandomGrave(getCatGraveTypes(world, x, z), random);
-            case ALL_GRAVES:
-            default:
+        } else {//ALL_GRAVES
                 if (random.nextFloat() > 0.2) {
                     if (random.nextFloat() > 0.1) {
                         return getRandomGrave(getPlayerGraveTypes(world, x, z), random);
@@ -321,16 +320,13 @@ public class GraveStoneHelper {
      * Return grave metadata by direction
      */
     public static int getMetaDirection(int direction) {
-        switch (direction) {
-            case 0: // S
+        if (direction==0) { // S
                 return 1;
-            case 1: // W
+        } else if (direction==1) { // W
                 return 2;
-            case 3: // E
+        } else if (direction==3) { // E
                 return 3;
-            case 2: // N
-                //return 0;
-            default:
+        } else {//direction==2 // N
                 return 0;
         }
     }
@@ -492,16 +488,21 @@ public class GraveStoneHelper {
     }
 
     private static int getGround(World world, int x, int y, int z) {
-        while ((world.isAirBlock(x, y - 1, z) || world.getBlock(x, y - 1, z).getMaterial().isLiquid() ||
-                world.getBlock(x, y - 1, z).getMaterial().isReplaceable()) && y > 1) {
+        Material mblock = world.getBlock(x, y - 1, z).getMaterial();//it expensive
+        while ((mblock==Material.air || mblock.isLiquid() || mblock.isReplaceable())) {
             y--;
+            if (y < 1) break;
+            mblock = world.getBlock(x, y - 1, z).getMaterial();
         }
         return y;
     }
 
     private static boolean canGenerateGraveAtCoordinates(World world, int x, int y, int z) {
-        return world.getBlock(x, y - 1, z).getMaterial().isSolid() &&
-                (world.isAirBlock(x, y, z) || world.getBlock(x, y, z).getMaterial().isLiquid() || world.getBlock(x, y, z).getMaterial().isReplaceable());
+        if (world.getBlock(x, y - 1, z).getMaterial().isSolid()) {
+            Material mblock = world.getBlock(x, y, z).getMaterial();//it expensive
+            return (mblock==Material.air || mblock.isLiquid() || mblock.isReplaceable());
+        }
+        return false;
     }
 
     public static void createPlayerGrave(EntityPlayer player, LivingDeathEvent event, long spawnTime) {
@@ -707,7 +708,7 @@ public class GraveStoneHelper {
     public static ArrayList<EnumGraves> getPlayerGraveTypes(World world, int x, int z) {
         BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
 
-        ArrayList<BiomeDictionary.Type> biomeTypesList = new ArrayList<BiomeDictionary.Type>(Arrays.asList(BiomeDictionary.getTypesForBiome(biome)));
+        EnumSet<BiomeDictionary.Type> biomeTypesList = EnumSet.copyOf((Collection<BiomeDictionary.Type>)Arrays.asList(BiomeDictionary.getTypesForBiome(biome)));
         ArrayList<EnumGraves> graveTypes = new ArrayList<EnumGraves>();
 
         if (biomeTypesList.contains(BiomeDictionary.Type.SANDY) || biomeTypesList.contains(BiomeDictionary.Type.BEACH)) {
@@ -750,7 +751,7 @@ public class GraveStoneHelper {
     public static ArrayList<EnumGraves> getDogGraveTypes(World world, int x, int z) {
         BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
 
-        ArrayList<BiomeDictionary.Type> biomeTypesList = new ArrayList<BiomeDictionary.Type>(Arrays.asList(BiomeDictionary.getTypesForBiome(biome)));
+        EnumSet<BiomeDictionary.Type> biomeTypesList = EnumSet.copyOf((Collection<BiomeDictionary.Type>)Arrays.asList(BiomeDictionary.getTypesForBiome(biome)));
         ArrayList<EnumGraves> graveTypes = new ArrayList<EnumGraves>();
 
         if (biomeTypesList.contains(BiomeDictionary.Type.SANDY) || biomeTypesList.contains(BiomeDictionary.Type.BEACH)) {
@@ -793,7 +794,7 @@ public class GraveStoneHelper {
     public static ArrayList<EnumGraves> getCatGraveTypes(World world, int x, int z) {
         BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
 
-        ArrayList<BiomeDictionary.Type> biomeTypesList = new ArrayList<BiomeDictionary.Type>(Arrays.asList(BiomeDictionary.getTypesForBiome(biome)));
+        EnumSet<BiomeDictionary.Type> biomeTypesList = EnumSet.copyOf((Collection<BiomeDictionary.Type>)Arrays.asList(BiomeDictionary.getTypesForBiome(biome)));
         ArrayList<EnumGraves> graveTypes = new ArrayList<EnumGraves>();
 
         if (biomeTypesList.contains(BiomeDictionary.Type.SANDY) || biomeTypesList.contains(BiomeDictionary.Type.BEACH)) {
@@ -835,7 +836,7 @@ public class GraveStoneHelper {
     public static ArrayList<EnumGraves> getHorseGraveTypes(World world, int x, int z) {
         BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
 
-        ArrayList<BiomeDictionary.Type> biomeTypesList = new ArrayList<BiomeDictionary.Type>(Arrays.asList(BiomeDictionary.getTypesForBiome(biome)));
+        EnumSet<BiomeDictionary.Type> biomeTypesList = EnumSet.copyOf((Collection<BiomeDictionary.Type>)Arrays.asList(BiomeDictionary.getTypesForBiome(biome)));
         ArrayList<EnumGraves> graveTypes = new ArrayList<EnumGraves>();
 
         if (biomeTypesList.contains(BiomeDictionary.Type.SANDY) || biomeTypesList.contains(BiomeDictionary.Type.BEACH)) {

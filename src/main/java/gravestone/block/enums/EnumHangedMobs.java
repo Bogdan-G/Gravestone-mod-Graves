@@ -18,9 +18,11 @@ public enum EnumHangedMobs {
     ZOMBIE_PIGMAN;
 
     public static EnumHangedMobs getByID(int id) {
-        if (id < values().length) {
-            return values()[id];
+        if (id < VALUES.length) {
+            return VALUES[id];
         }
         return NONE;
     }
+
+    public static final EnumHangedMobs[] VALUES = values();
 }

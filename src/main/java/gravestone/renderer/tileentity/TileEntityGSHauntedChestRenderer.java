@@ -62,20 +62,10 @@ public class TileEntityGSHauntedChestRenderer extends TileEntitySpecialRenderer 
         GL11.glTranslatef(0.5F, 0.5F, 0.5F);
         float direction = 0;
 
-        switch (metadata) {
-            case 2:
-                direction = 180;
-                break;
-            case 3:
-                direction = 0;
-                break;
-            case 4:
-                direction = 90;
-                break;
-            case 5:
-                direction = -90;
-                break;
-        }
+        if (metadata==2) direction = 180;
+        else if (metadata==3) direction = 0;
+        else if (metadata==4) direction = 90;
+        else if (metadata==5) direction = -90;
 
         GL11.glRotatef(direction, 0.0F, 1.0F, 0.0F);
         GL11.glTranslatef(-0.5F, -0.5F, -0.5F);

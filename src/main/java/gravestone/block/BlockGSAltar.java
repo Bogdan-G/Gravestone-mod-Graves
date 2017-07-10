@@ -123,4 +123,10 @@ public class BlockGSAltar extends BlockContainer {
 
         super.breakBlock(world, x, y, z, block, par6);
     }
+
+    @Override
+    public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target)
+    {
+        return true;
+    }
 }

@@ -14,6 +14,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -21,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -64,11 +66,9 @@ public class BlockGSTrap extends Block {
      */
     @Override
     public IIcon getIcon(int side, int metadata) {
-        switch (metadata) {
-            case 1:
+        if (metadata==1) {
                 return thunderStoneIcon;
-            case 0:
-            default:
+        } else {//metadata==0
                 return blockIcon;
         }
     }
@@ -78,11 +78,9 @@ public class BlockGSTrap extends Block {
      */
     @Override
     public Item getItemDropped(int par1, Random random, int metadata) {
-        switch (metadata) {
-            case 1:
+        if (metadata==1) {
                 return Item.getItemFromBlock(Blocks.stonebrick);
-            case 0:
-            default:
+        } else {//metadata==0
                 return Item.getItemFromBlock(Blocks.nether_brick);
         }
     }
@@ -148,8 +146,20 @@ public class BlockGSTrap extends Block {
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item item, CreativeTabs tab, List list) {
-        for (byte meta = 0; meta < EnumTrap.values().length; meta++) {
+        for (byte meta = 0; meta < EnumTrap.VALUES.length; meta++) {
             list.add(new ItemStack(item, 1, meta));
         }
+    }
+
+    @Override
+    public int tickRate(World p_149738_1_)
+    {
+        return 20;
+    }
+
+    @Override
+    public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target)
+    {
+        return true;
     }
 }

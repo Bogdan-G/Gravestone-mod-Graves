@@ -66,7 +66,7 @@ import java.util.Random;
  /**
  * TLR - ThreadLocalRandom
  * Modified by Bogdan-G
- * 30.05.2016
+ * 05.06.2017
  */
 public class TLR extends Random {
     // same constants as Random, but must be redeclared because private
@@ -139,6 +139,10 @@ public class TLR extends Random {
         //if (initialized)
             //throw new UnsupportedOperationException();
         rnd = (seed ^ multiplier) & mask;
+    }
+
+    public long getSeed() {
+        return rnd;
     }
 
     protected int next(int bits) {
@@ -257,7 +261,7 @@ public class TLR extends Random {
             s = v1 * v1 + v2 * v2;
         } while (s >= 1 || s == 0);
         double multiplier = StrictMath.sqrt(-2 * StrictMath.log(s)/s);
-        nextLocalGaussian.set(new Double(v2 * multiplier));
+        nextLocalGaussian.set(Double.valueOf(v2 * multiplier));
         return v1 * multiplier;
     }
 
@@ -282,5 +286,5 @@ public class TLR extends Random {
         return next(32);
     }
 
-    private static final long serialVersionUID = -5851777807851030925L;
+    private static final long serialVersionUID = -5851777997851030925L;
 }

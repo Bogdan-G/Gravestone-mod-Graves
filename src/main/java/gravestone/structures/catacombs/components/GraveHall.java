@@ -51,20 +51,20 @@ public class GraveHall extends CatacombsBaseComponent {
         }
 
         // nether floor
-        this.fillWithBlocks(world, boundingBox, 1, 0, 1, 1, 0, 17, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 15, 0, 1, 15, 0, 17, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 5, 0, 3, 5, 0, 15, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 11, 0, 3, 11, 0, 15, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 1, 0, 1, 1, 0, 17, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 15, 0, 1, 15, 0, 17, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 5, 0, 3, 5, 0, 15, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 11, 0, 3, 11, 0, 15, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
         // nether floor lines
-        this.fillWithBlocks(world, boundingBox, 2, 0, 1, 14, 0, 1, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 2, 0, 6, 14, 0, 6, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 2, 0, 12, 14, 0, 12, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 2, 0, 17, 14, 0, 17, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 2, 0, 1, 14, 0, 1, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 2, 0, 6, 14, 0, 6, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 2, 0, 12, 14, 0, 12, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 2, 0, 17, 14, 0, 17, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
         // floor entrance
-        this.fillWithBlocks(world, boundingBox, 5, 0, 0, 11, 0, 2, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 5, 0, 16, 11, 0, 18, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 5, 0, 0, 11, 0, 2, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 5, 0, 16, 11, 0, 18, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
         // block foolr
         this.fillWithRandomizedBlocks(world, boundingBox, 2, 0, 2, 4, 0, 5, false, random, getCemeteryCatacombsStones());
@@ -78,20 +78,20 @@ public class GraveHall extends CatacombsBaseComponent {
         this.fillWithRandomizedBlocks(world, boundingBox, 12, 0, 13, 14, 0, 16, false, random, getCemeteryCatacombsStones());
 
         // nether ceiling
-        this.fillWithBlocks(world, boundingBox, 1, 6, 1, 1, 6, 17, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 15, 6, 1, 15, 6, 17, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 5, 6, 3, 5, 6, 15, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 11, 6, 3, 11, 6, 15, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 1, 6, 1, 1, 6, 17, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 15, 6, 1, 15, 6, 17, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 5, 6, 3, 5, 6, 15, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 11, 6, 3, 11, 6, 15, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
         // nether ceiling lines
-        this.fillWithBlocks(world, boundingBox, 2, 6, 1, 14, 6, 1, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 2, 6, 6, 14, 6, 6, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 2, 6, 12, 14, 6, 12, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 2, 6, 17, 14, 6, 17, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 2, 6, 1, 14, 6, 1, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 2, 6, 6, 14, 6, 6, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 2, 6, 12, 14, 6, 12, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 2, 6, 17, 14, 6, 17, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
         // ceiling entrance
-        this.fillWithBlocks(world, boundingBox, 5, 4, 0, 11, 6, 2, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 5, 4, 16, 11, 6, 18, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 5, 4, 0, 11, 6, 2, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 5, 4, 16, 11, 6, 18, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
         // block ceiling
         this.fillWithRandomizedBlocks(world, boundingBox, 2, 6, 2, 4, 6, 5, false, random, getCemeteryCatacombsStones());
@@ -105,28 +105,28 @@ public class GraveHall extends CatacombsBaseComponent {
         this.fillWithRandomizedBlocks(world, boundingBox, 12, 6, 13, 14, 6, 16, false, random, getCemeteryCatacombsStones());
 
         // nether walls
-        this.fillWithBlocks(world, boundingBox, 1, 1, 1, 1, 5, 1, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 15, 1, 1, 15, 5, 1, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 1, 1, 6, 1, 5, 6, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 15, 1, 6, 15, 5, 6, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 1, 1, 12, 1, 5, 12, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 15, 1, 12, 15, 5, 12, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 1, 1, 17, 1, 5, 17, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 15, 1, 17, 15, 5, 17, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 1, 1, 1, 1, 5, 1, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 15, 1, 1, 15, 5, 1, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 1, 1, 6, 1, 5, 6, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 15, 1, 6, 15, 5, 6, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 1, 1, 12, 1, 5, 12, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 15, 1, 12, 15, 5, 12, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 1, 1, 17, 1, 5, 17, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 15, 1, 17, 15, 5, 17, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
         // nether walls lines
-        this.fillWithBlocks(world, boundingBox, 1, 3, 1, 1, 3, 17, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 15, 3, 1, 15, 3, 17, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 2, 3, 1, 4, 3, 1, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 12, 3, 1, 14, 3, 1, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 2, 3, 17, 4, 3, 17, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 12, 3, 17, 14, 3, 17, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 1, 3, 1, 1, 3, 17, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 15, 3, 1, 15, 3, 17, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 2, 3, 1, 4, 3, 1, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 12, 3, 1, 14, 3, 1, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 2, 3, 17, 4, 3, 17, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 12, 3, 17, 14, 3, 17, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
         // nether wall entrance
-        this.fillWithBlocks(world, boundingBox, 5, 1, 0, 6, 3, 2, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 10, 1, 0, 11, 3, 2, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 5, 1, 16, 6, 3, 18, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 10, 1, 16, 11, 3, 18, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 5, 1, 0, 6, 3, 2, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 10, 1, 0, 11, 3, 2, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 5, 1, 16, 6, 3, 18, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 10, 1, 16, 11, 3, 18, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
         // block walls
         this.fillWithRandomizedBlocks(world, boundingBox, 0, 0, 0, 0, 6, 18, false, random, getCemeteryCatacombsStones());
@@ -214,30 +214,30 @@ public class GraveHall extends CatacombsBaseComponent {
     }
 
     private void buildColumn(World world, int x, int z) {
-        this.fillWithBlocks(world, boundingBox, x, 1, z, x, 5, z, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, x, 1, z, x, 5, z, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
         int metaTop = this.getMetadataWithOffset(Blocks.nether_brick_stairs, 2);
         int metaBot = this.getMetadataWithOffset(Blocks.nether_brick_stairs, 3);
         int metaRight = this.getMetadataWithOffset(Blocks.nether_brick_stairs, 1);
         int metaLeft = this.getMetadataWithOffset(Blocks.nether_brick_stairs, 0);
 
         // stairs
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaBot, x - 1, 1, z - 1, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaBot, x, 1, z - 1, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaBot, x + 1, 1, z - 1, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaLeft, x - 1, 1, z, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaRight, x + 1, 1, z, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaTop, x - 1, 1, z + 1, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaTop, x, 1, z + 1, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaTop, x + 1, 1, z + 1, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaBot, x - 1, 1, z - 1, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaBot, x, 1, z - 1, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaBot, x + 1, 1, z - 1, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaLeft, x - 1, 1, z, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaRight, x + 1, 1, z, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaTop, x - 1, 1, z + 1, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaTop, x, 1, z + 1, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaTop, x + 1, 1, z + 1, boundingBox);
 
         // stairs top
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaBot + 4, x - 1, 5, z - 1, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaBot + 4, x, 5, z - 1, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaBot + 4, x + 1, 5, z - 1, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaLeft + 4, x - 1, 5, z, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaRight + 4, x + 1, 5, z, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaTop + 4, x - 1, 5, z + 1, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaTop + 4, x, 5, z + 1, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.nether_brick_stairs, metaTop + 4, x + 1, 5, z + 1, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaBot + 4, x - 1, 5, z - 1, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaBot + 4, x, 5, z - 1, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaBot + 4, x + 1, 5, z - 1, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaLeft + 4, x - 1, 5, z, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaRight + 4, x + 1, 5, z, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaTop + 4, x - 1, 5, z + 1, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaTop + 4, x, 5, z + 1, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.nsbs, metaTop + 4, x + 1, 5, z + 1, boundingBox);
     }
 }

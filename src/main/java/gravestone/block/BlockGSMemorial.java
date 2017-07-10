@@ -38,7 +38,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 
 import java.util.*;
-import org.bogdang.modifications.random.XSTR;
+import org.bogdang.modifications.random.*;
 
 /**
  * GraveStone mod
@@ -292,17 +292,14 @@ public class BlockGSMemorial extends BlockContainer {
      * Return memorial metadata by direction
      */
     public static int getMetaDirection(int direction) {
-        switch (direction) {
-            case 0: // S
+        if (direction==0) { // S
                 return 1;
-            case 1: // W
+        } else if (direction==1) { // W
                 return 2;
-            case 2: // N
-                return 0;
-            case 3: // E
+        } else if (direction==3) { // E
                 return 3;
-            default:
-                return 0;
+        } else {
+                return 0;// N
         }
     }
 
@@ -313,20 +310,18 @@ public class BlockGSMemorial extends BlockContainer {
      * only statues memorials(steve, villager, angel)
      */
     public static byte getMemorialType(World world, int x, int z, Random random, int memorialType) {
-        switch (memorialType) {
-            default:
-            case 0:
-                return getRandomMemorial(getGeneratedMemorialsTypes(world, x, z), random);
-            case 1:
+        if (memorialType==1) {
                 return getRandomMemorial(getPetsMemorialsTypes(world, x, z), random);
-            case 2:
+        } else if (memorialType==2) {
                 return getRandomMemorial(getDogsMemorialsTypes(world, x, z), random);
-            case 3:
+        } else if (memorialType==3) {
                 return getRandomMemorial(getCatsMemorialsTypes(world, x, z), random);
-            case 4:
+        } else if (memorialType==4) {
                 return getRandomMemorial(getCreeperMemorialsTypes(world, x, z), random);
-            case 5:
+        } else if (memorialType==5) {
                 return getRandomMemorial(getStatuesMemorialsTypes(world, x, z), random);
+        } else {
+                return getRandomMemorial(getGeneratedMemorialsTypes(world, x, z), random);//memorialType==0
         }
     }
 
@@ -341,27 +336,44 @@ public class BlockGSMemorial extends BlockContainer {
     public static ArrayList<EnumMemorials> getGeneratedMemorialsTypes(World world, int x, int z) {
         BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
 
-        ArrayList<BiomeDictionary.Type> biomeTypesList = new ArrayList<BiomeDictionary.Type>(Arrays.asList(BiomeDictionary.getTypesForBiome(biome)));
+        BiomeDictionary.Type[] array = BiomeDictionary.getTypesForBiome(biome);
         ArrayList<EnumMemorials> memorialTypes = new ArrayList<EnumMemorials>();
 
-        if (biomeTypesList.contains(BiomeDictionary.Type.DESERT) || biomeTypesList.contains(BiomeDictionary.Type.BEACH)) {
-            memorialTypes.addAll(Arrays.asList(SANDSTONE_GENERATED_MEMORIALS));
+        for (BiomeDictionary.Type object : array) {
+            if (object==BiomeDictionary.Type.DESERT || object==BiomeDictionary.Type.BEACH) {
+                memorialTypes.addAll(Arrays.asList(SANDSTONE_GENERATED_MEMORIALS));
+                break;
+            }
         }
-        if (biomeTypesList.contains(BiomeDictionary.Type.JUNGLE) || biomeTypesList.contains(BiomeDictionary.Type.SWAMP)) {
-            memorialTypes.addAll(Arrays.asList(MOSSY_GENERATED_MEMORIALS));
+        for (BiomeDictionary.Type object : array) {
+            if (object==BiomeDictionary.Type.JUNGLE || object==BiomeDictionary.Type.SWAMP) {
+                memorialTypes.addAll(Arrays.asList(MOSSY_GENERATED_MEMORIALS));
+                break;
+            }
         }
-        if (biomeTypesList.contains(BiomeDictionary.Type.MOUNTAIN) || biomeTypesList.contains(BiomeDictionary.Type.HILLS) ||
-                biomeTypesList.contains(BiomeDictionary.Type.PLAINS) || biomeTypesList.contains(BiomeDictionary.Type.MUSHROOM)) {
-            memorialTypes.addAll(Arrays.asList(STONE_GENERATED_MEMORIALS));
+        for (BiomeDictionary.Type object : array) {
+            if (object==BiomeDictionary.Type.MOUNTAIN || object==BiomeDictionary.Type.HILLS || object==BiomeDictionary.Type.PLAINS || object==BiomeDictionary.Type.MUSHROOM) {
+                memorialTypes.addAll(Arrays.asList(STONE_GENERATED_MEMORIALS));
+                break;
+            }
         }
-        if (biomeTypesList.contains(BiomeDictionary.Type.FOREST)) {
-            memorialTypes.addAll(Arrays.asList(WOODEN_GENERATED_MEMORIALS));
+        for (BiomeDictionary.Type object : array) {
+            if (object==BiomeDictionary.Type.FOREST) {
+                memorialTypes.addAll(Arrays.asList(WOODEN_GENERATED_MEMORIALS));
+                break;
+            }
         }
-        if (biomeTypesList.contains(BiomeDictionary.Type.FROZEN)) {
-            memorialTypes.addAll(Arrays.asList(ICE_GENERATED_MEMORIALS));
+        for (BiomeDictionary.Type object : array) {
+            if (object==BiomeDictionary.Type.FROZEN) {
+                memorialTypes.addAll(Arrays.asList(ICE_GENERATED_MEMORIALS));
+                break;
+            }
         }
-        if (biomeTypesList.contains(BiomeDictionary.Type.NETHER)) {
-            memorialTypes.addAll(Arrays.asList(QUARTZ_GENERATED_MEMORIALS));
+        for (BiomeDictionary.Type object : array) {
+            if (object==BiomeDictionary.Type.NETHER) {
+                memorialTypes.addAll(Arrays.asList(QUARTZ_GENERATED_MEMORIALS));
+                break;
+            }
         }
 
         // TODO
@@ -392,27 +404,52 @@ public class BlockGSMemorial extends BlockContainer {
     public static ArrayList<EnumMemorials> getDogsMemorialsTypes(World world, int x, int z) {
         BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
 
-        ArrayList<BiomeDictionary.Type> biomeTypesList = new ArrayList<BiomeDictionary.Type>(Arrays.asList(BiomeDictionary.getTypesForBiome(biome)));
+        BiomeDictionary.Type[] array = BiomeDictionary.getTypesForBiome(biome);
+        cpw.mods.fml.common.FMLLog.info("GraveStone info getDogsMemorialsTypes call");
+        cpw.mods.fml.common.FMLLog.info("GraveStone info getDogsMemorialsTypes - BiomeDictionary.Type[] array length: "+array.length);
         ArrayList<EnumMemorials> memorialTypes = new ArrayList<EnumMemorials>();
 
-        if (biomeTypesList.contains(BiomeDictionary.Type.SANDY) || biomeTypesList.contains(BiomeDictionary.Type.BEACH)) {
-            memorialTypes.addAll(Arrays.asList(SANDSTONE_DOG_MEMORIALS));
+        for (BiomeDictionary.Type object : array) {
+            if (object==BiomeDictionary.Type.SANDY || object==BiomeDictionary.Type.BEACH) {
+                memorialTypes.addAll(Arrays.asList(SANDSTONE_DOG_MEMORIALS));
+                break;
+            }
         }
-        if (biomeTypesList.contains(BiomeDictionary.Type.JUNGLE) || biomeTypesList.contains(BiomeDictionary.Type.SWAMP)) {
+        for (BiomeDictionary.Type object : array) {
+            if (object==BiomeDictionary.Type.JUNGLE || object==BiomeDictionary.Type.SWAMP) {
             memorialTypes.addAll(Arrays.asList(MOSSY_DOG_MEMORIALS));
+                break;
+            }
         }
-        if (biomeTypesList.contains(BiomeDictionary.Type.MOUNTAIN) || biomeTypesList.contains(BiomeDictionary.Type.HILLS) ||
-                biomeTypesList.contains(BiomeDictionary.Type.PLAINS) || biomeTypesList.contains(BiomeDictionary.Type.MUSHROOM)) {
+        for (BiomeDictionary.Type object : array) {
+            if (object==BiomeDictionary.Type.SANDY || object==BiomeDictionary.Type.BEACH) {
+                memorialTypes.addAll(Arrays.asList(SANDSTONE_DOG_MEMORIALS));
+                break;
+            }
+        }
+        for (BiomeDictionary.Type object : array) {
+            if (object==BiomeDictionary.Type.MOUNTAIN || object==BiomeDictionary.Type.HILLS || object==BiomeDictionary.Type.PLAINS || object==BiomeDictionary.Type.MUSHROOM) {
             memorialTypes.addAll(Arrays.asList(STONE_DOG_MEMORIALS));
+                break;
+            }
         }
-        if (biomeTypesList.contains(BiomeDictionary.Type.FOREST)) {
-            memorialTypes.addAll(Arrays.asList(WOODEN_DOG_MEMORIALS));
+        for (BiomeDictionary.Type object : array) {
+            if (object==BiomeDictionary.Type.FOREST) {
+                memorialTypes.addAll(Arrays.asList(WOODEN_DOG_MEMORIALS));
+                break;
+            }
         }
-        if (biomeTypesList.contains(BiomeDictionary.Type.SNOWY)) {
-            memorialTypes.addAll(Arrays.asList(ICE_DOG_MEMORIALS));
+        for (BiomeDictionary.Type object : array) {
+            if (object==BiomeDictionary.Type.SNOWY) {
+                memorialTypes.addAll(Arrays.asList(ICE_DOG_MEMORIALS));
+                break;
+            }
         }
-        if (biomeTypesList.contains(BiomeDictionary.Type.NETHER)) {
-            memorialTypes.addAll(Arrays.asList(QUARTZ_DOG_MEMORIALS));
+        for (BiomeDictionary.Type object : array) {
+            if (object==BiomeDictionary.Type.NETHER) {
+                memorialTypes.addAll(Arrays.asList(QUARTZ_DOG_MEMORIALS));
+                break;
+            }
         }
 
         // TODO
@@ -435,7 +472,7 @@ public class BlockGSMemorial extends BlockContainer {
     public static ArrayList<EnumMemorials> getCatsMemorialsTypes(World world, int x, int z) {
         BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
 
-        ArrayList<BiomeDictionary.Type> biomeTypesList = new ArrayList<BiomeDictionary.Type>(Arrays.asList(BiomeDictionary.getTypesForBiome(biome)));
+        EnumSet<BiomeDictionary.Type> biomeTypesList = EnumSet.copyOf((Collection<BiomeDictionary.Type>)Arrays.asList(BiomeDictionary.getTypesForBiome(biome)));
         ArrayList<EnumMemorials> memorialTypes = new ArrayList<EnumMemorials>();
 
         if (biomeTypesList.contains(BiomeDictionary.Type.SANDY) || biomeTypesList.contains(BiomeDictionary.Type.BEACH)) {
@@ -478,7 +515,7 @@ public class BlockGSMemorial extends BlockContainer {
     public static ArrayList<EnumMemorials> getCreeperMemorialsTypes(World world, int x, int z) {
         BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
 
-        ArrayList<BiomeDictionary.Type> biomeTypesList = new ArrayList<BiomeDictionary.Type>(Arrays.asList(BiomeDictionary.getTypesForBiome(biome)));
+        EnumSet<BiomeDictionary.Type> biomeTypesList = EnumSet.copyOf((Collection<BiomeDictionary.Type>)Arrays.asList(BiomeDictionary.getTypesForBiome(biome)));
         ArrayList<EnumMemorials> memorialTypes = new ArrayList<EnumMemorials>();
 
         if (biomeTypesList.contains(BiomeDictionary.Type.SANDY) || biomeTypesList.contains(BiomeDictionary.Type.BEACH)) {
@@ -521,7 +558,7 @@ public class BlockGSMemorial extends BlockContainer {
     public static ArrayList<EnumMemorials> getStatuesMemorialsTypes(World world, int x, int z) {
         BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
 
-        ArrayList<BiomeDictionary.Type> biomeTypesList = new ArrayList<BiomeDictionary.Type>(Arrays.asList(BiomeDictionary.getTypesForBiome(biome)));
+        EnumSet<BiomeDictionary.Type> biomeTypesList = EnumSet.copyOf((Collection<BiomeDictionary.Type>)Arrays.asList(BiomeDictionary.getTypesForBiome(biome)));
         ArrayList<EnumMemorials> memorialTypes = new ArrayList<EnumMemorials>();
 
         if (biomeTypesList.contains(BiomeDictionary.Type.SANDY) || biomeTypesList.contains(BiomeDictionary.Type.BEACH)) {
@@ -614,125 +651,24 @@ public class BlockGSMemorial extends BlockContainer {
             byte maxZ = 1;
             byte startX = 0;
             byte startZ = 0;
+            EnumMemorials memorialType = tileEntity.getMemorialType();
 
-            switch (tileEntity.getMemorialType()) {
-                case WOODEN_CROSS:
-                case SANDSTONE_CROSS:
-                case STONE_CROSS:
-                case MOSSY_CROSS:
-                case IRON_CROSS:
-                case GOLDEN_CROSS:
-                case DIAMOND_CROSS:
-                case EMERALD_CROSS:
-                case LAPIS_CROSS:
-                case REDSTONE_CROSS:
-                case OBSIDIAN_CROSS:
-                case QUARTZ_CROSS:
-                case ICE_CROSS:
-                case WOODEN_OBELISK:
-                case SANDSTONE_OBELISK:
-                case STONE_OBELISK:
-                case MOSSY_OBELISK:
-                case IRON_OBELISK:
-                case GOLDEN_OBELISK:
-                case DIAMOND_OBELISK:
-                case EMERALD_OBELISK:
-                case LAPIS_OBELISK:
-                case REDSTONE_OBELISK:
-                case OBSIDIAN_OBELISK:
-                case QUARTZ_OBELISK:
-                case ICE_OBELISK:
+            if (memorialType==EnumMemorials.WOODEN_CROSS || memorialType==EnumMemorials.SANDSTONE_CROSS || memorialType==EnumMemorials.STONE_CROSS || memorialType==EnumMemorials.MOSSY_CROSS || memorialType==EnumMemorials.IRON_CROSS || memorialType==EnumMemorials.GOLDEN_CROSS || memorialType==EnumMemorials.DIAMOND_CROSS || memorialType==EnumMemorials.EMERALD_CROSS || memorialType==EnumMemorials.LAPIS_CROSS || memorialType==EnumMemorials.REDSTONE_CROSS || memorialType==EnumMemorials.OBSIDIAN_CROSS || memorialType==EnumMemorials.QUARTZ_CROSS || memorialType==EnumMemorials.ICE_CROSS || memorialType==EnumMemorials.WOODEN_OBELISK || memorialType==EnumMemorials.SANDSTONE_OBELISK || memorialType==EnumMemorials.STONE_OBELISK || memorialType==EnumMemorials.MOSSY_OBELISK || memorialType==EnumMemorials.IRON_OBELISK || memorialType==EnumMemorials.GOLDEN_OBELISK || memorialType==EnumMemorials.DIAMOND_OBELISK || memorialType==EnumMemorials.EMERALD_OBELISK || memorialType==EnumMemorials.LAPIS_OBELISK || memorialType==EnumMemorials.REDSTONE_OBELISK || memorialType==EnumMemorials.OBSIDIAN_OBELISK || memorialType==EnumMemorials.QUARTZ_OBELISK || memorialType==EnumMemorials.ICE_OBELISK) {
                     maxY = 5;
                     maxX = 2;
                     maxZ = 2;
                     startX = -1;
                     startZ = -1;
-                    break;
-                case WOODEN_DOG_STATUE:
-                case WOODEN_CAT_STATUE:
-                case SANDSTONE_DOG_STATUE:
-                case SANDSTONE_CAT_STATUE:
-                case STONE_DOG_STATUE:
-                case STONE_CAT_STATUE:
-                case MOSSY_DOG_STATUE:
-                case MOSSY_CAT_STATUE:
-                case IRON_DOG_STATUE:
-                case IRON_CAT_STATUE:
-                case GOLDEN_DOG_STATUE:
-                case GOLDEN_CAT_STATUE:
-                case DIAMOND_DOG_STATUE:
-                case DIAMOND_CAT_STATUE:
-                case EMERALD_DOG_STATUE:
-                case EMERALD_CAT_STATUE:
-                case LAPIS_DOG_STATUE:
-                case LAPIS_CAT_STATUE:
-                case REDSTONE_DOG_STATUE:
-                case REDSTONE_CAT_STATUE:
-                case OBSIDIAN_DOG_STATUE:
-                case OBSIDIAN_CAT_STATUE:
-                case QUARTZ_DOG_STATUE:
-                case QUARTZ_CAT_STATUE:
-                case ICE_DOG_STATUE:
-                case ICE_CAT_STATUE:
+            } else if (memorialType==EnumMemorials.WOODEN_DOG_STATUE || memorialType==EnumMemorials.WOODEN_CAT_STATUE || memorialType==EnumMemorials.SANDSTONE_DOG_STATUE || memorialType==EnumMemorials.SANDSTONE_CAT_STATUE || memorialType==EnumMemorials.STONE_DOG_STATUE || memorialType==EnumMemorials.STONE_CAT_STATUE || memorialType==EnumMemorials.MOSSY_DOG_STATUE || memorialType==EnumMemorials.MOSSY_CAT_STATUE || memorialType==EnumMemorials.IRON_DOG_STATUE || memorialType==EnumMemorials.IRON_CAT_STATUE || memorialType==EnumMemorials.GOLDEN_DOG_STATUE || memorialType==EnumMemorials.GOLDEN_CAT_STATUE || memorialType==EnumMemorials.DIAMOND_DOG_STATUE || memorialType==EnumMemorials.DIAMOND_CAT_STATUE || memorialType==EnumMemorials.EMERALD_DOG_STATUE || memorialType==EnumMemorials.EMERALD_CAT_STATUE || memorialType==EnumMemorials.LAPIS_DOG_STATUE || memorialType==EnumMemorials.LAPIS_CAT_STATUE || memorialType==EnumMemorials.REDSTONE_DOG_STATUE || memorialType==EnumMemorials.REDSTONE_CAT_STATUE || memorialType==EnumMemorials.OBSIDIAN_DOG_STATUE || memorialType==EnumMemorials.OBSIDIAN_CAT_STATUE || memorialType==EnumMemorials.QUARTZ_DOG_STATUE || memorialType==EnumMemorials.QUARTZ_CAT_STATUE || memorialType==EnumMemorials.ICE_DOG_STATUE || memorialType==EnumMemorials.ICE_CAT_STATUE) {
                     maxY = 2;
-                    break;
-                case WOODEN_STEVE_STATUE:
-                case SANDSTONE_STEVE_STATUE:
-                case STONE_STEVE_STATUE:
-                case MOSSY_STEVE_STATUE:
-                case IRON_STEVE_STATUE:
-                case GOLDEN_STEVE_STATUE:
-                case DIAMOND_STEVE_STATUE:
-                case EMERALD_STEVE_STATUE:
-                case LAPIS_STEVE_STATUE:
-                case REDSTONE_STEVE_STATUE:
-                case OBSIDIAN_STEVE_STATUE:
-                case QUARTZ_STEVE_STATUE:
-                case ICE_STEVE_STATUE:
+            /*} else if (memorialType==EnumMemorials.WOODEN_STEVE_STATUE || memorialType==EnumMemorials.SANDSTONE_STEVE_STATUE || memorialType==EnumMemorials.STONE_STEVE_STATUE || memorialType==EnumMemorials.MOSSY_STEVE_STATUE || memorialType==EnumMemorials.IRON_STEVE_STATUE || memorialType==EnumMemorials.GOLDEN_STEVE_STATUE || memorialType==EnumMemorials.DIAMOND_STEVE_STATUE || memorialType==EnumMemorials.EMERALD_STEVE_STATUE || memorialType==EnumMemorials.LAPIS_STEVE_STATUE || memorialType==EnumMemorials.REDSTONE_STEVE_STATUE || memorialType==EnumMemorials.OBSIDIAN_STEVE_STATUE || memorialType==EnumMemorials.QUARTZ_STEVE_STATUE || memorialType==EnumMemorials.ICE_STEVE_STATUE
                     // villager
-                case WOODEN_VILLAGER_STATUE:
-                case SANDSTONE_VILLAGER_STATUE:
-                case STONE_VILLAGER_STATUE:
-                case MOSSY_VILLAGER_STATUE:
-                case IRON_VILLAGER_STATUE:
-                case GOLDEN_VILLAGER_STATUE:
-                case DIAMOND_VILLAGER_STATUE:
-                case EMERALD_VILLAGER_STATUE:
-                case LAPIS_VILLAGER_STATUE:
-                case REDSTONE_VILLAGER_STATUE:
-                case OBSIDIAN_VILLAGER_STATUE:
-                case QUARTZ_VILLAGER_STATUE:
-                case ICE_VILLAGER_STATUE:
+            || memorialType==EnumMemorials.WOODEN_VILLAGER_STATUE || memorialType==EnumMemorials.SANDSTONE_VILLAGER_STATUE || memorialType==EnumMemorials.STONE_VILLAGER_STATUE || memorialType==EnumMemorials.MOSSY_VILLAGER_STATUE || memorialType==EnumMemorials.IRON_VILLAGER_STATUE || memorialType==EnumMemorials.GOLDEN_VILLAGER_STATUE || memorialType==EnumMemorials.DIAMOND_VILLAGER_STATUE || memorialType==EnumMemorials.EMERALD_VILLAGER_STATUE || memorialType==EnumMemorials.LAPIS_VILLAGER_STATUE || memorialType==EnumMemorials.REDSTONE_VILLAGER_STATUE || memorialType==EnumMemorials.OBSIDIAN_VILLAGER_STATUE || memorialType==EnumMemorials.QUARTZ_VILLAGER_STATUE || memorialType==EnumMemorials.ICE_VILLAGER_STATUE
                     //angel
-                case WOODEN_ANGEL_STATUE:
-                case SANDSTONE_ANGEL_STATUE:
-                case STONE_ANGEL_STATUE:
-                case MOSSY_ANGEL_STATUE:
-                case IRON_ANGEL_STATUE:
-                case GOLDEN_ANGEL_STATUE:
-                case DIAMOND_ANGEL_STATUE:
-                case EMERALD_ANGEL_STATUE:
-                case LAPIS_ANGEL_STATUE:
-                case REDSTONE_ANGEL_STATUE:
-                case OBSIDIAN_ANGEL_STATUE:
-                case QUARTZ_ANGEL_STATUE:
-                case ICE_ANGEL_STATUE:
-                case WOODEN_CREEPER_STATUE:
-                case SANDSTONE_CREEPER_STATUE:
-                case STONE_CREEPER_STATUE:
-                case MOSSY_CREEPER_STATUE:
-                case IRON_CREEPER_STATUE:
-                case GOLDEN_CREEPER_STATUE:
-                case DIAMOND_CREEPER_STATUE:
-                case EMERALD_CREEPER_STATUE:
-                case LAPIS_CREEPER_STATUE:
-                case REDSTONE_CREEPER_STATUE:
-                case OBSIDIAN_CREEPER_STATUE:
-                case QUARTZ_CREEPER_STATUE:
-                case ICE_CREEPER_STATUE:
-                default:
+            || memorialType==EnumMemorials.WOODEN_ANGEL_STATUE:
+            } else if (memorialType==EnumMemorials.SANDSTONE_ANGEL_STATUE || memorialType==EnumMemorials.STONE_ANGEL_STATUE || memorialType==EnumMemorials.MOSSY_ANGEL_STATUE || memorialType==EnumMemorials.IRON_ANGEL_STATUE || memorialType==EnumMemorials.GOLDEN_ANGEL_STATUE || memorialType==EnumMemorials.DIAMOND_ANGEL_STATUE || memorialType==EnumMemorials.EMERALD_ANGEL_STATUE || memorialType==EnumMemorials.LAPIS_ANGEL_STATUE || memorialType==EnumMemorials.REDSTONE_ANGEL_STATUE || memorialType==EnumMemorials.OBSIDIAN_ANGEL_STATUE || memorialType==EnumMemorials.QUARTZ_ANGEL_STATUE || memorialType==EnumMemorials.ICE_ANGEL_STATUE || memorialType==EnumMemorials.WOODEN_CREEPER_STATUE || memorialType==EnumMemorials.SANDSTONE_CREEPER_STATUE || memorialType==EnumMemorials.STONE_CREEPER_STATUE || memorialType==EnumMemorials.MOSSY_CREEPER_STATUE || memorialType==EnumMemorials.IRON_CREEPER_STATUE || memorialType==EnumMemorials.GOLDEN_CREEPER_STATUE || memorialType==EnumMemorials.DIAMOND_CREEPER_STATUE || memorialType==EnumMemorials.EMERALD_CREEPER_STATUE || memorialType==EnumMemorials.LAPIS_CREEPER_STATUE || memorialType==EnumMemorials.REDSTONE_CREEPER_STATUE || memorialType==EnumMemorials.OBSIDIAN_CREEPER_STATUE || memorialType==EnumMemorials.QUARTZ_CREEPER_STATUE || memorialType==EnumMemorials.ICE_CREEPER_STATUE) {*/
+            } else {//commented object ^, include in default switch
                     maxY = 3;
-                    break;
             }
             for (byte shiftY = 0; shiftY < maxY; shiftY++) {
                 for (byte shiftZ = startZ; shiftZ < maxZ; shiftZ++) {
@@ -772,124 +708,22 @@ public class BlockGSMemorial extends BlockContainer {
         TileEntityGSMemorial tileEntity = (TileEntityGSMemorial) world.getTileEntity(x, y, z);
 
         if (tileEntity != null) {
-            switch (tileEntity.getMemorialType()) {
-                case WOODEN_CROSS:
-                case SANDSTONE_CROSS:
-                case STONE_CROSS:
-                case MOSSY_CROSS:
-                case IRON_CROSS:
-                case GOLDEN_CROSS:
-                case DIAMOND_CROSS:
-                case EMERALD_CROSS:
-                case LAPIS_CROSS:
-                case REDSTONE_CROSS:
-                case OBSIDIAN_CROSS:
-                case QUARTZ_CROSS:
-                case ICE_CROSS:
-                case WOODEN_OBELISK:
-                case SANDSTONE_OBELISK:
-                case STONE_OBELISK:
-                case MOSSY_OBELISK:
-                case IRON_OBELISK:
-                case GOLDEN_OBELISK:
-                case DIAMOND_OBELISK:
-                case EMERALD_OBELISK:
-                case LAPIS_OBELISK:
-                case REDSTONE_OBELISK:
-                case OBSIDIAN_OBELISK:
-                case QUARTZ_OBELISK:
-                case ICE_OBELISK:
+            EnumMemorials memorialType = tileEntity.getMemorialType();
+            if (memorialType==EnumMemorials.WOODEN_CROSS || memorialType==EnumMemorials.SANDSTONE_CROSS || memorialType==EnumMemorials.STONE_CROSS || memorialType==EnumMemorials.MOSSY_CROSS || memorialType==EnumMemorials.IRON_CROSS || memorialType==EnumMemorials.GOLDEN_CROSS || memorialType==EnumMemorials.DIAMOND_CROSS || memorialType==EnumMemorials.EMERALD_CROSS || memorialType==EnumMemorials.LAPIS_CROSS || memorialType==EnumMemorials.REDSTONE_CROSS || memorialType==EnumMemorials.OBSIDIAN_CROSS || memorialType==EnumMemorials.QUARTZ_CROSS || memorialType==EnumMemorials.ICE_CROSS || memorialType==EnumMemorials.WOODEN_OBELISK || memorialType==EnumMemorials.SANDSTONE_OBELISK || memorialType==EnumMemorials.STONE_OBELISK || memorialType==EnumMemorials.MOSSY_OBELISK || memorialType==EnumMemorials.IRON_OBELISK || memorialType==EnumMemorials.GOLDEN_OBELISK || memorialType==EnumMemorials.DIAMOND_OBELISK || memorialType==EnumMemorials.EMERALD_OBELISK || memorialType==EnumMemorials.LAPIS_OBELISK || memorialType==EnumMemorials.REDSTONE_OBELISK || memorialType==EnumMemorials.OBSIDIAN_OBELISK || memorialType==EnumMemorials.QUARTZ_OBELISK || memorialType==EnumMemorials.ICE_OBELISK) {
                     maxY = 5;
                     maxX = 2;
                     maxZ = 2;
                     startX = -1;
                     startZ = -1;
-                    break;
-                case WOODEN_DOG_STATUE:
-                case WOODEN_CAT_STATUE:
-                case SANDSTONE_DOG_STATUE:
-                case SANDSTONE_CAT_STATUE:
-                case STONE_DOG_STATUE:
-                case STONE_CAT_STATUE:
-                case MOSSY_DOG_STATUE:
-                case MOSSY_CAT_STATUE:
-                case IRON_DOG_STATUE:
-                case IRON_CAT_STATUE:
-                case GOLDEN_DOG_STATUE:
-                case GOLDEN_CAT_STATUE:
-                case DIAMOND_DOG_STATUE:
-                case DIAMOND_CAT_STATUE:
-                case EMERALD_DOG_STATUE:
-                case EMERALD_CAT_STATUE:
-                case LAPIS_DOG_STATUE:
-                case LAPIS_CAT_STATUE:
-                case REDSTONE_DOG_STATUE:
-                case REDSTONE_CAT_STATUE:
-                case OBSIDIAN_DOG_STATUE:
-                case OBSIDIAN_CAT_STATUE:
-                case QUARTZ_DOG_STATUE:
-                case QUARTZ_CAT_STATUE:
-                case ICE_DOG_STATUE:
-                case ICE_CAT_STATUE:
+            } else if (memorialType==EnumMemorials.WOODEN_DOG_STATUE || memorialType==EnumMemorials.WOODEN_CAT_STATUE || memorialType==EnumMemorials.SANDSTONE_DOG_STATUE || memorialType==EnumMemorials.SANDSTONE_CAT_STATUE || memorialType==EnumMemorials.STONE_DOG_STATUE || memorialType==EnumMemorials.STONE_CAT_STATUE || memorialType==EnumMemorials.MOSSY_DOG_STATUE || memorialType==EnumMemorials.MOSSY_CAT_STATUE || memorialType==EnumMemorials.IRON_DOG_STATUE || memorialType==EnumMemorials.IRON_CAT_STATUE || memorialType==EnumMemorials.GOLDEN_DOG_STATUE || memorialType==EnumMemorials.GOLDEN_CAT_STATUE || memorialType==EnumMemorials.DIAMOND_DOG_STATUE || memorialType==EnumMemorials.DIAMOND_CAT_STATUE || memorialType==EnumMemorials.EMERALD_DOG_STATUE || memorialType==EnumMemorials.EMERALD_CAT_STATUE || memorialType==EnumMemorials.LAPIS_DOG_STATUE || memorialType==EnumMemorials.LAPIS_CAT_STATUE || memorialType==EnumMemorials.REDSTONE_DOG_STATUE || memorialType==EnumMemorials.REDSTONE_CAT_STATUE || memorialType==EnumMemorials.OBSIDIAN_DOG_STATUE || memorialType==EnumMemorials.OBSIDIAN_CAT_STATUE || memorialType==EnumMemorials.QUARTZ_DOG_STATUE || memorialType==EnumMemorials.QUARTZ_CAT_STATUE || memorialType==EnumMemorials.ICE_DOG_STATUE || memorialType==EnumMemorials.ICE_CAT_STATUE) {
                     maxY = 2;
-                    break;
-                case WOODEN_STEVE_STATUE:
-                case SANDSTONE_STEVE_STATUE:
-                case STONE_STEVE_STATUE:
-                case MOSSY_STEVE_STATUE:
-                case IRON_STEVE_STATUE:
-                case GOLDEN_STEVE_STATUE:
-                case DIAMOND_STEVE_STATUE:
-                case EMERALD_STEVE_STATUE:
-                case LAPIS_STEVE_STATUE:
-                case REDSTONE_STEVE_STATUE:
-                case OBSIDIAN_STEVE_STATUE:
-                case QUARTZ_STEVE_STATUE:
-                case ICE_STEVE_STATUE:
+            /*} else if (memorialType==EnumMemorials.WOODEN_STEVE_STATUE || memorialType==EnumMemorials.SANDSTONE_STEVE_STATUE || memorialType==EnumMemorials.STONE_STEVE_STATUE || memorialType==EnumMemorials.MOSSY_STEVE_STATUE || memorialType==EnumMemorials.IRON_STEVE_STATUE || memorialType==EnumMemorials.GOLDEN_STEVE_STATUE || memorialType==EnumMemorials.DIAMOND_STEVE_STATUE || memorialType==EnumMemorials.EMERALD_STEVE_STATUE || memorialType==EnumMemorials.LAPIS_STEVE_STATUE || memorialType==EnumMemorials.REDSTONE_STEVE_STATUE || memorialType==EnumMemorials.OBSIDIAN_STEVE_STATUE || memorialType==EnumMemorials.QUARTZ_STEVE_STATUE || memorialType==EnumMemorials.ICE_STEVE_STATUE
                     // villager
-                case WOODEN_VILLAGER_STATUE:
-                case SANDSTONE_VILLAGER_STATUE:
-                case STONE_VILLAGER_STATUE:
-                case MOSSY_VILLAGER_STATUE:
-                case IRON_VILLAGER_STATUE:
-                case GOLDEN_VILLAGER_STATUE:
-                case DIAMOND_VILLAGER_STATUE:
-                case EMERALD_VILLAGER_STATUE:
-                case LAPIS_VILLAGER_STATUE:
-                case REDSTONE_VILLAGER_STATUE:
-                case OBSIDIAN_VILLAGER_STATUE:
-                case QUARTZ_VILLAGER_STATUE:
-                case ICE_VILLAGER_STATUE:
+            || memorialType==EnumMemorials.WOODEN_VILLAGER_STATUE || memorialType==EnumMemorials.SANDSTONE_VILLAGER_STATUE || memorialType==EnumMemorials.STONE_VILLAGER_STATUE || memorialType==EnumMemorials.MOSSY_VILLAGER_STATUE || memorialType==EnumMemorials.IRON_VILLAGER_STATUE || memorialType==EnumMemorials.GOLDEN_VILLAGER_STATUE || memorialType==EnumMemorials.DIAMOND_VILLAGER_STATUE || memorialType==EnumMemorials.EMERALD_VILLAGER_STATUE || memorialType==EnumMemorials.LAPIS_VILLAGER_STATUE || memorialType==EnumMemorials.REDSTONE_VILLAGER_STATUE || memorialType==EnumMemorials.OBSIDIAN_VILLAGER_STATUE || memorialType==EnumMemorials.QUARTZ_VILLAGER_STATUE || memorialType==EnumMemorials.ICE_VILLAGER_STATUE
                     //angel
-                case WOODEN_ANGEL_STATUE:
-                case SANDSTONE_ANGEL_STATUE:
-                case STONE_ANGEL_STATUE:
-                case MOSSY_ANGEL_STATUE:
-                case IRON_ANGEL_STATUE:
-                case GOLDEN_ANGEL_STATUE:
-                case DIAMOND_ANGEL_STATUE:
-                case EMERALD_ANGEL_STATUE:
-                case LAPIS_ANGEL_STATUE:
-                case REDSTONE_ANGEL_STATUE:
-                case OBSIDIAN_ANGEL_STATUE:
-                case QUARTZ_ANGEL_STATUE:
-                case ICE_ANGEL_STATUE:
-                case WOODEN_CREEPER_STATUE:
-                case SANDSTONE_CREEPER_STATUE:
-                case STONE_CREEPER_STATUE:
-                case MOSSY_CREEPER_STATUE:
-                case IRON_CREEPER_STATUE:
-                case GOLDEN_CREEPER_STATUE:
-                case DIAMOND_CREEPER_STATUE:
-                case EMERALD_CREEPER_STATUE:
-                case LAPIS_CREEPER_STATUE:
-                case REDSTONE_CREEPER_STATUE:
-                case OBSIDIAN_CREEPER_STATUE:
-                case QUARTZ_CREEPER_STATUE:
-                case ICE_CREEPER_STATUE:
-                default:
+            || memorialType==EnumMemorials.WOODEN_ANGEL_STATUE || memorialType==EnumMemorials.SANDSTONE_ANGEL_STATUE || memorialType==EnumMemorials.STONE_ANGEL_STATUE || memorialType==EnumMemorials.MOSSY_ANGEL_STATUE || memorialType==EnumMemorials.IRON_ANGEL_STATUE || memorialType==EnumMemorials.GOLDEN_ANGEL_STATUE || memorialType==EnumMemorials.DIAMOND_ANGEL_STATUE || memorialType==EnumMemorials.EMERALD_ANGEL_STATUE || memorialType==EnumMemorials.LAPIS_ANGEL_STATUE || memorialType==EnumMemorials.REDSTONE_ANGEL_STATUE || memorialType==EnumMemorials.OBSIDIAN_ANGEL_STATUE || memorialType==EnumMemorials.QUARTZ_ANGEL_STATUE || memorialType==EnumMemorials.ICE_ANGEL_STATUE || memorialType==EnumMemorials.WOODEN_CREEPER_STATUE || memorialType==EnumMemorials.SANDSTONE_CREEPER_STATUE || memorialType==EnumMemorials.STONE_CREEPER_STATUE || memorialType==EnumMemorials.MOSSY_CREEPER_STATUE || memorialType==EnumMemorials.IRON_CREEPER_STATUE || memorialType==EnumMemorials.GOLDEN_CREEPER_STATUE || memorialType==EnumMemorials.DIAMOND_CREEPER_STATUE || memorialType==EnumMemorials.EMERALD_CREEPER_STATUE || memorialType==EnumMemorials.LAPIS_CREEPER_STATUE || memorialType==EnumMemorials.REDSTONE_CREEPER_STATUE || memorialType==EnumMemorials.OBSIDIAN_CREEPER_STATUE || memorialType==EnumMemorials.QUARTZ_CREEPER_STATUE || memorialType==EnumMemorials.ICE_CREEPER_STATUE) {*/
+            } else {//commented object ^, include in default switch
                     maxY = 3;
-                    break;
             }
             for (byte shiftY = 0; shiftY < maxY; shiftY++) {
                 for (byte shiftZ = startZ; shiftZ < maxZ; shiftZ++) {
@@ -924,143 +758,33 @@ public class BlockGSMemorial extends BlockContainer {
         EnumMemorials memorialType;
         TileEntityGSMemorial tileEntity = (TileEntityGSMemorial) access.getTileEntity(x, y, z);
 
-        if (tileEntity != null) {
+        boolean te_isNull = tileEntity != null;
+        if (te_isNull) {
             memorialType = tileEntity.getMemorialType();
         } else {
             memorialType = EnumMemorials.STONE_CROSS;
         }
 
-        switch (memorialType) {
-            case WOODEN_CROSS:
-            case SANDSTONE_CROSS:
-            case STONE_CROSS:
-            case MOSSY_CROSS:
-            case IRON_CROSS:
-            case GOLDEN_CROSS:
-            case DIAMOND_CROSS:
-            case EMERALD_CROSS:
-            case LAPIS_CROSS:
-            case REDSTONE_CROSS:
-            case OBSIDIAN_CROSS:
-            case QUARTZ_CROSS:
-            case ICE_CROSS:
-            case WOODEN_OBELISK:
-            case SANDSTONE_OBELISK:
-            case STONE_OBELISK:
-            case MOSSY_OBELISK:
-            case IRON_OBELISK:
-            case GOLDEN_OBELISK:
-            case DIAMOND_OBELISK:
-            case EMERALD_OBELISK:
-            case LAPIS_OBELISK:
-            case REDSTONE_OBELISK:
-            case OBSIDIAN_OBELISK:
-            case QUARTZ_OBELISK:
-            case ICE_OBELISK:
+        if (memorialType==EnumMemorials.STONE_CROSS || memorialType==EnumMemorials.WOODEN_CROSS || memorialType==EnumMemorials.SANDSTONE_CROSS || memorialType==EnumMemorials.MOSSY_CROSS || memorialType==EnumMemorials.IRON_CROSS || memorialType==EnumMemorials.GOLDEN_CROSS || memorialType==EnumMemorials.DIAMOND_CROSS || memorialType==EnumMemorials.EMERALD_CROSS || memorialType==EnumMemorials.LAPIS_CROSS || memorialType==EnumMemorials.REDSTONE_CROSS || memorialType==EnumMemorials.OBSIDIAN_CROSS || memorialType==EnumMemorials.QUARTZ_CROSS || memorialType==EnumMemorials.ICE_CROSS || memorialType==EnumMemorials.WOODEN_OBELISK || memorialType==EnumMemorials.SANDSTONE_OBELISK || memorialType==EnumMemorials.STONE_OBELISK || memorialType==EnumMemorials.MOSSY_OBELISK || memorialType==EnumMemorials.IRON_OBELISK || memorialType==EnumMemorials.GOLDEN_OBELISK || memorialType==EnumMemorials.DIAMOND_OBELISK || memorialType==EnumMemorials.EMERALD_OBELISK || memorialType==EnumMemorials.LAPIS_OBELISK || memorialType==EnumMemorials.REDSTONE_OBELISK || memorialType==EnumMemorials.OBSIDIAN_OBELISK || memorialType==EnumMemorials.QUARTZ_OBELISK || memorialType==EnumMemorials.ICE_OBELISK) {
                 this.setBlockBounds(-1, 0, -1, 2, 5, 2);
-                break;
-            case WOODEN_STEVE_STATUE:
-            case SANDSTONE_STEVE_STATUE:
-            case STONE_STEVE_STATUE:
-            case MOSSY_STEVE_STATUE:
-            case IRON_STEVE_STATUE:
-            case GOLDEN_STEVE_STATUE:
-            case DIAMOND_STEVE_STATUE:
-            case EMERALD_STEVE_STATUE:
-            case LAPIS_STEVE_STATUE:
-            case REDSTONE_STEVE_STATUE:
-            case OBSIDIAN_STEVE_STATUE:
-            case QUARTZ_STEVE_STATUE:
-            case ICE_STEVE_STATUE:
+        } else if (memorialType==EnumMemorials.WOODEN_STEVE_STATUE || memorialType==EnumMemorials.SANDSTONE_STEVE_STATUE || memorialType==EnumMemorials.STONE_STEVE_STATUE || memorialType==EnumMemorials.MOSSY_STEVE_STATUE || memorialType==EnumMemorials.IRON_STEVE_STATUE || memorialType==EnumMemorials.GOLDEN_STEVE_STATUE || memorialType==EnumMemorials.DIAMOND_STEVE_STATUE || memorialType==EnumMemorials.EMERALD_STEVE_STATUE || memorialType==EnumMemorials.LAPIS_STEVE_STATUE || memorialType==EnumMemorials.REDSTONE_STEVE_STATUE || memorialType==EnumMemorials.OBSIDIAN_STEVE_STATUE || memorialType==EnumMemorials.QUARTZ_STEVE_STATUE || memorialType==EnumMemorials.ICE_STEVE_STATUE
                 // villager
-            case WOODEN_VILLAGER_STATUE:
-            case SANDSTONE_VILLAGER_STATUE:
-            case STONE_VILLAGER_STATUE:
-            case MOSSY_VILLAGER_STATUE:
-            case IRON_VILLAGER_STATUE:
-            case GOLDEN_VILLAGER_STATUE:
-            case DIAMOND_VILLAGER_STATUE:
-            case EMERALD_VILLAGER_STATUE:
-            case LAPIS_VILLAGER_STATUE:
-            case REDSTONE_VILLAGER_STATUE:
-            case OBSIDIAN_VILLAGER_STATUE:
-            case QUARTZ_VILLAGER_STATUE:
-            case ICE_VILLAGER_STATUE:
+        || memorialType==EnumMemorials.WOODEN_VILLAGER_STATUE || memorialType==EnumMemorials.SANDSTONE_VILLAGER_STATUE || memorialType==EnumMemorials.STONE_VILLAGER_STATUE || memorialType==EnumMemorials.MOSSY_VILLAGER_STATUE || memorialType==EnumMemorials.IRON_VILLAGER_STATUE || memorialType==EnumMemorials.GOLDEN_VILLAGER_STATUE || memorialType==EnumMemorials.DIAMOND_VILLAGER_STATUE || memorialType==EnumMemorials.EMERALD_VILLAGER_STATUE || memorialType==EnumMemorials.LAPIS_VILLAGER_STATUE || memorialType==EnumMemorials.REDSTONE_VILLAGER_STATUE || memorialType==EnumMemorials.OBSIDIAN_VILLAGER_STATUE || memorialType==EnumMemorials.QUARTZ_VILLAGER_STATUE || memorialType==EnumMemorials.ICE_VILLAGER_STATUE
                 //angel
-            case WOODEN_ANGEL_STATUE:
-            case SANDSTONE_ANGEL_STATUE:
-            case STONE_ANGEL_STATUE:
-            case MOSSY_ANGEL_STATUE:
-            case IRON_ANGEL_STATUE:
-            case GOLDEN_ANGEL_STATUE:
-            case DIAMOND_ANGEL_STATUE:
-            case EMERALD_ANGEL_STATUE:
-            case LAPIS_ANGEL_STATUE:
-            case REDSTONE_ANGEL_STATUE:
-            case OBSIDIAN_ANGEL_STATUE:
-            case QUARTZ_ANGEL_STATUE:
-            case ICE_ANGEL_STATUE:
+        || memorialType==EnumMemorials.WOODEN_ANGEL_STATUE || memorialType==EnumMemorials.SANDSTONE_ANGEL_STATUE || memorialType==EnumMemorials.STONE_ANGEL_STATUE || memorialType==EnumMemorials.MOSSY_ANGEL_STATUE || memorialType==EnumMemorials.IRON_ANGEL_STATUE || memorialType==EnumMemorials.GOLDEN_ANGEL_STATUE || memorialType==EnumMemorials.DIAMOND_ANGEL_STATUE || memorialType==EnumMemorials.EMERALD_ANGEL_STATUE || memorialType==EnumMemorials.LAPIS_ANGEL_STATUE || memorialType==EnumMemorials.REDSTONE_ANGEL_STATUE || memorialType==EnumMemorials.OBSIDIAN_ANGEL_STATUE || memorialType==EnumMemorials.QUARTZ_ANGEL_STATUE || memorialType==EnumMemorials.ICE_ANGEL_STATUE) {
                 this.setBlockBounds(0.125F, 0, 0.125F, 0.875F, 3F, 0.875F);
-                break;
-            case WOODEN_DOG_STATUE:
-            case WOODEN_CAT_STATUE:
-            case SANDSTONE_DOG_STATUE:
-            case SANDSTONE_CAT_STATUE:
-            case STONE_DOG_STATUE:
-            case STONE_CAT_STATUE:
-            case MOSSY_DOG_STATUE:
-            case MOSSY_CAT_STATUE:
-            case IRON_DOG_STATUE:
-            case IRON_CAT_STATUE:
-            case GOLDEN_DOG_STATUE:
-            case GOLDEN_CAT_STATUE:
-            case DIAMOND_DOG_STATUE:
-            case DIAMOND_CAT_STATUE:
-            case EMERALD_DOG_STATUE:
-            case EMERALD_CAT_STATUE:
-            case LAPIS_DOG_STATUE:
-            case LAPIS_CAT_STATUE:
-            case REDSTONE_DOG_STATUE:
-            case REDSTONE_CAT_STATUE:
-            case OBSIDIAN_DOG_STATUE:
-            case OBSIDIAN_CAT_STATUE:
-            case QUARTZ_DOG_STATUE:
-            case QUARTZ_CAT_STATUE:
-            case ICE_DOG_STATUE:
-            case ICE_CAT_STATUE:
+        } else if (memorialType==EnumMemorials.WOODEN_DOG_STATUE || memorialType==EnumMemorials.WOODEN_CAT_STATUE || memorialType==EnumMemorials.SANDSTONE_DOG_STATUE || memorialType==EnumMemorials.SANDSTONE_CAT_STATUE || memorialType==EnumMemorials.STONE_DOG_STATUE || memorialType==EnumMemorials.STONE_CAT_STATUE || memorialType==EnumMemorials.MOSSY_DOG_STATUE || memorialType==EnumMemorials.MOSSY_CAT_STATUE || memorialType==EnumMemorials.IRON_DOG_STATUE || memorialType==EnumMemorials.IRON_CAT_STATUE || memorialType==EnumMemorials.GOLDEN_DOG_STATUE || memorialType==EnumMemorials.GOLDEN_CAT_STATUE || memorialType==EnumMemorials.DIAMOND_DOG_STATUE || memorialType==EnumMemorials.DIAMOND_CAT_STATUE || memorialType==EnumMemorials.EMERALD_DOG_STATUE || memorialType==EnumMemorials.EMERALD_CAT_STATUE || memorialType==EnumMemorials.LAPIS_DOG_STATUE || memorialType==EnumMemorials.LAPIS_CAT_STATUE || memorialType==EnumMemorials.REDSTONE_DOG_STATUE || memorialType==EnumMemorials.REDSTONE_CAT_STATUE || memorialType==EnumMemorials.OBSIDIAN_DOG_STATUE || memorialType==EnumMemorials.OBSIDIAN_CAT_STATUE || memorialType==EnumMemorials.QUARTZ_DOG_STATUE || memorialType==EnumMemorials.QUARTZ_CAT_STATUE || memorialType==EnumMemorials.ICE_DOG_STATUE || memorialType==EnumMemorials.ICE_CAT_STATUE) {
                 this.setBlockBounds(0.125F, 0, 0.125F, 0.875F, 2, 0.875F);
-                break;
-            case WOODEN_CREEPER_STATUE:
-            case SANDSTONE_CREEPER_STATUE:
-            case STONE_CREEPER_STATUE:
-            case MOSSY_CREEPER_STATUE:
-            case IRON_CREEPER_STATUE:
-            case GOLDEN_CREEPER_STATUE:
-            case DIAMOND_CREEPER_STATUE:
-            case EMERALD_CREEPER_STATUE:
-            case LAPIS_CREEPER_STATUE:
-            case REDSTONE_CREEPER_STATUE:
-            case OBSIDIAN_CREEPER_STATUE:
-            case QUARTZ_CREEPER_STATUE:
-            case ICE_CREEPER_STATUE:
+        } else if (memorialType==EnumMemorials.WOODEN_CREEPER_STATUE || memorialType==EnumMemorials.SANDSTONE_CREEPER_STATUE || memorialType==EnumMemorials.STONE_CREEPER_STATUE || memorialType==EnumMemorials.MOSSY_CREEPER_STATUE || memorialType==EnumMemorials.IRON_CREEPER_STATUE || memorialType==EnumMemorials.GOLDEN_CREEPER_STATUE || memorialType==EnumMemorials.DIAMOND_CREEPER_STATUE || memorialType==EnumMemorials.EMERALD_CREEPER_STATUE || memorialType==EnumMemorials.LAPIS_CREEPER_STATUE || memorialType==EnumMemorials.REDSTONE_CREEPER_STATUE || memorialType==EnumMemorials.OBSIDIAN_CREEPER_STATUE || memorialType==EnumMemorials.QUARTZ_CREEPER_STATUE || memorialType==EnumMemorials.ICE_CREEPER_STATUE) {
                 this.setBlockBounds(0.125F, 0, 0.125F, 0.875F, 2.5F, 0.875F);
-                break;
-            case GIBBET:
-            case BURNING_STAKE:
+        } else if (memorialType==EnumMemorials.GIBBET || memorialType==EnumMemorials.BURNING_STAKE) {
                 this.setBlockBounds(0, 0, 0, 1, 2.5F, 1);
-                break;
-            case STOCKS:
-                switch (meta) {
-                    case 0:
-                    case 1:
+        } else if (memorialType==EnumMemorials.STOCKS) {
+                if (meta==0 || meta==1) {
                         this.setBlockBounds(-0.5F, 0, 0, 1.5F, 2, 1);
-                        break;
-                    case 2:
-                    case 3:
+                } else if (meta==2 || meta==3) {
                         this.setBlockBounds(0, 0, -0.5F, 1, 2, 1.5F);
-                        break;
                 }
-                break;
         }
     }
 
@@ -1145,11 +869,11 @@ public class BlockGSMemorial extends BlockContainer {
         }
 
         // gibbets
-        for (byte mobType = 0; mobType < EnumHangedMobs.values().length; mobType++) {
+        for (byte mobType = 0; mobType < EnumHangedMobs.VALUES.length; mobType++) {
             ItemStack stack = getMemorialItemForCreativeInventory(item, (byte) EnumMemorials.GIBBET.ordinal());
             stack.getTagCompound().setByte("HangedMob", mobType);
-            switch (EnumHangedMobs.values()[mobType]) {
-                case VILLAGER:
+            EnumHangedMobs value = EnumHangedMobs.VALUES[mobType];
+            if (value==EnumHangedMobs.VILLAGER) {
                     ItemStack villagerStack;
                     for (byte villagerProfession = 0; villagerProfession <= 4; villagerProfession++) {
                         villagerStack = stack.copy();
@@ -1164,18 +888,17 @@ public class BlockGSMemorial extends BlockContainer {
                         villagerStack.getTagCompound().setInteger("HangedVillagerProfession", it.next());
                         list.add(villagerStack);
                     }
-                    break;
-                default:
+            } else {
                     list.add(stack);
             }
         }
 
         // stocks
-        for (byte mobType = 0; mobType < EnumHangedMobs.values().length; mobType++) {
+        for (byte mobType = 0; mobType < EnumHangedMobs.VALUES.length; mobType++) {
             ItemStack stack = getMemorialItemForCreativeInventory(item, (byte) EnumMemorials.STOCKS.ordinal());
             stack.getTagCompound().setByte("HangedMob", mobType);
-            switch (EnumHangedMobs.values()[mobType]) {
-                case VILLAGER:
+            EnumHangedMobs value = EnumHangedMobs.VALUES[mobType];
+            if (value==EnumHangedMobs.VILLAGER) {
                     ItemStack villagerStack;
                     for (byte villagerProfession = 0; villagerProfession <= 4; villagerProfession++) {
                         villagerStack = stack.copy();
@@ -1190,17 +913,16 @@ public class BlockGSMemorial extends BlockContainer {
                         villagerStack.getTagCompound().setInteger("HangedVillagerProfession", it.next());
                         list.add(villagerStack);
                     }
-                    break;
-                default:
+            } else {
                     list.add(stack);
             }
         }
         // burning stake
-        for (byte mobType = 0; mobType < EnumHangedMobs.values().length; mobType++) {
+        for (byte mobType = 0; mobType < EnumHangedMobs.VALUES.length; mobType++) {
             ItemStack stack = getMemorialItemForCreativeInventory(item, (byte) EnumMemorials.BURNING_STAKE.ordinal());
             stack.getTagCompound().setByte("HangedMob", mobType);
-            switch (EnumHangedMobs.values()[mobType]) {
-                case VILLAGER:
+            EnumHangedMobs value = EnumHangedMobs.VALUES[mobType];
+            if (value==EnumHangedMobs.VILLAGER) {
                     ItemStack villagerStack;
                     for (byte villagerProfession = 0; villagerProfession <= 4; villagerProfession++) {
                         villagerStack = stack.copy();
@@ -1216,7 +938,7 @@ public class BlockGSMemorial extends BlockContainer {
                         list.add(villagerStack);
                     }
                     break;
-                default:
+            } else {
                     list.add(stack);
             }
         }
@@ -1297,7 +1019,7 @@ public class BlockGSMemorial extends BlockContainer {
      * Drop sword as item
      */
     public void dropCreeperMemorial(World world, int x, int y, int z) {
-        byte memorialType = BlockGSMemorial.getMemorialType(world, x, z, new XSTR(), 4);
+        byte memorialType = BlockGSMemorial.getMemorialType(world, x, z, new XSTR(new XSTR().getSeed()*(new GeneratorEntropy().getSeed())), 4);
         ItemStack itemStack = new ItemStack(this);
         NBTTagCompound nbt = new NBTTagCompound();
         nbt.setByte("GraveType", memorialType);
@@ -1326,6 +1048,8 @@ public class BlockGSMemorial extends BlockContainer {
 
     @Override
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
+        //fix crash, or random crash?
+        if (y<0) y=Math.abs(y);
         TileEntityGSMemorial tileEntity = (TileEntityGSMemorial) world.getTileEntity(x, y, z);
 
         if (tileEntity != null && tileEntity.getMemorialType() == EnumMemorials.BURNING_STAKE && tileEntity.getHangedMob() != EnumHangedMobs.NONE) {
@@ -1371,5 +1095,17 @@ public class BlockGSMemorial extends BlockContainer {
                 world.spawnParticle("largesmoke", xPos, yPos, zPos, 0, 0, 0);
             }
         }
+    }
+
+    @Override
+    public int tickRate(World p_149738_1_)
+    {
+        return 20;
+    }
+
+    @Override
+    public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target)
+    {
+        return true;
     }
 }

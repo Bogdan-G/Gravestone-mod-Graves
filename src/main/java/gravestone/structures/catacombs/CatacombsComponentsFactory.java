@@ -25,8 +25,7 @@ public class CatacombsComponentsFactory {
     public static Class getNextComponentForLevel(Class componentClass, Random random, int level) {
         int chance = random.nextInt(100);
 
-        switch (level) {
-            case 1:
+        if (level==1) {
                 if (chance >= 25) {
                     return getCorridorType(random);
                 } else if (chance >= 10) {
@@ -48,7 +47,7 @@ public class CatacombsComponentsFactory {
                         return EnderHall.class;
                     }
                 }
-            default:
+        } else {
                 if (chance >= 55) {
                     return getCorridorType(random);
                 } else if (chance >= 40) {
@@ -159,13 +158,7 @@ public class CatacombsComponentsFactory {
                 Constructor<CatacombsBaseComponent> constructor = buildComponent.getConstructor(int.class, int.class, Random.class, int.class, int.class, int.class);
                 component = constructor.newInstance(direction, level, random, x, y, z);
                 return component;
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
+            } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
         }

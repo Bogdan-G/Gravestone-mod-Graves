@@ -92,37 +92,19 @@ public class GSGraveStoneDeathText {
         EnumMemorials memorialType = EnumMemorials.getByID(grave);
 
         if (isMemorial) {
-            switch (memorialType) {
-                case STONE_DOG_STATUE:
+            if (memorialType==EnumMemorials.STONE_DOG_STATUE) {
                     getRandomMemorialContent(random, GraveStoneConfig.graveDogsNames, GraveStoneConfig.dogsMemorialText);
-                    break;
-                case STONE_CAT_STATUE:
+            } else if (memorialType==EnumMemorials.STONE_CAT_STATUE) {
                     getRandomMemorialContent(random, GraveStoneConfig.graveCatsNames, GraveStoneConfig.catsMemorialText);
-                    break;
-                case STONE_CREEPER_STATUE:
+            } else if (memorialType==EnumMemorials.STONE_CREEPER_STATUE) {
                     deathText = "Sssssssssssssss...";
-                    break;
-                default:
+            } else {
                     getRandomMemorialContent(random, GraveStoneConfig.graveNames, GraveStoneConfig.memorialText);
-                    break;
             }
         } else {
             if (getDeathMessage(random)) {
                 byte newGraveType;
-                switch (graveType) {
-                    case WOODEN_DOG_STATUE:
-                    case SANDSTONE_DOG_STATUE:
-                    case STONE_DOG_STATUE:
-                    case MOSSY_DOG_STATUE:
-                    case IRON_DOG_STATUE:
-                    case GOLDEN_DOG_STATUE:
-                    case DIAMOND_DOG_STATUE:
-                    case EMERALD_DOG_STATUE:
-                    case LAPIS_DOG_STATUE:
-                    case REDSTONE_DOG_STATUE:
-                    case OBSIDIAN_DOG_STATUE:
-                    case QUARTZ_DOG_STATUE:
-                    case ICE_DOG_STATUE:
+                if (graveType==EnumGraves.WOODEN_DOG_STATUE || graveType==EnumGraves.SANDSTONE_DOG_STATUE || graveType==EnumGraves.STONE_DOG_STATUE || graveType==EnumGraves.MOSSY_DOG_STATUE || graveType==EnumGraves.IRON_DOG_STATUE || graveType==EnumGraves.GOLDEN_DOG_STATUE || graveType==EnumGraves.DIAMOND_DOG_STATUE || graveType==EnumGraves.EMERALD_DOG_STATUE || graveType==EnumGraves.LAPIS_DOG_STATUE || graveType==EnumGraves.REDSTONE_DOG_STATUE || graveType==EnumGraves.OBSIDIAN_DOG_STATUE || graveType==EnumGraves.QUARTZ_DOG_STATUE || graveType==EnumGraves.ICE_DOG_STATUE) {
                         name = this.getValue(random, GraveStoneConfig.graveDogsNames);
                         if (changeGraveType) {
                             newGraveType = GraveStoneHelper.getRandomGrave(GraveStoneHelper.getDogGraveForDeath(null, deathText), random);
@@ -130,20 +112,7 @@ public class GSGraveStoneDeathText {
                                 tileEntity.setGraveType(newGraveType);
                             }
                         }
-                        break;
-                    case WOODEN_CAT_STATUE:
-                    case SANDSTONE_CAT_STATUE:
-                    case STONE_CAT_STATUE:
-                    case MOSSY_CAT_STATUE:
-                    case IRON_CAT_STATUE:
-                    case GOLDEN_CAT_STATUE:
-                    case DIAMOND_CAT_STATUE:
-                    case EMERALD_CAT_STATUE:
-                    case LAPIS_CAT_STATUE:
-                    case REDSTONE_CAT_STATUE:
-                    case OBSIDIAN_CAT_STATUE:
-                    case QUARTZ_CAT_STATUE:
-                    case ICE_CAT_STATUE:
+                } else if (graveType==EnumGraves.WOODEN_CAT_STATUE || graveType==EnumGraves.SANDSTONE_CAT_STATUE || graveType==EnumGraves.STONE_CAT_STATUE || graveType==EnumGraves.MOSSY_CAT_STATUE || graveType==EnumGraves.IRON_CAT_STATUE || graveType==EnumGraves.GOLDEN_CAT_STATUE || graveType==EnumGraves.DIAMOND_CAT_STATUE || graveType==EnumGraves.EMERALD_CAT_STATUE || graveType==EnumGraves.LAPIS_CAT_STATUE || graveType==EnumGraves.REDSTONE_CAT_STATUE || graveType==EnumGraves.OBSIDIAN_CAT_STATUE || graveType==EnumGraves.QUARTZ_CAT_STATUE || graveType==EnumGraves.ICE_CAT_STATUE) {
                         name = this.getValue(random, GraveStoneConfig.graveCatsNames);
                         if (changeGraveType) {
                             newGraveType = GraveStoneHelper.getRandomGrave(GraveStoneHelper.getCatGraveForDeath(null, deathText), random);
@@ -151,8 +120,7 @@ public class GSGraveStoneDeathText {
                                 tileEntity.setGraveType(newGraveType);
                             }
                         }
-                        break;
-                    default:
+                } else {
                         name = this.getValue(random, GraveStoneConfig.graveNames);
                         if (changeGraveType) {
                             newGraveType = GraveStoneHelper.getRandomGrave(GraveStoneHelper.getPlayerGraveForDeath(null, deathText), random);
@@ -160,7 +128,6 @@ public class GSGraveStoneDeathText {
                                 tileEntity.setGraveType(newGraveType);
                             }
                         }
-                        break;
                 }
             }
         }

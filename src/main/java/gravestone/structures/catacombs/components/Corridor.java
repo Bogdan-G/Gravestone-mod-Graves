@@ -27,26 +27,22 @@ public class Corridor extends CatacombsBaseComponent {
         topXEnd = 0;
         topZEnd = Z_LENGTH - 1;
 
-        switch (direction) {
-            case 0:
+        if (direction==0) {
                 leftXEnd = X_LENGTH - 1;
                 leftZEnd = 0;
                 rightXEnd = 0;
                 rightZEnd = 0;
-                break;
-            case 1:
+        } else if (direction==1) {
                 leftXEnd = X_LENGTH - 1;
                 leftZEnd = 4;
                 rightXEnd = 0;
                 rightZEnd = 4;
-                break;
-            case 2:
+        } else if (direction==2) {
                 leftXEnd = 0;
                 leftZEnd = 4;
                 rightXEnd = X_LENGTH - 1;
                 rightZEnd = 4;
-                break;
-            case 3:
+        } else if (direction==3) {
                 leftXEnd = 0;
                 leftZEnd = 0;
                 rightXEnd = X_LENGTH - 1;
@@ -71,7 +67,7 @@ public class Corridor extends CatacombsBaseComponent {
         this.fillWithBlocks(world, boundingBox, 0, 0, 0, 4, 0, 0, GSBlock.trap, GSBlock.trap, false);
 
         // neter ceiling
-        this.fillWithBlocks(world, boundingBox, 0, 4, 0, 4, 4, 3, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 0, 4, 0, 4, 4, 3, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
         // block walls
         this.fillWithRandomizedBlocks(world, boundingBox, 0, 1, 1, 0, 3, 3, false, random, getCemeteryCatacombsStones());
@@ -79,8 +75,8 @@ public class Corridor extends CatacombsBaseComponent {
         this.fillWithRandomizedBlocks(world, boundingBox, 0, 0, 4, 4, 4, 4, false, random, getCemeteryCatacombsStones());
 
         // nether walls
-        this.fillWithBlocks(world, boundingBox, 0, 1, 0, 0, 3, 0, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 4, 1, 0, 4, 3, 0, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 0, 1, 0, 0, 3, 0, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 4, 1, 0, 4, 3, 0, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
         // spawn bats
         MobSpawnHelper.spawnBats(world, random, boundingBox);

@@ -33,34 +33,29 @@ public class BoundingBoxHelper {
         int minZ = 0;
         int maxZ = 0;
 
-        switch (direction) {
-            case 0:
+        if (direction==0) {
                 minX = x - xShift;
                 maxX = x - xShift + xLength;
                 minZ = z;
                 maxZ = z + zLength;
-                break;
 
-            case 1:
+        } else if (direction==1) {
                 minX = x - zLength;
                 maxX = x;
                 minZ = z - xShift;
                 maxZ = z - xShift + xLength;
-                break;
 
-            case 2:
+        } else if (direction==2) {
                 minX = x - xShift;
                 maxX = x - xShift + xLength;
                 minZ = z - zLength;
                 maxZ = z;
-                break;
 
-            case 3:
+        } else if (direction==3) {
                 minX = x;
                 maxX = x + zLength;
                 minZ = z - xShift;
                 maxZ = z - xShift + xLength;
-                break;
         }
 
         return new StructureBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);

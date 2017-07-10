@@ -19,11 +19,11 @@ import net.minecraft.world.gen.structure.MapGenStructureIO;
  */
 public class GSStructures {
 
-    public static final Block[] VALUEBLE_BLOCKS = {
+    /*public static final Block[] VALUEBLE_BLOCKS = {
             Blocks.gold_block, Blocks.lapis_block, Blocks.redstone_block,
             Blocks.gold_block, Blocks.lapis_block, Blocks.redstone_block,
             Blocks.diamond_block, Blocks.emerald_block
-    };
+    };*/
     private static GSStructures instance;
 
     private GSStructures() {

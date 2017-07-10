@@ -77,52 +77,13 @@ public class GSMobSpawn {
     public static Entity getMobEntity(World world, EnumGraves graveType, int x, int y, int z) {
         String id;
 
-        switch (graveType) {
-            case WOODEN_DOG_STATUE:
-            case SANDSTONE_DOG_STATUE:
-            case STONE_DOG_STATUE:
-            case MOSSY_DOG_STATUE:
-            case IRON_DOG_STATUE:
-            case GOLDEN_DOG_STATUE:
-            case DIAMOND_DOG_STATUE:
-            case EMERALD_DOG_STATUE:
-            case LAPIS_DOG_STATUE:
-            case REDSTONE_DOG_STATUE:
-            case OBSIDIAN_DOG_STATUE:
-            case QUARTZ_DOG_STATUE:
-            case ICE_DOG_STATUE:
+        if (graveType==EnumGraves.WOODEN_DOG_STATUE || graveType==EnumGraves.SANDSTONE_DOG_STATUE || graveType==EnumGraves.STONE_DOG_STATUE || graveType==EnumGraves.MOSSY_DOG_STATUE || graveType==EnumGraves.IRON_DOG_STATUE || graveType==EnumGraves.GOLDEN_DOG_STATUE || graveType==EnumGraves.DIAMOND_DOG_STATUE || graveType==EnumGraves.EMERALD_DOG_STATUE || graveType==EnumGraves.LAPIS_DOG_STATUE || graveType==EnumGraves.REDSTONE_DOG_STATUE || graveType==EnumGraves.OBSIDIAN_DOG_STATUE || graveType==EnumGraves.QUARTZ_DOG_STATUE || graveType==EnumGraves.ICE_DOG_STATUE) {
                 id = getMobID(world.rand, EnumMobType.UNDEAD_DOGS);
-                break;
-            case WOODEN_CAT_STATUE:
-            case SANDSTONE_CAT_STATUE:
-            case STONE_CAT_STATUE:
-            case MOSSY_CAT_STATUE:
-            case IRON_CAT_STATUE:
-            case GOLDEN_CAT_STATUE:
-            case DIAMOND_CAT_STATUE:
-            case EMERALD_CAT_STATUE:
-            case LAPIS_CAT_STATUE:
-            case REDSTONE_CAT_STATUE:
-            case OBSIDIAN_CAT_STATUE:
-            case QUARTZ_CAT_STATUE:
-            case ICE_CAT_STATUE:
+        } else if (graveType==EnumGraves.WOODEN_CAT_STATUE || graveType==EnumGraves.SANDSTONE_CAT_STATUE || graveType==EnumGraves.STONE_CAT_STATUE || graveType==EnumGraves.MOSSY_CAT_STATUE || graveType==EnumGraves.IRON_CAT_STATUE || graveType==EnumGraves.GOLDEN_CAT_STATUE || graveType==EnumGraves.DIAMOND_CAT_STATUE || graveType==EnumGraves.EMERALD_CAT_STATUE || graveType==EnumGraves.LAPIS_CAT_STATUE || graveType==EnumGraves.REDSTONE_CAT_STATUE || graveType==EnumGraves.OBSIDIAN_CAT_STATUE || graveType==EnumGraves.QUARTZ_CAT_STATUE || graveType==EnumGraves.ICE_CAT_STATUE) {
                 id = getMobID(world.rand, EnumMobType.UNDEAD_CATS);
-                break;
-            case WOODEN_HORSE_STATUE:
-            case SANDSTONE_HORSE_STATUE:
-            case STONE_HORSE_STATUE:
-            case MOSSY_HORSE_STATUE:
-            case IRON_HORSE_STATUE:
-            case GOLDEN_HORSE_STATUE:
-            case DIAMOND_HORSE_STATUE:
-            case EMERALD_HORSE_STATUE:
-            case LAPIS_HORSE_STATUE:
-            case REDSTONE_HORSE_STATUE:
-            case OBSIDIAN_HORSE_STATUE:
-            case QUARTZ_HORSE_STATUE:
-            case ICE_HORSE_STATUE:
+        } else if (graveType==EnumGraves.WOODEN_HORSE_STATUE || graveType==EnumGraves.SANDSTONE_HORSE_STATUE || graveType==EnumGraves.STONE_HORSE_STATUE || graveType==EnumGraves.MOSSY_HORSE_STATUE || graveType==EnumGraves.IRON_HORSE_STATUE || graveType==EnumGraves.GOLDEN_HORSE_STATUE || graveType==EnumGraves.DIAMOND_HORSE_STATUE || graveType==EnumGraves.EMERALD_HORSE_STATUE || graveType==EnumGraves.LAPIS_HORSE_STATUE || graveType==EnumGraves.REDSTONE_HORSE_STATUE || graveType==EnumGraves.OBSIDIAN_HORSE_STATUE || graveType==EnumGraves.QUARTZ_HORSE_STATUE || graveType==EnumGraves.ICE_HORSE_STATUE) {
                 return null;
-            default:
+        } else {
                 if (canSpawnHellCreatures(world, x, y, z) && world.rand.nextInt(10) == 0) {
                     id = getMobID(world.rand, EnumMobType.HELL_MOBS);
 
@@ -162,23 +123,8 @@ public class GSMobSpawn {
     public static Entity getMobEntityForSpawner(World world, EnumSpawner spawnerType, int x, int y, int z) {
         String mobId;
 
-        switch (spawnerType) {
-            case WITHER_SPAWNER:
-                mobId = GSMobSpawn.WITHER_ID;
-                break;
-            case SKELETON_SPAWNER:
-                mobId = skeletonSpawnerMobs.get(world.rand.nextInt(skeletonSpawnerMobs.size()));
-
-                if (mobId.equals("Skeleton") && world.rand.nextInt(10) == 0) {
-                    EntitySkeleton skeleton = getSkeleton(world);
-                    skeleton.setSkeletonType(1);
-                    return skeleton;
-                }
-                break;
-            case ZOMBIE_SPAWNER:
-            default:
-                mobId = zombieSpawnerMobs.get(world.rand.nextInt(zombieSpawnerMobs.size()));
-                break;
+        if (spawnerType==EnumSpawner.WITHER_SPAWNER) {                mobId = GSMobSpawn.WITHER_ID;        } else if (spawnerType==EnumSpawner.SKELETON_SPAWNER) {                mobId = skeletonSpawnerMobs.get(world.rand.nextInt(skeletonSpawnerMobs.size()));                if (mobId.equals("Skeleton") && world.rand.nextInt(10) == 0) {                    EntitySkeleton skeleton = getSkeleton(world);                    skeleton.setSkeletonType(1);                    return skeleton;                }        } else {
+                mobId = zombieSpawnerMobs.get(world.rand.nextInt(zombieSpawnerMobs.size()));//spawnerType==EnumSpawner.ZOMBIE_SPAWNER include in default switch
         }
 
         EntityLiving entity = (EntityLiving) EntityList.createEntityByName(mobId, world);
@@ -266,16 +212,14 @@ public class GSMobSpawn {
      * @param mobType
      */
     public static String getMobID(Random random, EnumMobType mobType) {
-        switch (mobType) {
-            case HELL_MOBS:
+        if (mobType==EnumMobType.HELL_MOBS) {
                 return HELL_MOB_ID.get(random.nextInt(HELL_MOB_ID.size()));
-            case UNDEAD_DOGS:
+        } else if (mobType==EnumMobType.UNDEAD_DOGS) {
                 return DOG_ID.get(random.nextInt(DOG_ID.size()));
-            case UNDEAD_CATS:
+        } else if (mobType==EnumMobType.UNDEAD_CATS) {
                 return CAT_ID.get(random.nextInt(CAT_ID.size()));
-            case DEFAULT_MOBS:
-            default:
-                return MOB_ID.get(random.nextInt(MOB_ID.size()));
+        } else {
+                return MOB_ID.get(random.nextInt(MOB_ID.size()));//mobType==EnumMobType.DEFAULT_MOBS  include in default switch
         }
     }
 

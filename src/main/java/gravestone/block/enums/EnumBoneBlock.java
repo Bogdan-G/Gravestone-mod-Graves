@@ -31,9 +31,11 @@ public enum EnumBoneBlock implements IBlockEnum {
     }
 
     public static EnumBoneBlock getById(byte id) {
-        if (id < values().length) {
-            return values()[id];
+        if (id < VALUES.length) {
+            return VALUES[id];
         }
         return BONE_BLOCK;
     }
+
+    public static final EnumBoneBlock[] VALUES = values();
 }

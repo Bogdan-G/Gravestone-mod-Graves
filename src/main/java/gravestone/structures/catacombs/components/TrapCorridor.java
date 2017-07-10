@@ -42,7 +42,7 @@ public class TrapCorridor extends CatacombsBaseComponent {
         this.fillWithBlocks(world, boundingBox, 1, 0, 0, 5, 0, 0, GSBlock.trap, GSBlock.trap, false);
 
         // neter ceiling
-        this.fillWithBlocks(world, boundingBox, 1, 4, 0, 5, 4, 3, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 1, 4, 0, 5, 4, 3, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
         // block walls
         this.fillWithRandomizedBlocks(world, boundingBox, 1, 1, 1, 1, 3, 3, false, random, getCemeteryCatacombsStones());
@@ -50,8 +50,8 @@ public class TrapCorridor extends CatacombsBaseComponent {
         this.fillWithRandomizedBlocks(world, boundingBox, 1, 0, 4, 5, 4, 4, false, random, getCemeteryCatacombsStones());
 
         // nether walls
-        this.fillWithBlocks(world, boundingBox, 1, 1, 0, 1, 3, 0, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 5, 1, 0, 5, 3, 0, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 1, 1, 0, 1, 3, 0, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 5, 1, 0, 5, 3, 0, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
         // blocks
         this.placeBlockAtCurrentPosition(world, Blocks.stonebrick, 0, 0, 1, 2, boundingBox);
@@ -67,8 +67,8 @@ public class TrapCorridor extends CatacombsBaseComponent {
         // dispencer
         ObjectsGenerationHelper.generateDispenser(world, this, random, 0, 2, 2, getLeftItemDirection(coordBaseMode));
         ObjectsGenerationHelper.generateDispenser(world, this, random, 6, 2, 2, getRightItemDirection(coordBaseMode));
-        this.placeBlockAtCurrentPosition(world, Blocks.air, 0, 1, 2, 2, boundingBox);
-        this.placeBlockAtCurrentPosition(world, Blocks.air, 0, 5, 2, 2, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.air, 0, 1, 2, 2, boundingBox);
+        this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.air, 0, 5, 2, 2, boundingBox);
 
         // web
         this.randomlyFillWithBlocks(world, boundingBox, random, 0.2F, 2, 1, 1, 2, 1, 1, Blocks.web, Blocks.web, false);

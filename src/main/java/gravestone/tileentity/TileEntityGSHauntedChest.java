@@ -11,7 +11,11 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+
+import java.util.*;
+import org.bogdang.modifications.random.*;
 
 /**
  * GraveStone mod
@@ -31,9 +35,34 @@ public class TileEntityGSHauntedChest extends TileEntity {
      * The angle of the lid last tick
      */
     public float prevLidAngle;
-    private EnumHauntedChest chestType = EnumHauntedChest.BATS_CHEST;
+    private EnumHauntedChest chestType;
+    private static final Random random = new XSTR(new XSTR().getSeed()*(new GeneratorEntropy().getSeed()));
+    private int TimeoutSpawnWhenOpen;
+    private int TimeSaveValue;
 
     public TileEntityGSHauntedChest() {
+        chestType = random.nextInt(10)==0 ? EnumHauntedChest.SKELETON_CHEST : EnumHauntedChest.BATS_CHEST;
+        if (chestType==EnumHauntedChest.BATS_CHEST) {
+        TimeoutSpawnWhenOpen = 0;
+        TimeSaveValue = 720000;
+        } else {
+        int day_return_chest = random.nextInt(3)+1;
+        if (day_return_chest==1) {TimeoutSpawnWhenOpen = 0;TimeSaveValue = 24000;
+        } else if (day_return_chest==2) {TimeoutSpawnWhenOpen = 0;TimeSaveValue = 48000;
+        } else {TimeoutSpawnWhenOpen = 0;TimeSaveValue = 72000;}
+        }
+    }
+
+    protected AxisAlignedBB aabb;
+
+    @Override
+    public void validate() {
+    	aabb = AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1);
+    }
+
+    @Override
+    public AxisAlignedBB getRenderBoundingBox() {
+    	return aabb;
     }
 
     /**
@@ -140,14 +169,15 @@ public class TileEntityGSHauntedChest extends TileEntity {
     }
 
     public void spawnMobs(World world) {
-        switch (getChestType()) {
-            case SKELETON_CHEST:
+        EnumHauntedChest type = getChestType();
+        if (TimeoutSpawnWhenOpen==0) {
+        if (type==EnumHauntedChest.SKELETON_CHEST) {
+                TimeoutSpawnWhenOpen=TimeSaveValue;
                 EntitySkeleton skeleton = GSMobSpawn.getSkeleton(world, (byte) 1);
                 skeleton.setLocationAndAngles(this.xCoord + 0.5, this.yCoord, this.zCoord + 0.5, 0.0F, 0.0F);
                 world.spawnEntityInWorld(skeleton);
-                break;
-            case BATS_CHEST:
-            default:
+        } else {//type==EnumHauntedChest.BATS_CHEST include in default switch
+                TimeoutSpawnWhenOpen=TimeSaveValue;
                 EntityBat bat;
                 int batsCount = 15;
 
@@ -157,8 +187,9 @@ public class TileEntityGSHauntedChest extends TileEntity {
 
                     world.spawnEntityInWorld(bat);
                 }
-                break;
         }
+        }
+        TimeoutSpawnWhenOpen--;
     }
 
     @Override
@@ -172,4 +203,7 @@ public class TileEntityGSHauntedChest extends TileEntity {
         this.writeToNBT(nbtTag);
         return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, nbtTag);
     }
+
+    @Override 
+    public void markDirty() {/* Do not do the super Function */} 
 }

@@ -26,9 +26,11 @@ public enum EnumSkullCandle implements IBlockEnum {
     }
     
     public static EnumSkullCandle getByID(int id) {
-        if (id < values().length) {
-            return values()[id];
+        if (id < VALUES.length) {
+            return VALUES[id];
         }
         return SKELETON_SKULL;
     }
+
+    public static final EnumSkullCandle[] VALUES = values();
 }

@@ -39,7 +39,7 @@ public class Stairs extends CatacombsBaseComponent {
         int top = boundingBox.maxY - boundingBox.minY - 1;
         int shiftY;
         int shiftZ;
-        this.fillWithBlocks(world, boundingBox, 0, top + 1, 0, 4, top + 1, 0, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 0, top + 1, 0, 4, top + 1, 0, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
 
         for (int i = 0; i < 3; i++) {
             shiftZ = i * 4;
@@ -50,8 +50,8 @@ public class Stairs extends CatacombsBaseComponent {
             this.fillWithAir(world, boundingBox, 1, shiftY - 7, shiftZ + 3, 3, shiftY - 4, shiftZ + 4);
             
             // nether walls
-            this.fillWithBlocks(world, boundingBox, 0, shiftY - 4, shiftZ, 0, shiftY, shiftZ, Blocks.nether_brick, Blocks.nether_brick, false);
-            this.fillWithBlocks(world, boundingBox, 4, shiftY - 4, shiftZ, 4, shiftY, shiftZ, Blocks.nether_brick, Blocks.nether_brick, false);
+            this.fillWithBlocks(world, boundingBox, 0, shiftY - 4, shiftZ, 0, shiftY, shiftZ, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+            this.fillWithBlocks(world, boundingBox, 4, shiftY - 4, shiftZ, 4, shiftY, shiftZ, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
             
             // block walls
             this.fillWithRandomizedBlocks(world, boundingBox, 0, shiftY - 5, shiftZ + 1, 0, shiftY - 1, shiftZ + 1, false, random, getCemeteryCatacombsStones());
@@ -62,10 +62,10 @@ public class Stairs extends CatacombsBaseComponent {
             this.fillWithRandomizedBlocks(world, boundingBox, 4, shiftY - 7, shiftZ + 3, 4, shiftY - 3, shiftZ + 3, false, random, getCemeteryCatacombsStones());
             
             // nether stairs
-            this.fillWithMetadataBlocks(world, boundingBox, 1, shiftY - 4, shiftZ, 3, shiftY - 4, shiftZ, Blocks.nether_brick_stairs, metaBot, Blocks.nether_brick_stairs, metaBot, false);
-            this.fillWithMetadataBlocks(world, boundingBox, 1, shiftY - 5, shiftZ + 1, 3, shiftY - 5, shiftZ + 1, Blocks.nether_brick_stairs, metaBot, Blocks.nether_brick_stairs, metaBot, false);
-            this.fillWithMetadataBlocks(world, boundingBox, 1, shiftY - 6, shiftZ + 2, 3, shiftY - 6, shiftZ + 2, Blocks.nether_brick_stairs, metaBot, Blocks.nether_brick_stairs, metaBot, false);
-            this.fillWithMetadataBlocks(world, boundingBox, 1, shiftY - 7, shiftZ + 3, 3, shiftY - 7, shiftZ + 3, Blocks.nether_brick_stairs, metaBot, Blocks.nether_brick_stairs, metaBot, false);
+            this.fillWithMetadataBlocks(world, boundingBox, 1, shiftY - 4, shiftZ, 3, shiftY - 4, shiftZ, gravestone.core.GSBlock.nsbs, metaBot, gravestone.core.GSBlock.nsbs, metaBot, false);
+            this.fillWithMetadataBlocks(world, boundingBox, 1, shiftY - 5, shiftZ + 1, 3, shiftY - 5, shiftZ + 1, gravestone.core.GSBlock.nsbs, metaBot, gravestone.core.GSBlock.nsbs, metaBot, false);
+            this.fillWithMetadataBlocks(world, boundingBox, 1, shiftY - 6, shiftZ + 2, 3, shiftY - 6, shiftZ + 2, gravestone.core.GSBlock.nsbs, metaBot, gravestone.core.GSBlock.nsbs, metaBot, false);
+            this.fillWithMetadataBlocks(world, boundingBox, 1, shiftY - 7, shiftZ + 3, 3, shiftY - 7, shiftZ + 3, gravestone.core.GSBlock.nsbs, metaBot, gravestone.core.GSBlock.nsbs, metaBot, false);
             
             Block stairsBlock = CatacombsLevel.getCatacombsStairsId(this.level);
             
@@ -82,7 +82,7 @@ public class Stairs extends CatacombsBaseComponent {
             this.randomlyFillWithBlocks(world, boundingBox, random, 0.2F, 3, shiftY - 5, shiftZ + 3, 3, shiftY - 5, shiftZ + 3, Blocks.web, Blocks.web, false);
         }
 
-        this.fillWithBlocks(world, boundingBox, 0, 0, Z_LENGTH - 1, 4, 0, Z_LENGTH - 1, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 0, 0, Z_LENGTH - 1, 4, 0, Z_LENGTH - 1, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
         this.fillWithRandomizedBlocks(world, boundingBox, 0, 0, Z_LENGTH - 1, 0, 4, Z_LENGTH - 1, false, random, getCemeteryCatacombsStones());
         this.fillWithRandomizedBlocks(world, boundingBox, 4, 0, Z_LENGTH - 1, 4, 4, Z_LENGTH - 1, false, random, getCemeteryCatacombsStones());
         return true;

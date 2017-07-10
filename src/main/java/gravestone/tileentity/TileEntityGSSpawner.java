@@ -1,6 +1,8 @@
 package gravestone.tileentity;
 
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
 
 /**
  * GraveStone mod
@@ -9,6 +11,18 @@ import net.minecraft.tileentity.TileEntity;
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
 public class TileEntityGSSpawner extends TileEntity {
+
+    protected AxisAlignedBB aabb;
+
+    @Override
+    public void validate() {
+    	aabb = AxisAlignedBB.getBoundingBox(xCoord - 1, yCoord, zCoord - 1, xCoord + 2, yCoord + 2, zCoord + 2);
+    }
+
+    @Override
+    public AxisAlignedBB getRenderBoundingBox() {
+    	return aabb;
+    }
 
     protected GSMobSpawner spawner;
 
@@ -23,6 +37,9 @@ public class TileEntityGSSpawner extends TileEntity {
      */
     @Override
     public void updateEntity() {
-        spawner.updateEntity();
+        if (spawner!=null) spawner.updateEntity();
     }
+
+    @Override 
+    public void markDirty() {/* Do not do the super Function */} 
 }

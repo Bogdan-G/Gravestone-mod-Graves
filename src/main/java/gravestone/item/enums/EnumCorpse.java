@@ -26,9 +26,11 @@ public enum EnumCorpse implements IBlockEnum {
     }
 
     public static EnumCorpse getById(byte id) {
-        if (id < values().length) {
-            return values()[id];
+        if (id < VALUES.length) {
+            return VALUES[id];
         }
         return VILLAGER;
     }
+
+    public static final EnumCorpse[] VALUES = values();
 }

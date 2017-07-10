@@ -14,6 +14,7 @@ import net.minecraft.world.gen.structure.StructureComponent;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.*;
 
 /**
  * GraveStone mod
@@ -38,28 +39,23 @@ public class CatacombsLevel {
     public static final int DEFAULT_MAX_ROOMS_COUNT_AT_3_LEVEL = 180;
     public static final int DEFAULT_MIN_ROOMS_COUNT_AT_4_LEVEL = 160;
     public static final int DEFAULT_MAX_ROOMS_COUNT_AT_4_LEVEL = 320;
-    private LinkedList levelComponents = new LinkedList();
-    private LinkedList endComponents = new LinkedList();
+    private ArrayList levelComponents = new ArrayList();
+    private ArrayList endComponents = new ArrayList();
 
-    public CatacombsLevel(LinkedList<CatacombsBaseComponent> startComponents, int level, World world, Random random) {
+    public CatacombsLevel(ArrayList<CatacombsBaseComponent> startComponents, int level, World world, Random random) {
         levelComponents = startComponents;
         this.random = random;
         this.world = world;
         this.level = level;
 
-        switch (level) {
-            case 1:
+        if (level==1) {
                 totalComponentsCount = GraveStoneConfig.catacombsMinRoomsCountAt1Level + random.nextInt(GraveStoneConfig.catacombsMaxRoomsCountAt1Level - GraveStoneConfig.catacombsMinRoomsCountAt1Level);
-                break;
-            case 2:
+        } else if (level==2) {
                 totalComponentsCount = GraveStoneConfig.catacombsMinRoomsCountAt2Level + random.nextInt(GraveStoneConfig.catacombsMaxRoomsCountAt2Level - GraveStoneConfig.catacombsMinRoomsCountAt2Level);
-                break;
-            case 3:
+        } else if (level==3) {
                 totalComponentsCount = GraveStoneConfig.catacombsMinRoomsCountAt3Level + random.nextInt(GraveStoneConfig.catacombsMaxRoomsCountAt3Level - GraveStoneConfig.catacombsMinRoomsCountAt3Level);
-                break;
-            case 4:
+        } else if (level==4) {
                 totalComponentsCount = GraveStoneConfig.catacombsMinRoomsCountAt4Level + random.nextInt(GraveStoneConfig.catacombsMaxRoomsCountAt4Level - GraveStoneConfig.catacombsMinRoomsCountAt4Level);
-                break;
         }
 
         componentsCount = 0;
@@ -81,8 +77,8 @@ public class CatacombsLevel {
     /*
      * Prepare Level pieces
      */
-    public final void prepareLevel(LinkedList<CatacombsBaseComponent> currentComponents) {
-        LinkedList<CatacombsBaseComponent> newComponents = new LinkedList();
+    public final void prepareLevel(ArrayList<CatacombsBaseComponent> currentComponents) {
+        ArrayList<CatacombsBaseComponent> newComponents = new ArrayList();
         CatacombsBaseComponent[] components = new CatacombsBaseComponent[0];
         components = currentComponents.toArray(components);
         CatacombsBaseComponent component;
@@ -118,7 +114,7 @@ public class CatacombsLevel {
     /*
      * Create and add new component if it available
      */
-    private int addComponent(LinkedList<CatacombsBaseComponent> newComponents, CatacombsBaseComponent component, int direction, COMPONENT_SIDE componentSide) {
+    private int addComponent(ArrayList<CatacombsBaseComponent> newComponents, CatacombsBaseComponent component, int direction, COMPONENT_SIDE componentSide) {
         CatacombsBaseComponent newComponent = tryCreateComponent(component, direction, componentSide);
 
         if (newComponent != null) {
@@ -132,8 +128,8 @@ public class CatacombsLevel {
     /*
      * Create level end components
      */
-    private void createEnd(LinkedList<CatacombsBaseComponent> currentComponents, int level) {
-        LinkedList<CatacombsBaseComponent> components = currentComponents;
+    private void createEnd(ArrayList<CatacombsBaseComponent> currentComponents, int level) {
+        ArrayList<CatacombsBaseComponent> components = currentComponents;
         CatacombsBaseComponent component, newComponent;
         Class componentClass;
         int ends = 1 + random.nextInt(components.size() - 1);
@@ -244,7 +240,7 @@ public class CatacombsLevel {
     /**
      * Return end parts of level
      */
-    public LinkedList getEndParts() {
+    public ArrayList getEndParts() {
         return endComponents;
     }
 

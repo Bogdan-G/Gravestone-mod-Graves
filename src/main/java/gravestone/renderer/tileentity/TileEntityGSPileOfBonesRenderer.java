@@ -36,21 +36,10 @@ public class TileEntityGSPileOfBonesRenderer extends TileEntitySpecialRenderer {
             GL11.glScalef(1, -1, -1);
             meta = tileEntity.getBlockMetadata();
             int direction = tileEntity.getDirection();
-            switch (direction) {
-                case 1:
-                    direction = -90;
-                    break;
-                case 0:
-                    direction = 180;
-                    break;
-                case 2:
-                    direction = 0;
-                    break;
-                case 3:
-                default:
-                    direction = 90;
-                    break;
-            }
+            if (direction==1) direction = -90;
+            else if (direction==0) direction = 180;
+            else if (direction==2) direction = 0;
+            else direction = 90;//direction==3 include in default switch
             GL11.glRotatef(direction, 0.0F, 1.0F, 0.0F);
         }
 

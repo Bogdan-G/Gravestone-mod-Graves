@@ -57,8 +57,7 @@ public class Fence extends CatacombsBaseComponent {
     private void createPartOfFence(World world, Random random, FENCE_DIRECTION direction, int x) {
         int y;
 
-        switch (direction) {
-            case LEFT:
+        if (direction==FENCE_DIRECTION.LEFT) {
                 createGrate(world, x);
                 createGrate(world, x - 1);
                 createGrate(world, x - 2);
@@ -67,8 +66,7 @@ public class Fence extends CatacombsBaseComponent {
                 if (checkGround(world, x - 3, y)) {
                     this.fillWithRandomizedBlocks(world, boundingBox, x - 3, y, 0, x - 3, y + 3, 0, false, random, getCemeteryCatacombsStones());
                 }
-                break;
-            case RIGHT:
+        } else if (direction==FENCE_DIRECTION.RIGHT) {
                 createGrate(world, x);
                 createGrate(world, x + 1);
                 createGrate(world, x + 2);
@@ -77,7 +75,6 @@ public class Fence extends CatacombsBaseComponent {
                 if (checkGround(world, x + 3, y)) {
                     this.fillWithRandomizedBlocks(world, boundingBox, x + 3, y, 0, x + 3, y + 3, 0, false, random, getCemeteryCatacombsStones());
                 }
-                break;
         }
     }
 
@@ -119,8 +116,10 @@ public class Fence extends CatacombsBaseComponent {
         int xPos = getXWithOffset(x, 0);
         int zPos = getZWithOffset(x, 0);
         int y = world.getTopSolidOrLiquidBlock(xPos, zPos);
-        while (world.getBlock(xPos, y, zPos).getMaterial().equals(Material.wood) || world.getBlock(xPos, y, zPos).getMaterial().equals(Material.leaves)) {
+        Material mblock = world.getBlock(xPos, y, zPos).getMaterial();//it expensive
+        while (mblock.equals(Material.wood) || mblock.equals(Material.leaves)) {
             y--;
+            mblock = world.getBlock(xPos, y, zPos).getMaterial();
         }
 
         return y;
@@ -166,8 +165,12 @@ public class Fence extends CatacombsBaseComponent {
             int xPos = getXWithOffset(x, 0);
             int zPos = getZWithOffset(x, 0);
             int yPos = world.getTopSolidOrLiquidBlock(xPos, zPos);
-            while (world.getBlock(xPos, y, zPos).getMaterial().equals(Material.wood) || world.getBlock(xPos, y, zPos).getMaterial().equals(Material.leaves)) {
+            Material mblock = world.getBlock(xPos, y, zPos).getMaterial();//it expensive
+            int cycle_iteration = 0;//fix infinity loop
+            while (cycle_iteration!=255 && (mblock.equals(Material.wood) || mblock.equals(Material.leaves))) {
                 yPos--;
+                mblock = world.getBlock(xPos, y, zPos).getMaterial();
+                cycle_iteration++;
             }
             y += yPos;
         }

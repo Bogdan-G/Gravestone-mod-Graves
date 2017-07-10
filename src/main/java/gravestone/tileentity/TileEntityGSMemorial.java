@@ -4,6 +4,7 @@ import gravestone.block.enums.EnumHangedMobs;
 import gravestone.block.enums.EnumMemorials;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraft.util.AxisAlignedBB;
 
 import java.util.Random;
 
@@ -25,6 +26,11 @@ public class TileEntityGSMemorial extends TileEntityGSGrave {
     public TileEntityGSMemorial(World world) {
         this();
         this.worldObj = world;
+    }
+
+    @Override
+    public void validate() {
+    	aabb = AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 2, yCoord + 2, zCoord + 2);
     }
 
     /**
@@ -71,7 +77,7 @@ public class TileEntityGSMemorial extends TileEntityGSGrave {
     }
 
     public void setRandomMob(Random random) {
-        hangedMob = EnumHangedMobs.values()[random.nextInt(EnumHangedMobs.values().length)] ;
+        hangedMob = EnumHangedMobs.VALUES[random.nextInt(EnumHangedMobs.VALUES.length)] ;
     }
 
     @Override

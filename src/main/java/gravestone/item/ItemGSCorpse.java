@@ -55,7 +55,7 @@ public class ItemGSCorpse extends Item {
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs tab, List list) {
-        for (int damage = 0; damage < EnumCorpse.values().length; ++damage) {
+        for (int damage = 0; damage < EnumCorpse.VALUES.length; ++damage) {
             list.addAll(CorpseHelper.getDefaultCorpse(item, damage));
         }
     }

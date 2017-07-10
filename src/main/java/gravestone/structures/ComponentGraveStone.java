@@ -95,4 +95,20 @@ public class ComponentGraveStone extends StructureComponent {
     @Override
     protected void func_143011_b(NBTTagCompound nbttagcompound) {
     }
+
+    //for fake air block
+    @Override
+    protected void fillWithAir(World p_74878_1_, StructureBoundingBox p_74878_2_, int p_74878_3_, int p_74878_4_, int p_74878_5_, int p_74878_6_, int p_74878_7_, int p_74878_8_)
+    {
+        for (int k1 = p_74878_4_; k1 <= p_74878_7_; ++k1)
+        {
+            for (int l1 = p_74878_3_; l1 <= p_74878_6_; ++l1)
+            {
+                for (int i2 = p_74878_5_; i2 <= p_74878_8_; ++i2)
+                {
+                    this.placeBlockAtCurrentPosition(p_74878_1_, gravestone.core.GSBlock.air, 0, l1, k1, i2, p_74878_2_);
+                }
+            }
+        }
+    }
 }

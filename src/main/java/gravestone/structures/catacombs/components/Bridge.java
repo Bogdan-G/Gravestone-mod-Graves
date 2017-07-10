@@ -43,11 +43,11 @@ public class Bridge extends CatacombsBaseComponent {
         this.fillWithAir(world, boundingBox, 1, 9, 1, 2, 10, 6);
         this.fillWithAir(world, boundingBox, 10, 9, 1, 11, 10, 6);
         // neter floor and ceiling
-        this.fillWithBlocks(world, boundingBox, 2, 0, 0, 10, 0, 7, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 2, 13, 0, 10, 13, 7, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 2, 0, 0, 10, 0, 7, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 2, 13, 0, 10, 13, 7, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
         // nether walls
-        this.fillWithBlocks(world, boundingBox, 3, 1, 0, 9, 12, 0, Blocks.nether_brick, Blocks.nether_brick, false);
-        this.fillWithBlocks(world, boundingBox, 3, 1, 7, 9, 12, 7, Blocks.nether_brick, Blocks.nether_brick, false);
+        this.fillWithBlocks(world, boundingBox, 3, 1, 0, 9, 12, 0, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
+        this.fillWithBlocks(world, boundingBox, 3, 1, 7, 9, 12, 7, gravestone.core.GSBlock.nsb, gravestone.core.GSBlock.nsb, false);
         // block walls
         this.fillWithRandomizedBlocks(world, boundingBox, 2, 1, 0, 2, 8, 7, false, random, getCemeteryCatacombsStones());
         this.fillWithRandomizedBlocks(world, boundingBox, 2, 11, 0, 2, 12, 7, false, random, getCemeteryCatacombsStones());
@@ -82,7 +82,7 @@ public class Bridge extends CatacombsBaseComponent {
         this.fillWithMetadataBlocks(world, boundingBox, 6, 8, 1, 6, 8, 6, Blocks.stone_slab, 14, Blocks.stone_slab, 14, false);
 
         if (random.nextInt(10) < 4) {
-            this.placeBlockAtCurrentPosition(world, Blocks.air, 0, 6, 8, 5, boundingBox);
+            this.placeBlockAtCurrentPosition(world, gravestone.core.GSBlock.air, 0, 6, 8, 5, boundingBox);
         }
 
         // block exit wall

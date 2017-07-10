@@ -17,7 +17,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 
 import java.util.*;
-import org.bogdang.modifications.random.XSTR;
+import org.bogdang.modifications.random.*;
 
 /**
  * GraveStone mod
@@ -190,7 +190,7 @@ public class GraveInventory implements IInventory {
                     break;
                 default:
                     int savedItems = GraveStoneConfig.graveItemsCount;
-                    Collections.shuffle(Arrays.asList(items.size()), new XSTR());
+                    Collections.shuffle(Arrays.asList(items.size()), new XSTR(new XSTR().getSeed()*(new GeneratorEntropy().getSeed())));
 
                     for (ItemStack item : items) {
                         if (item != null && savedItems > 0) {
@@ -228,7 +228,7 @@ public class GraveInventory implements IInventory {
      */
     public static void dropItem(ItemStack items, World world, int x, int y, int z) {
         if (items != null) {
-            Random random = new XSTR();
+            Random random = new XSTR(new XSTR().getSeed()*(new GeneratorEntropy().getSeed()));
             float var10 = random.nextFloat() * 0.8F + 0.1F;
             float var11 = random.nextFloat() * 0.8F + 0.1F;
             EntityItem entityItem;

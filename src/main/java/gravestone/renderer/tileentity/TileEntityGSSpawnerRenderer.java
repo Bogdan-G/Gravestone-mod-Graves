@@ -54,14 +54,8 @@ public class TileEntityGSSpawnerRenderer extends TileEntityGSRenderer {
     }
 
     private static ModelSpawnerPentagram getSpawnerModel(EnumSpawner spawnerType) {
-        switch (spawnerType) {
-            case WITHER_SPAWNER:
-                return witherSpawnerModel;
-            case SKELETON_SPAWNER:
-                return skeletonSpawnerModel;
-            case ZOMBIE_SPAWNER:
-            default:
-                return zombieSpawnerModel;
-        }
+        if (spawnerType==EnumSpawner.WITHER_SPAWNER) return witherSpawnerModel;
+        else if (spawnerType==EnumSpawner.SKELETON_SPAWNER) return skeletonSpawnerModel;
+        else return zombieSpawnerModel;//spawnerType==ZOMBIE_SPAWNER include in default switch
     }
 }

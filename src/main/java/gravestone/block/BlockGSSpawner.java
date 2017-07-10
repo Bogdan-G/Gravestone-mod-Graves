@@ -131,13 +131,11 @@ public class BlockGSSpawner extends BlockMobSpawner {
     }
 
     public ItemStack getCustomItemsDropped(int meta) {
-        switch (meta) {
-            case 1:
+        if (meta==1) {
                 return new ItemStack(GSBlock.skullCandle, 1, 0);
-            case 2:
+        } else if (meta==2) {
                 return new ItemStack(GSBlock.skullCandle, 1, 2);
-            case 0:
-            default:
+        } else {//meta==0
                 return new ItemStack(GSBlock.skullCandle, 1, 1);
         }
     }
@@ -170,5 +168,11 @@ public class BlockGSSpawner extends BlockMobSpawner {
         for (byte meta : BOSS_SPAWNERS) {
             list.add(new ItemStack(item, 1, meta));
         }
+    }
+
+    @Override
+    public boolean isReplaceableOreGen(World world, int x, int y, int z, Block target)
+    {
+        return true;
     }
 }
