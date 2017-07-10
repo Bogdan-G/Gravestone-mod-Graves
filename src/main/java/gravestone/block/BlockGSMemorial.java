@@ -1048,8 +1048,6 @@ public class BlockGSMemorial extends BlockContainer {
 
     @Override
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
-        //fix crash, or random crash?
-        if (y<0) y=Math.abs(y);
         TileEntityGSMemorial tileEntity = (TileEntityGSMemorial) world.getTileEntity(x, y, z);
 
         if (tileEntity != null && tileEntity.getMemorialType() == EnumMemorials.BURNING_STAKE && tileEntity.getHangedMob() != EnumHangedMobs.NONE) {
