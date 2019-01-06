@@ -5,9 +5,11 @@ import gravestone.block.enums.EnumSpawner;
 import gravestone.core.GSMobSpawn;
 import gravestone.core.logger.GSLogger;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
 /**
@@ -26,6 +28,7 @@ public class GSMobSpawner extends GSSpawner {
     //private static final int SPAWN_EFFECTS_DELAY = 20;
     private static final float MAX_LIGHT_VALUE = 0.51F;//0.46F
     private EnumSpawner spawnerType = null;
+    private int mobs_spawn_count = 0;
 
     public GSMobSpawner(TileEntity tileEntity) {
         super(tileEntity, BASE_DELAY);
@@ -64,11 +67,16 @@ public class GSMobSpawner extends GSSpawner {
                     worldobj.spawnEntityInWorld(entity);
                 } else GSLogger.logError("Spanwer mob get 'null' as mob!!!");
             } else if (worldobj.getLightBrightness(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord) <= MAX_LIGHT_VALUE) {
+                if (mobs_spawn_count<=4) {
                 EntityLiving entity = (EntityLiving) getMob();
                 if (entity != null) {
                     entity.setLocationAndAngles(x, y, z, worldobj.rand.nextFloat() * 360, 0);
                     worldobj.spawnEntityInWorld(entity);
+                    mobs_spawn_count++;
                 } else GSLogger.logError("Spanwer mob get 'null' as mob!!!");
+                } else {
+                    if (worldobj.getEntitiesWithinAABB(((EntityLiving) EntityList.createEntityByName("Skeleton", worldobj)).getClass(), AxisAlignedBB.getBoundingBox(tileEntity.xCoord - 1, tileEntity.yCoord - 1, tileEntity.zCoord - 1, tileEntity.xCoord + 1, tileEntity.yCoord + 1, tileEntity.zCoord + 1).expand(8.0D, 8.0D, 8.0D)).size()<2 && worldobj.getEntitiesWithinAABB(((EntityLiving) EntityList.createEntityByName("Zombie", worldobj)).getClass(), AxisAlignedBB.getBoundingBox(tileEntity.xCoord - 1, tileEntity.yCoord - 1, tileEntity.zCoord - 1, tileEntity.xCoord + 1, tileEntity.yCoord + 1, tileEntity.zCoord + 1).expand(8.0D, 8.0D, 8.0D)).size()<2 && worldobj.getEntitiesWithinAABB(((EntityLiving) EntityList.createEntityByName("GraveStone.GSSkeletonDog", worldobj)).getClass(), AxisAlignedBB.getBoundingBox(tileEntity.xCoord - 1, tileEntity.yCoord - 1, tileEntity.zCoord - 1, tileEntity.xCoord + 1, tileEntity.yCoord + 1, tileEntity.zCoord + 1).expand(8.0D, 8.0D, 8.0D)).size()<2 && worldobj.getEntitiesWithinAABB(((EntityLiving) EntityList.createEntityByName("GraveStone.GSSkeletonCat", worldobj)).getClass(), AxisAlignedBB.getBoundingBox(tileEntity.xCoord - 1, tileEntity.yCoord - 1, tileEntity.zCoord - 1, tileEntity.xCoord + 1, tileEntity.yCoord + 1, tileEntity.zCoord + 1).expand(8.0D, 8.0D, 8.0D)).size()<2 && worldobj.getEntitiesWithinAABB(((EntityLiving) EntityList.createEntityByName("GraveStone.GSZombieDog", worldobj)).getClass(), AxisAlignedBB.getBoundingBox(tileEntity.xCoord - 1, tileEntity.yCoord - 1, tileEntity.zCoord - 1, tileEntity.xCoord + 1, tileEntity.yCoord + 1, tileEntity.zCoord + 1).expand(8.0D, 8.0D, 8.0D)).size()<2 && worldobj.getEntitiesWithinAABB(((EntityLiving) EntityList.createEntityByName("GraveStone.GSZombieCat", worldobj)).getClass(), AxisAlignedBB.getBoundingBox(tileEntity.xCoord - 1, tileEntity.yCoord - 1, tileEntity.zCoord - 1, tileEntity.xCoord + 1, tileEntity.yCoord + 1, tileEntity.zCoord + 1).expand(8.0D, 8.0D, 8.0D)).size()<2) {mobs_spawn_count=0;}
+                }
             }
             this.updateDelay();
         }

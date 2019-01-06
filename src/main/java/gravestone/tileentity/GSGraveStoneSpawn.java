@@ -28,7 +28,7 @@ public class GSGraveStoneSpawn extends GSSpawner {
     /**
      * Range for spawning new entities with gravestone
      */
-    private static final int SPAWN_RANGE = 1;
+    private static final int SPAWN_RANGE = 2;//1
 
     public GSGraveStoneSpawn(TileEntity tileEntity) {
         super(tileEntity, BASE_DELAY);
